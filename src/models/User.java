@@ -1,51 +1,81 @@
 package models;
 
-public class Customer {
-    private String userId;
-    private String userName;
-    private String userPassword;
-    private Integer userAge;
+import java.util.List;
 
-    public Customer() {
+public class User {
+	
+    private Integer userId, userAge;
+    private String username, userPassword, userRole;
 
-    }
+    public User() {}
 
-    public Customer(String userId, String userName, String userPassword, Integer userAge) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.userAge = userAge;
-    }
+	public User(Integer userId, Integer userAge, String username, String userPassword, String userRole) {
+		super();
+		this.userId = userId;
+		this.userAge = userAge;
+		this.username = username;
+		this.userPassword = userPassword;
+		this.userRole = userRole;
+	}
 
-    public Integer getUserAge() {
-        return userAge;
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public Integer getUserAge() {
+		return userAge;
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+	public void setUserAge(Integer userAge) {
+		this.userAge = userAge;
+	}
 
-    public void setUserAge(Integer userAge) {
-        this.userAge = userAge;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserPassword() {
+		return userPassword;
+	}
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+	
+	public List<User> getAllUserData() {
+		return null;
+	}
+	
+	public User getUserData(String username, String password) {
+		return null;
+	}
+	
+	public void addNewUser(String username, String password, Integer age) {
+		
+	}
+	
+	public void changeUserRole(Integer userId, String newRole) {
+		
+	}
+	
+	public List<User> getAllTechnician() {
+		return null;
+	}
+
 }

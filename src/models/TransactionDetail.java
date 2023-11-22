@@ -1,40 +1,76 @@
 package models;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 public class TransactionDetail {
-    private String transactionID;
-    private String pcId;
-    private String bookingDate;
+	
+    private Integer transactionID, pcId, customerId;
+    private String customerName;
+    private Timestamp bookedTime;
 
-    public TransactionDetail() {
-    }
+    public TransactionDetail() {}
 
-    public TransactionDetail(String transactionID, String pcId, String bookingDate) {
-        this.transactionID = transactionID;
-        this.bookingDate = bookingDate;
-        this.pcId = pcId;
-    }
+	public TransactionDetail(Integer transactionID, Integer pcId, Integer customerId, String customerName,
+			Timestamp bookedTime) {
+		super();
+		this.transactionID = transactionID;
+		this.pcId = pcId;
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.bookedTime = bookedTime;
+	}
 
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
-    }
+	public Integer getTransactionID() {
+		return transactionID;
+	}
 
-    public void setPcId(String pcId) {
-        this.pcId = pcId;
-    }
+	public void setTransactionID(Integer transactionID) {
+		this.transactionID = transactionID;
+	}
 
-    public void setBookingDate(String bookingDate) {
-        this.bookingDate = bookingDate;
-    }
+	public Integer getPcId() {
+		return pcId;
+	}
 
-    public String getTransactionID() {
-        return transactionID;
-    }
+	public void setPcId(Integer pcId) {
+		this.pcId = pcId;
+	}
 
-    public String getPcId() {
-        return pcId;
-    }
+	public Integer getCustomerId() {
+		return customerId;
+	}
 
-    public String getBookingDate() {
-        return bookingDate;
-    }
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public Timestamp getBookedTime() {
+		return bookedTime;
+	}
+
+	public void setBookedTime(Timestamp bookedTime) {
+		this.bookedTime = bookedTime;
+	}
+	
+	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
+		return null;
+	}
+	
+	public List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
+		return null;
+	}
+	
+	public void addTransactionDetail(Integer transactionId, List<PCBook> pcsBooked) {
+		
+	}
+
 }
