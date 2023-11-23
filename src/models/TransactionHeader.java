@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -63,15 +64,15 @@ public class TransactionHeader {
 	public List<TransactionHeader> getAllTransactionHeaderData() {
 		String query = "SELECT * FROM TransactionHeader";
 		
-		PreparedStatement ps = db.prepareStatement(query);
 		Vector<TransactionHeader> ths = new Vector<>();
 		try {
-			db.rs = ps.executeQuery(query);
-			while (db.rs.next()) {
-				Integer transactionId = db.rs.getInt("TransactionID");
-				Integer staffId = db.rs.getInt("StaffID");
+			PreparedStatement ps = db.prepareStatement(query);
+			ResultSet rs = ps.executeQuery(query);
+			while (rs.next()) {
+				Integer transactionId = rs.getInt("TransactionID");
+				Integer staffId = rs.getInt("StaffID");
 				String staffName = UserController.getInstance().getUserDataById(staffId).getUsername();
-				Date transactionDate = db.rs.getDate("TransactionDate");
+				Date transactionDate = rs.getDate("TransactionDate");
 				ths.add(new TransactionHeader(transactionId, staffId, staffName, transactionDate));
 			}
 		} catch (SQLException e) {
@@ -88,7 +89,7 @@ public class TransactionHeader {
 		try {
 			ps.setInt(1, staffId);
 			ps.setDate(2, transactionDate);
-			ps.execute();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Failed to add new transaction header data");
 			e.printStackTrace();

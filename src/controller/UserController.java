@@ -64,7 +64,7 @@ public class UserController {
 	}
 	
 	public String login(String username, String password) {
-		User user = u.getUserData(username, password);
+		User user = getUserData(username, password);
 		if (user == null) return "Invalid credentials";
 		return "Successfully logged in";
 	}

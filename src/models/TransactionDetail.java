@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,13 +14,13 @@ public class TransactionDetail {
 	
 	private Connect db = Connect.getConnection();
 	
-    private Integer transactionID, pcId, customerId;
-    private String customerName;
+    private Integer transactionID, customerId;
+    private String pcId, customerName;
     private Timestamp bookedTime;
 
     public TransactionDetail() {}
 
-	public TransactionDetail(Integer transactionID, Integer pcId, Integer customerId, String customerName,
+	public TransactionDetail(Integer transactionID, String pcId, Integer customerId, String customerName,
 			Timestamp bookedTime) {
 		super();
 		this.transactionID = transactionID;
@@ -37,11 +38,11 @@ public class TransactionDetail {
 		this.transactionID = transactionID;
 	}
 
-	public Integer getPcId() {
+	public String getPcId() {
 		return pcId;
 	}
 
-	public void setPcId(Integer pcId) {
+	public void setPcId(String pcId) {
 		this.pcId = pcId;
 	}
 
@@ -72,18 +73,19 @@ public class TransactionDetail {
 	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
 		String query = "SELECT * FROM TransactionDetail WHERE CustomerID = ?";
 		
-		PreparedStatement ps = db.prepareStatement(query);
 		Vector<TransactionDetail> tds = new Vector<>();
 		try {
+			PreparedStatement ps = db.prepareStatement(query);
 			ps.setInt(1, userId);
-			db.rs = ps.executeQuery();
 			
-			while (db.rs.next()) {
-				Integer transactionID = db.rs.getInt("TransactionID");
-				Integer customerId = db.rs.getInt("CustomerID");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer transactionId = rs.getInt("TransactionID");
+				String pcId = rs.getString("PcID");
+				Integer customerId = rs.getInt("CustomerID");
 			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
-			    Timestamp bookedTime = db.rs.getTimestamp("BookedTime");
-			    tds.add(new TransactionDetail(transactionID, transactionID, customerId, customerName, bookedTime)); 
+			    Timestamp bookedTime = rs.getTimestamp("BookedTime");
+			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime));  
 			}
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch user transaction detail data");
@@ -94,18 +96,18 @@ public class TransactionDetail {
 	}
 	
 	public List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
-		String query = "SELECT * FROM TransactionDetail";
+		String query = "SELECT * FROM TransactionDetail WHERE TransactionID = ?";
 		
-		PreparedStatement ps = db.prepareStatement(query);
 		Vector<TransactionDetail> tds = new Vector<>();
 		try {
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer transactionID = db.rs.getInt("TransactionID");
-				Integer customerId = db.rs.getInt("CustomerID");
+			PreparedStatement ps = db.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String pcId = rs.getString("PcID");
+				Integer customerId = rs.getInt("CustomerID");
 			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
-			    Timestamp bookedTime = db.rs.getTimestamp("BookedTime");
-			    tds.add(new TransactionDetail(transactionID, transactionID, customerId, customerName, bookedTime)); 
+			    Timestamp bookedTime = rs.getTimestamp("BookedTime");
+			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime)); 
 			}
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch transaction detail data");

@@ -13,9 +13,6 @@ public final class Connect {
     private Connection con;
     private Statement st;
     private static Connect connect;
-    
-    public ResultSet rs;
-	public ResultSetMetaData rsm;
 	
 	private Connect() {
 		try {

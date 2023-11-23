@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
@@ -70,13 +71,13 @@ public class User {
 		Vector<User> users = new Vector<>();
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer id = db.rs.getInt("UserID");
-				Integer age = db.rs.getInt("UserAge");
-				String name = db.rs.getString("UserName");
-				String password = db.rs.getString("UserPassword");
-				String role = db.rs.getString("UserRole");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer id = rs.getInt("UserID");
+				Integer age = rs.getInt("UserAge");
+				String name = rs.getString("UserName");
+				String password = rs.getString("UserPassword");
+				String role = rs.getString("UserRole");
 				users.add(new User(id, age, name, password, role));
 			}
 		} catch (SQLException e) {
@@ -92,11 +93,12 @@ public class User {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, username);
 			ps.setString(2, password);
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer id = db.rs.getInt("UserID");
-				Integer age = db.rs.getInt("UserAge");
-				String role = db.rs.getString("UserRole");
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer id = rs.getInt("UserID");
+				Integer age = rs.getInt("UserAge");
+				String role = rs.getString("UserRole");
 				return new User(id, age, username, password, role);
 			}
 		} catch (SQLException e) {
@@ -111,12 +113,13 @@ public class User {
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, username);
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer id = db.rs.getInt("UserID");
-				Integer age = db.rs.getInt("UserAge");
-				String password = db.rs.getString("UserPassword");
-				String role = db.rs.getString("UserRole");
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer id = rs.getInt("UserID");
+				Integer age = rs.getInt("UserAge");
+				String password = rs.getString("UserPassword");
+				String role = rs.getString("UserRole");
 				return new User(id, age, username, password, role);
 			}
 		} catch (SQLException e) {
@@ -132,12 +135,12 @@ public class User {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setInt(1, userId);
 			
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer age = db.rs.getInt("UserAge");
-				String username = db.rs.getString("UserName");
-				String password = db.rs.getString("UserPassword");
-				String role = db.rs.getString("UserRole");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer age = rs.getInt("UserAge");
+				String username = rs.getString("UserName");
+				String password = rs.getString("UserPassword");
+				String role = rs.getString("UserRole");
 				return new User(userId, age, username, password, role);
 			}
 		} catch (SQLException e) {
@@ -145,6 +148,29 @@ public class User {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public List<User> getAllTechnician() {
+		String query = "SELECT * FROM User WHERE UserRole = ?";
+		Vector<User> technicians = new Vector<>();
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setString(1, "Computer Technician");
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer id = rs.getInt("UserID");
+				Integer age = rs.getInt("UserAge");
+				String name = rs.getString("UserName");
+				String password = rs.getString("UserPassword");
+				String role = rs.getString("UserRole");
+				technicians.add(new User(id, age, name, password, role));
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all technician data");
+			e.printStackTrace();
+		}
+		return technicians;
 	}
 	
 	public void addNewUser(String username, String password, Integer age) {
@@ -155,7 +181,7 @@ public class User {
 			ps.setString(2, password);
 			ps.setInt(3, age);
 			ps.setString(4, "Customer");
-			ps.execute();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Failed to add new user data");
 			e.printStackTrace();
@@ -168,33 +194,11 @@ public class User {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, newRole);
 			ps.setInt(2, userId);
-			ps.execute();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Failed to change user role");
 			e.printStackTrace();
 		}
-	}
-	
-	public List<User> getAllTechnician() {
-		String query = "SELECT * FROM User WHERE UserRole = ?";
-		Vector<User> technicians = new Vector<>();
-		try {
-			PreparedStatement ps = db.prepareStatement(query);
-			ps.setString(1, "Computer Technician");
-			db.rs = ps.executeQuery();
-			while (db.rs.next()) {
-				Integer id = db.rs.getInt("UserID");
-				Integer age = db.rs.getInt("UserAge");
-				String name = db.rs.getString("UserName");
-				String password = db.rs.getString("UserPassword");
-				String role = db.rs.getString("UserRole");
-				technicians.add(new User(id, age, name, password, role));
-			}
-		} catch (SQLException e) {
-			System.out.println("Failed to fetch all technician data");
-			e.printStackTrace();
-		}
-		return technicians;
 	}
 
 }
