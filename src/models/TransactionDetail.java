@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Vector;
 
 import connection.Connect;
+import controller.UserController;
 
 public class TransactionDetail {
 	
@@ -68,22 +70,49 @@ public class TransactionDetail {
 	}
 	
 	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
-		String query = "SELECT * FROM TransactionDetail WHERE CustomerId = ?";
+		String query = "SELECT * FROM TransactionDetail WHERE CustomerID = ?";
 		
 		PreparedStatement ps = db.prepareStatement(query);
+		Vector<TransactionDetail> tds = new Vector<>();
 		try {
 			ps.setInt(1, userId);
+			db.rs = ps.executeQuery();
+			
+			while (db.rs.next()) {
+				Integer transactionID = db.rs.getInt("TransactionID");
+				Integer customerId = db.rs.getInt("CustomerID");
+			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
+			    Timestamp bookedTime = db.rs.getTimestamp("BookedTime");
+			    tds.add(new TransactionDetail(transactionID, transactionID, customerId, customerName, bookedTime)); 
+			}
 		} catch (SQLException e) {
 			System.out.println("Failed to fetch user transaction detail data");
 			e.printStackTrace();
 		}
 		
-		
-		return null;
+		return tds;
 	}
 	
 	public List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
-		return null;
+		String query = "SELECT * FROM TransactionDetail";
+		
+		PreparedStatement ps = db.prepareStatement(query);
+		Vector<TransactionDetail> tds = new Vector<>();
+		try {
+			db.rs = ps.executeQuery();
+			while (db.rs.next()) {
+				Integer transactionID = db.rs.getInt("TransactionID");
+				Integer customerId = db.rs.getInt("CustomerID");
+			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
+			    Timestamp bookedTime = db.rs.getTimestamp("BookedTime");
+			    tds.add(new TransactionDetail(transactionID, transactionID, customerId, customerName, bookedTime)); 
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch transaction detail data");
+			e.printStackTrace();
+		}
+		
+		return tds;
 	}
 	
 	public void addTransactionDetail(Integer transactionId, List<PCBook> pcsBooked) {

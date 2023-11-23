@@ -3,6 +3,7 @@ package models;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Vector;
 
@@ -61,17 +62,20 @@ public class TransactionHeader {
 	
 	public List<TransactionHeader> getAllTransactionHeaderData() {
 		String query = "SELECT * FROM TransactionHeader";
-		db.rs = db.executeQuery(query);
 		
+		PreparedStatement ps = db.prepareStatement(query);
 		Vector<TransactionHeader> ths = new Vector<>();
 		try {
+			db.rs = ps.executeQuery(query);
 			while (db.rs.next()) {
 				Integer transactionId = db.rs.getInt("TransactionID");
 				Integer staffId = db.rs.getInt("StaffID");
+				String staffName = UserController.getInstance().getUserDataById(staffId).getUsername();
 				Date transactionDate = db.rs.getDate("TransactionDate");
-				ths.add(new TransactionHeader(transactionId, staffId, UserController.getInstance().getUserById(staffId).getUsername(), transactionDate));
+				ths.add(new TransactionHeader(transactionId, staffId, staffName, transactionDate));
 			}
 		} catch (SQLException e) {
+			System.out.println("Failed to fetch transaction header data");
 			e.printStackTrace();
 		}
 		
