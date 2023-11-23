@@ -3,7 +3,7 @@ package models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,12 +16,12 @@ public class TransactionDetail {
 	
     private Integer transactionID, customerId;
     private String pcId, customerName;
-    private Timestamp bookedTime;
+    private Date bookedTime;
 
     public TransactionDetail() {}
 
 	public TransactionDetail(Integer transactionID, String pcId, Integer customerId, String customerName,
-			Timestamp bookedTime) {
+			Date bookedTime) {
 		super();
 		this.transactionID = transactionID;
 		this.pcId = pcId;
@@ -62,11 +62,11 @@ public class TransactionDetail {
 		this.customerName = customerName;
 	}
 
-	public Timestamp getBookedTime() {
+	public Date getBookedTime() {
 		return bookedTime;
 	}
 
-	public void setBookedTime(Timestamp bookedTime) {
+	public void setBookedTime(Date bookedTime) {
 		this.bookedTime = bookedTime;
 	}
 	
@@ -84,7 +84,7 @@ public class TransactionDetail {
 				String pcId = rs.getString("PcID");
 				Integer customerId = rs.getInt("CustomerID");
 			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
-			    Timestamp bookedTime = rs.getTimestamp("BookedTime");
+			    Date bookedTime = rs.getDate("BookedTime");
 			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime));  
 			}
 		} catch (SQLException e) {
@@ -106,7 +106,7 @@ public class TransactionDetail {
 				String pcId = rs.getString("PcID");
 				Integer customerId = rs.getInt("CustomerID");
 			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
-			    Timestamp bookedTime = rs.getTimestamp("BookedTime");
+			    Date bookedTime = rs.getDate("BookedTime");
 			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime)); 
 			}
 		} catch (SQLException e) {
@@ -118,7 +118,7 @@ public class TransactionDetail {
 	}
 	
 	public void addTransactionDetail(Integer transactionId, List<PCBook> pcsBooked) {
-		
+		String query = "INSERT INTO TransactionDetail VALUES ()";
 	}
 
 }
