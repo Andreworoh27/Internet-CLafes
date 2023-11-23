@@ -79,7 +79,7 @@ public class UserController {
 			errorMessage = "Username must contain at least 7 characters";
 		else if (password.isEmpty()) 
 			errorMessage = "Password can't be empty";
-		else if (checkAlphanumeric(password)) 
+		else if (!checkAlphanumeric(password)) 
 			errorMessage = "Password must contain alpha numeric characters";
 		else if (password.length() < 6) 
 			errorMessage = "Password must contain at least 6 characters";
