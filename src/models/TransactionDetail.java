@@ -78,7 +78,6 @@ public class TransactionDetail {
 			e.printStackTrace();
 		}
 		
-		db.rs = ps.execute();
 		
 		return null;
 	}
