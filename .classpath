@@ -7,7 +7,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry excluding="views/|controllers/" kind="src" path="src"/>
-	<classpathentry kind="src" path="src/controllers"/>
-	<classpathentry kind="src" path="src/views"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

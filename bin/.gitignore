@@ -1,11 +1,2 @@
-/connection/
 /models/
-/main/
-/Controller.class
-/PCBookController.class
-/JobController.class
-/PCController.class
-/ReportController.class
-/UserController.class
-/TransactionDetailController.class
-/TransactionController.class
+/controller/

@@ -1,9 +1,15 @@
 package models;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import connection.Connect;
+
 public class TransactionDetail {
+	
+	private Connect db = Connect.getConnection();
 	
     private Integer transactionID, pcId, customerId;
     private String customerName;
@@ -62,6 +68,18 @@ public class TransactionDetail {
 	}
 	
 	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
+		String query = "SELECT * FROM TransactionDetail WHERE CustomerId = ?";
+		
+		PreparedStatement ps = db.prepareStatement(query);
+		try {
+			ps.setInt(1, userId);
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch user transaction detail data");
+			e.printStackTrace();
+		}
+		
+		db.rs = ps.execute();
+		
 		return null;
 	}
 	

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 
 import connection.Connect;
+import controller.UserController;
 
 public class TransactionHeader {
 	
@@ -68,12 +69,13 @@ public class TransactionHeader {
 				Integer transactionId = db.rs.getInt("TransactionID");
 				Integer staffId = db.rs.getInt("StaffID");
 				Date transactionDate = db.rs.getDate("TransactionDate");
-				ths.add(new TransactionHeader(transactionId, staffId, query, transactionDate));
+				ths.add(new TransactionHeader(transactionId, staffId, UserController.getInstance().getUserById(staffId).getUsername(), transactionDate));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		
+		return ths;
 	}
 
 	public void addNewTransactionHeader(Integer staffId, Date transactionDate) {
