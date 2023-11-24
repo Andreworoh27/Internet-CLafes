@@ -38,7 +38,7 @@ public class PCView extends Page{
 
 	@Override
 	protected void addComp() {
-		layout.setRight(gridContainer);
+		layout.setCenter(gridContainer);
 		addGirdContainer();
 	}
 
@@ -52,7 +52,6 @@ public class PCView extends Page{
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(5);
 		gridContainer.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
-
 
 		setGridPaneAlignment();
 	}
