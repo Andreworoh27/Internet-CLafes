@@ -2,6 +2,8 @@ package component;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -44,6 +46,16 @@ public class ButtonBuilder {
     public ButtonBuilder setPadding(int padding) {
         this.button.setPadding(new Insets(padding));
         return this;
+    }
+    
+    public ButtonBuilder setImage(String image) {
+    	Image icon = new Image(getClass().getResource("/resource/"+image+".png").toExternalForm());
+        ImageView imageView = new ImageView(icon);
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
+        this.button.setGraphic(imageView);
+        
+    	return this;
     }
     
     public Button build() {

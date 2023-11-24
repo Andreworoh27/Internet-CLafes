@@ -2,6 +2,7 @@ package view;
 
 import component.ButtonBuilder;
 import component.LabelBuilder;
+import component.Navbar;
 import component.TextFieldBuilder;
 import controller.UserController;
 import controller.ViewController;
@@ -14,6 +15,7 @@ public abstract class Page{
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();
 	public TextFieldBuilder tf = new TextFieldBuilder();
+	public Navbar nb = new Navbar();
 	
 	protected abstract void initComp();
 	protected abstract void addComp();

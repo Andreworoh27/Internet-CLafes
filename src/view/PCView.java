@@ -1,17 +1,22 @@
 package view;
 
+import java.awt.Color;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class PCView extends Page{
 	Scene viewPC;
-	BorderPane borderContainer;
+	BorderPane layout;
 	GridPane gridContainer;
 	Label testLB;
+	LayoutView lv;
 	
 	public PCView() {
 		initComp();
@@ -25,14 +30,15 @@ public class PCView extends Page{
 	@Override
 	protected void initComp() {
 		testLB = new Label("Masuk");
-		borderContainer = new BorderPane();
 		gridContainer = new GridPane();
-		viewPC = new Scene(borderContainer, 1000, 600);
+		lv = new LayoutView();
+		layout = lv.getLayout();
+		viewPC = new Scene(layout, 1000, 600);
 	}
 
 	@Override
 	protected void addComp() {
-		borderContainer.setCenter(gridContainer);
+		layout.setRight(gridContainer);
 		addGirdContainer();
 	}
 
@@ -45,7 +51,9 @@ public class PCView extends Page{
 		BorderPane.setAlignment(gridContainer, Pos.CENTER);
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(5);
-		
+		gridContainer.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
+
+
 		setGridPaneAlignment();
 	}
 
