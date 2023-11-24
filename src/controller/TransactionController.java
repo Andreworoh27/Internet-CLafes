@@ -7,19 +7,19 @@ import models.TransactionHeader;
 
 public class TransactionController {
 	
-	public void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId) {
+	public static void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId) {
 		
 	}
 	
-	public List<TransactionHeader> getAllTransactionHeaderData() {
+	public static List<TransactionHeader> getAllTransactionHeaderData() {
 		return null;
 	}
 
-	public List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
+	public static List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
 		return null;
 	}
 	
-	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
+	public static List<TransactionDetail> getUserTransactionDetail(Integer userId) {
 		return null;
 	}
 	

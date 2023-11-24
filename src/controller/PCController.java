@@ -6,17 +6,25 @@ import models.PC;
 public class PCController {
 	
 	private PC pc = new PC();
-	private static PCController pcc = null;
-	
-	private PCController() {}
-	
-	public static PCController getInstance() {
-		if (pcc == null) pcc = new PCController();
-		return pcc;
-	}
 	
 	public List<PC> getAllPCData() {
 		return pc.getAllPCData();
+	}
+	
+	public PC getPcDetail(String pcId) {
+		return pc.getPcDetail(pcId);
+	}
+	
+	public String addNewPC(String pcId) {
+		String errorMessage = "";
+		if (pcId.isEmpty())
+			errorMessage = "PC ID must not be empty";
+		else if (getPcDetail(pcId) != null)
+			errorMessage = "PC ID must be unique";
+		
+		if (errorMessage.isEmpty()) pc.addNewPC(null);
+		
+		return errorMessage;
 	}
 	
 	public String updatePCCondition(String pcId, String condition) {
@@ -39,22 +47,6 @@ public class PCController {
 		if (errorMessage.isEmpty()) pc.deletePC(pcId);
 		
 		return errorMessage;
-	}
-	
-	public String addNewPC(String pcId) {
-		String errorMessage = "";
-		if (pcId.isEmpty())
-			errorMessage = "PC ID must not be empty";
-		else if (getPcDetail(pcId) != null)
-			errorMessage = "PC ID must be unique";
-		
-		if (errorMessage.isEmpty()) pc.addNewPC(null);
-		
-		return errorMessage;
-	}
-	
-	public PC getPcDetail(String pcId) {
-		return pc.getPcDetail(pcId);
 	}
 
 }

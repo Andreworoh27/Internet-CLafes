@@ -71,7 +71,7 @@ public class TransactionHeader {
 			while (rs.next()) {
 				Integer transactionId = rs.getInt("TransactionID");
 				Integer staffId = rs.getInt("StaffID");
-				String staffName = UserController.getInstance().getUserDataById(staffId).getUsername();
+				String staffName = rs.getString("StaffName");
 				Date transactionDate = rs.getDate("TransactionDate");
 				ths.add(new TransactionHeader(transactionId, staffId, staffName, transactionDate));
 			}

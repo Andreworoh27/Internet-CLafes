@@ -83,7 +83,7 @@ public class TransactionDetail {
 				Integer transactionId = rs.getInt("TransactionID");
 				String pcId = rs.getString("PcID");
 				Integer customerId = rs.getInt("CustomerID");
-			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
+			    String customerName = rs.getString("CustomerName");
 			    Date bookedTime = rs.getDate("BookedTime");
 			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime));  
 			}
@@ -105,7 +105,7 @@ public class TransactionDetail {
 			while (rs.next()) {
 				String pcId = rs.getString("PcID");
 				Integer customerId = rs.getInt("CustomerID");
-			    String customerName = UserController.getInstance().getUserDataById(customerId).getUsername();
+				String customerName = rs.getString("CustomerName");
 			    Date bookedTime = rs.getDate("BookedTime");
 			    tds.add(new TransactionDetail(transactionId, pcId, customerId, customerName, bookedTime)); 
 			}

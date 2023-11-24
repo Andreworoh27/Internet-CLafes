@@ -5,15 +5,7 @@ import models.User;
 
 public class UserController {
 	
-	private static UserController uc = null;
 	private User u = new User();
-	
-	private UserController() {}
-	
-	public synchronized static UserController getInstance() {
-		if (uc == null) uc = new UserController();
-		return uc;
-	}
 	
 	public List<User> getAllUserData() {
 		return u.getAllUserData();
