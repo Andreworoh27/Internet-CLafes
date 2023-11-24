@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 
 public abstract class Page{
 	
-	public UserController uc = UserController.getInstance();
+	public UserController uc = new UserController();
 	
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();
