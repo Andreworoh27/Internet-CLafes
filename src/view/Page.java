@@ -11,12 +11,8 @@ import models.User;
 
 public abstract class Page{
 	
-<<<<<<< Updated upstream
 	public UserController uc = new UserController();
-=======
 	public static User user;
-	public UserController uc = UserController.getInstance();
->>>>>>> Stashed changes
 	
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();

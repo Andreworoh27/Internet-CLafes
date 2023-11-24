@@ -49,7 +49,7 @@ public final class Connect {
     public PreparedStatement prepareStatement(String query) {
         PreparedStatement ps = null;
         try {
-            ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } catch (Exception e) {
             e.printStackTrace();
         }

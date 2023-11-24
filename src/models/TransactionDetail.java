@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -118,7 +119,29 @@ public class TransactionDetail {
 	}
 	
 	public void addTransactionDetail(Integer transactionId, List<PCBook> pcsBooked) {
-		String query = "INSERT INTO TransactionDetail VALUES ()";
+		String query = "INSERT INTO TransactionDetail VALUES ";
+		int size = pcsBooked.size();
+		for (int i = 0; i < size - 1; i++) {
+			query += "(?, ?, ?, ?, ?),\n";
+		}
+		query += "(?, ?, ?, ?, ?)";
+		
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			UserController uc = new UserController();
+			int i = 1;
+			for (PCBook pcBook : pcsBooked) {
+				ps.setInt(i++, transactionId);
+				ps.setInt(i++, pcBook.getUserId());
+				ps.setString(i++, uc.getUserDataById(pcBook.getUserId()).getUsername());
+				ps.setString(i++, pcBook.getPcId());
+				ps.setDate(i++, pcBook.getBookDate());
+			}
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Failed to add new transaction detail data");
+			e.printStackTrace();
+		}
 	}
 
 }

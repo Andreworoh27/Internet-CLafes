@@ -1,4 +1,5 @@
 package controller;
+import java.sql.Date;
 import java.util.List;
 
 import models.PCBook;
@@ -7,20 +8,24 @@ import models.TransactionHeader;
 
 public class TransactionController {
 	
-	public static void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId) {
-		
+	private TransactionHeader th = new TransactionHeader();
+	private TransactionDetail td = new TransactionDetail();
+	
+	public void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId, Date transactionDate) {
+		Integer generatedTransactionId = th.addNewTransactionHeader(staffId, transactionDate);
+		td.addTransactionDetail(generatedTransactionId, pcBooked);
 	}
 	
-	public static List<TransactionHeader> getAllTransactionHeaderData() {
-		return null;
+	public List<TransactionHeader> getAllTransactionHeaderData() {
+		return th.getAllTransactionHeaderData();
 	}
 
-	public static List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
-		return null;
+	public List<TransactionDetail> getAllTransactionDetail(Integer transactionId) {
+		return td.getAllTransactionDetail(transactionId);
 	}
 	
-	public static List<TransactionDetail> getUserTransactionDetail(Integer userId) {
-		return null;
+	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
+		return td.getUserTransactionDetail(userId);
 	}
 	
 }

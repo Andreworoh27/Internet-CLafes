@@ -83,7 +83,7 @@ public class TransactionHeader {
 		return ths;
 	}
 
-	public void addNewTransactionHeader(Integer staffId, Date transactionDate) {
+	public Integer addNewTransactionHeader(Integer staffId, Date transactionDate) {
 		String query = "INSERT INTO TransactionHeader VALUES (?, ?)";
 		PreparedStatement ps = db.prepareStatement(query);
 		try {
@@ -94,6 +94,18 @@ public class TransactionHeader {
 			System.out.println("Failed to add new transaction header data");
 			e.printStackTrace();
 		}
+		
+		Integer transactionId = 0;
+		try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+	        if (generatedKeys.next()) {
+	            transactionId = generatedKeys.getInt(1);
+	        }
+	    } catch (SQLException e) {
+			System.out.println("Failed to fetch latest transaction id");
+			e.printStackTrace();
+		}
+		
+		return transactionId;
 	}
 	
 }
