@@ -6,8 +6,18 @@ import models.PCBook;
 
 public class PCBookController {
 	
+	private PCBook pcb = new PCBook();
+	private static PCBookController pbc = null;
+	
+	private PCBookController() {}
+	
+	public static PCBookController getInstance() {
+		if (pbc == null) pbc = new PCBookController();
+		return pbc;
+	}
+	
 	public void deleteBookData(Integer bookId) {
-		
+		pbc.deleteBookData(bookId);
 	}
 	
 	public List<PCBook> getPCBookedData(Integer pcId, Date date) {
