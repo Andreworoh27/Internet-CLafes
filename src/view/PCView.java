@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -39,7 +40,7 @@ public class PCView extends Page{
 		pc = new PC();
 		lv = new LayoutView();
 		layout = lv.getLayout();
-		viewPC = new Scene(layout, 1000, 600);
+		viewPC = new Scene(layout, 900, 600);
 	}
 
 	@Override
@@ -61,10 +62,10 @@ public class PCView extends Page{
 		BorderPane.setAlignment(gridContainer, Pos.CENTER);
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(5);
-		pcContainer.setVgap(5);
-		pcContainer.setHgap(5);
-		gridContainer.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
-
+		pcContainer.setVgap(10);
+		pcContainer.setHgap(10);
+		pcContainer.setPrefWidth(viewPC.getWidth());
+		pcContainer.setPadding(new Insets(10));
 		setGridPaneAlignment();
 	}
 

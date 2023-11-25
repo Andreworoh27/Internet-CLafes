@@ -16,6 +16,8 @@ public class Navbar {
 		button = new ButtonBuilder();
         sideBar.setMinWidth(200);
         sideBar.setSpacing(10);
+		sideBar.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
+
 	}
 
 	public VBox generateMenu(String[] menu) {
