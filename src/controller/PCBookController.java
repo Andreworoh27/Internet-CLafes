@@ -10,6 +10,22 @@ public class PCBookController {
 	
 	private PCBook pcb = new PCBook();
 	
+	public List<PCBook> getPCBookedData(String pcId, Date date) {
+		return pcb.getPCBookedData(pcId, date);
+	}
+	
+	public List<PCBook> getAllPCBookedData() {
+		return pcb.getAllPCBookedData();
+	}
+	
+	public List<PCBook> getPcBookedByDate(Date date) {
+		return pcb.getPcBookedByDate(date);
+	}
+	
+	public PCBook getPCBookedById(Integer bookId) {
+		return pcb.getPcBookedById(bookId);
+	}
+	
 	// kalau cancel, source = "Cancel"
 	// kalau finish, source = "Finish"
 	public String deleteBookData(Integer bookId, String source) {
@@ -31,12 +47,20 @@ public class PCBookController {
 		return "";
 	}
 	
-	public List<PCBook> getPCBookedData(String pcId, Date date) {
-		return pcb.getPCBookedData(pcId, date);
-	}
-	
-	public void assignUsertoNewPc(Integer bookId, String newPcId) {
+	public String assignUsertoNewPc(Integer bookId, String newPcId) {
+		PC pc = new PC().getPcDetail(newPcId);
+		PCBook booking = pcb.getPcBookedById(bookId);
+		if (pc == null) {
+			return "New PC must be chosen";
+		} else if (pc.getPcCondition().equals("Usable")) {
+			if (getPCBookedData(newPcId, booking.getBookDate()).size() > 0)
+				return "PC is not available for the selected booking date";
+		} else {
+			return "PC is not available for use";
+		}
 		
+		pcb.assignUsertoNewPc(bookId, newPcId);
+		return "Successfully assigned user to a new PC";
 	}
 	
 	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
@@ -74,15 +98,7 @@ public class PCBookController {
 			}
 		}
 		
-		return "";
-	}
-	
-	public List<PCBook> getAllPCBookedData() {
-		return pcb.getAllPCBookedData();
-	}
-	
-	public List<PCBook> getPcBookedByDate(Date date) {
-		return pcb.getPcBookedByDate(date);
+		return "Successfully finish booking";
 	}
 
 }
