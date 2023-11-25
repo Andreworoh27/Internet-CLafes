@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import controller.PCBookController;
+import controller.PCController;
 import controller.ReportController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class Card {
 	LabelBuilder label = new LabelBuilder();
 	PCBookController pbc = new PCBookController();
 	ReportController rc = new ReportController();
+	PCController pcc = new PCController();
 	
 	public Card() {
 		this.card = new GridPane();
@@ -74,7 +76,7 @@ public class Card {
 		});
 
 		delete.setOnAction(e -> {
-			//delete pc
+			pcc.deletePC(pc.getPcId());
 		});
 		
 		update.setOnAction(e -> {
