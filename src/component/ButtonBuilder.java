@@ -48,6 +48,11 @@ public class ButtonBuilder {
         return this;
     }
     
+    public ButtonBuilder setPrefWidth(int size) {
+    	this.button.setPrefWidth(size);
+    	return this;
+    }
+    
     public ButtonBuilder setImage(String image) {
     	Image icon = new Image(getClass().getResource("/resource/"+image+".png").toExternalForm());
         ImageView imageView = new ImageView(icon);

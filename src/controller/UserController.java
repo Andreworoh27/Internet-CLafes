@@ -2,6 +2,7 @@ package controller;
 import java.util.List;
 
 import models.User;
+import view.Page;
 
 public class UserController {
 	
@@ -57,6 +58,7 @@ public class UserController {
 	
 	public String login(String username, String password) {
 		User user = getUserData(username, password);
+		Page.user = user;
 		if (user == null) return "Invalid credentials";
 		return "Successfully logged in";
 	}

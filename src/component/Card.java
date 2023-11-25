@@ -45,10 +45,10 @@ public class Card {
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
         
-        Button book = button.setText("Book").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button report = button.setText("Report").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button update = button.setText("Update").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button delete = button.setText("Delete").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).build();
+        Button book = button.setText("Book").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button report = button.setText("Report").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button update = button.setText("Update").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button delete = button.setText("Delete").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
 
         addAction(pc, book, report, update, delete);
         
