@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import controller.PCBookController;
+import controller.PCController;
 import controller.ReportController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class Card {
 	LabelBuilder label = new LabelBuilder();
 	PCBookController pbc = new PCBookController();
 	ReportController rc = new ReportController();
+	PCController pcc = new PCController();
 	
 	public Card() {
 		this.card = new GridPane();
@@ -45,10 +47,10 @@ public class Card {
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
         
-        Button book = button.setText("Book").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button report = button.setText("Report").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button update = button.setText("Update").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).build();
-        Button delete = button.setText("Delete").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).build();
+        Button book = button.setText("Book").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button report = button.setText("Report").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button update = button.setText("Update").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
+        Button delete = button.setText("Delete").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).setPrefWidth(100).build();
 
         addAction(pc, book, report, update, delete);
         
@@ -74,7 +76,7 @@ public class Card {
 		});
 
 		delete.setOnAction(e -> {
-			//delete pc
+			pcc.deletePC(pc.getPcId());
 		});
 		
 		update.setOnAction(e -> {
