@@ -1,7 +1,5 @@
-/component/
-/connection/
 /controller/
 /main/
-/models/
 /view/
-/resource/
+/component/
+/models/

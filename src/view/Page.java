@@ -8,6 +8,8 @@ import component.TextFieldBuilder;
 import controller.UserController;
 import controller.ViewController;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import models.User;
 
 public abstract class Page{
@@ -30,5 +32,13 @@ public abstract class Page{
 	protected void displayView(Scene currentScene) {
 		ViewController.displayPage(currentScene);
 	}
+	
+	public static void displayAlert(AlertType alertType, String errorMessage) {
+		Alert error = new Alert(alertType);
+		error.setContentText(errorMessage);
+		error.show();
+	}
+	
+	
 	
 }
