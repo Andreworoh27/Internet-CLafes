@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.util.List;
 
 import models.PCBook;
+import view.Page;
 
 public class PCBookController {
 	
@@ -12,8 +13,8 @@ public class PCBookController {
 		pcb.deleteBookData(bookId);
 	}
 	
-	public List<PCBook> getPCBookedData(Integer pcId, Date date) {
-		return null;
+	public List<PCBook> getPCBookedData(String pcId, Date date) {
+		return pcb.getPCBookedData(pcId, date);
 	}
 	
 	public void assignUsertoNewPc(Integer bookId, Integer newPcId) {
@@ -24,16 +25,32 @@ public class PCBookController {
 		
 	}
 	
-	public void finishBook(List<PCBook> pcsBooked) {
+	public String finishBook(Date date) {
+		List<PCBook> bookings = getPcBookedByDate(date);
+		if (bookings.size() == 0) {
+			return "There is no booking on the chosen date";
+		} else {
+			if (date.before(new Date(System.currentTimeMillis()))) {
+				return "Chosen date must be before today";
+			} else {
+				for (PCBook booking : bookings) {
+					deleteBookData(booking.getBookId());
+				}
+				
+				TransactionController tc = new TransactionController();
+				tc.addTransaction(0, bookings, Page.user.getUserId(), date);
+			}
+		}
 		
+		return "";
 	}
 	
 	public List<PCBook> getAllPCBookedData() {
-		return null;
+		return pcb.getAllPCBookedData();
 	}
 	
 	public List<PCBook> getPcBookedByDate(Date date) {
-		return null;
+		return pcb.getPcBookedByDate(date);
 	}
 
 }

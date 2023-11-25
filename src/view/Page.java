@@ -14,7 +14,6 @@ public abstract class Page{
 
 	public static User user;
 	public UserController uc = new UserController();
-
 	
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();
