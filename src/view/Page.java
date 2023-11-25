@@ -1,6 +1,7 @@
 package view;
 
 import component.ButtonBuilder;
+import component.Card;
 import component.LabelBuilder;
 import component.Navbar;
 import component.TextFieldBuilder;
@@ -10,18 +11,16 @@ import javafx.scene.Scene;
 import models.User;
 
 public abstract class Page{
-	
-<<<<<<< Updated upstream
-	public UserController uc = new UserController();
-=======
+
 	public static User user;
-	public UserController uc = UserController.getInstance();
->>>>>>> Stashed changes
+	public UserController uc = new UserController();
+
 	
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();
 	public TextFieldBuilder tf = new TextFieldBuilder();
 	public Navbar nb = new Navbar();
+	public Card card = new Card();
 	
 	
 	protected abstract void initComp();

@@ -1,5 +1,50 @@
 package component;
 
-public class Card {
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import models.PC;
 
+public class Card {
+	
+	GridPane card;
+	VBox buttonPlaceholder;
+	ButtonBuilder button;
+	LabelBuilder label;
+	
+	public Card() {
+		this.card = new GridPane();
+		this.buttonPlaceholder = new VBox();
+		button = new ButtonBuilder();
+		label = new LabelBuilder();
+	}
+	
+	public GridPane generateCard(PC pc) {
+		this.card = new GridPane();
+		this.buttonPlaceholder = new VBox();
+		card.setMinWidth(100);
+		card.setMinHeight(120);
+		card.setPadding(new Insets(10));
+		card.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid; -fx-border-radius: 5;");
+		Image icon = new Image(getClass().getResource("/resource/"+pc.getPcCondition()+".png").toExternalForm());
+        ImageView imageView = new ImageView(icon);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        Button book = button.setText("Book").setColor("Green").setFontColor("White").setFontSize("12").setPadding(5).build();
+        Button report = button.setText("Report").setColor("Red").setFontColor("White").setFontSize("12").setPadding(5).build();
+		book.setMinWidth(100);
+		report.setMinWidth(100);
+        buttonPlaceholder.getChildren().addAll(book, report);
+		buttonPlaceholder.setSpacing(5);
+        card.add(label.setText(pc.getPcId()).setFontSize("15").setTextColor("Black").build(), 0, 0);
+		card.add(imageView, 0, 1);
+		card.add(buttonPlaceholder, 0, 2);
+		buttonPlaceholder.getChildren().removeAll();
+		return card;
+	}
 }

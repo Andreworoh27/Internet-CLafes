@@ -7,9 +7,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import models.PC;
 
 public class PCView extends Page{
 	Scene viewPC;
@@ -17,6 +19,8 @@ public class PCView extends Page{
 	GridPane gridContainer;
 	Label testLB;
 	LayoutView lv;
+	PC pc;
+	FlowPane pcContainer;
 	
 	public PCView() {
 		initComp();
@@ -31,6 +35,8 @@ public class PCView extends Page{
 	protected void initComp() {
 		testLB = new Label("Masuk");
 		gridContainer = new GridPane();
+		pcContainer = new FlowPane();
+		pc = new PC();
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		viewPC = new Scene(layout, 1000, 600);
@@ -43,7 +49,11 @@ public class PCView extends Page{
 	}
 
 	private void addGirdContainer() {
-		gridContainer.add(testLB, 0, 0);
+		gridContainer.add(pcContainer, 0, 0);
+
+		for (PC computer : pc.getAllPCData()) {
+			pcContainer.getChildren().add(card.generateCard(computer));
+		}
 	}
 
 	@Override
@@ -51,6 +61,8 @@ public class PCView extends Page{
 		BorderPane.setAlignment(gridContainer, Pos.CENTER);
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(5);
+		pcContainer.setVgap(5);
+		pcContainer.setHgap(5);
 		gridContainer.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
 
 		setGridPaneAlignment();
