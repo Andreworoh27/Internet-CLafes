@@ -2,6 +2,7 @@ package controller;
 import java.sql.Date;
 import java.util.List;
 
+import models.PC;
 import models.PCBook;
 import view.Page;
 
@@ -9,20 +10,51 @@ public class PCBookController {
 	
 	private PCBook pcb = new PCBook();
 	
-	public void deleteBookData(Integer bookId) {
-		pcb.deleteBookData(bookId);
+	// kalau cancel, source = "Cancel"
+	// kalau finish, source = "Finish"
+	public String deleteBookData(Integer bookId, String source) {
+		if (source.equals("Cancel")) {
+			PCBook booking = pcb.getPcBookedById(bookId);
+			if (booking == null) {
+				return "Booking doesn't exist";
+			} else {
+				if (booking.getBookDate().before(new Date(System.currentTimeMillis()))) {
+					return "Chosen date must be before today";
+				} else {
+					pcb.deleteBookData(bookId);
+				}
+			}
+		} else {
+			pcb.deleteBookData(bookId);
+		}
+		
+		return "";
 	}
 	
 	public List<PCBook> getPCBookedData(String pcId, Date date) {
 		return pcb.getPCBookedData(pcId, date);
 	}
 	
-	public void assignUsertoNewPc(Integer bookId, Integer newPcId) {
+	public void assignUsertoNewPc(Integer bookId, String newPcId) {
 		
 	}
 	
-	public void addNewBook(Integer pcId, Integer userId, Date bookedDate) {
+	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
+		PC pc = new PC().getPcDetail(pcId);
+		if (pc == null) {
+			return "You must choose a PC to be booked";
+		} else if (pc.getPcCondition().equals("Usable")) {
+			Date todayDate = new Date(System.currentTimeMillis());
+			if (!(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
+				return "Date must be chosen between today or after";
+			else if (getPCBookedData(pcId, bookedDate).size() > 0)
+				return "PC is not available to be book on the chosen date";
+		} else {
+			return "PC is not available for use";
+		}
 		
+		pcb.addNewBook(pcId, userId, bookedDate);
+		return "Successfully book PC";
 	}
 	
 	public String finishBook(Date date) {
@@ -34,7 +66,7 @@ public class PCBookController {
 				return "Chosen date must be before today";
 			} else {
 				for (PCBook booking : bookings) {
-					deleteBookData(booking.getBookId());
+					deleteBookData(booking.getBookId(), "Finish");
 				}
 				
 				TransactionController tc = new TransactionController();

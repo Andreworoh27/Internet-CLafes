@@ -142,6 +142,23 @@ public class TransactionDetail {
 			System.out.println("Failed to add new transaction detail data");
 			e.printStackTrace();
 		}
+		
+//		VERSI TIDAK PAKAI LIST
+//		String query = "INSERT INTO TransactionDetail VALUES (?, ?, ?, ?, ?)";
+//		
+//		try {
+//			PreparedStatement ps = db.prepareStatement(query);
+//			UserController uc = new UserController();
+//			ps.setInt(1, transactionId);
+//			ps.setInt(2, pcBooked.getUserId());
+//			ps.setString(3, uc.getUserDataById(pcBooked.getUserId()).getUsername());
+//			ps.setString(4, pcBooked.getPcId());
+//			ps.setDate(5, pcBooked.getBookDate());
+//			ps.executeUpdate();
+//		} catch (SQLException e) {
+//			System.out.println("Failed to add new transaction detail data");
+//			e.printStackTrace();
+//		}
 	}
 
 }

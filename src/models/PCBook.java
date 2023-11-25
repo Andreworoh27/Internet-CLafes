@@ -167,5 +167,26 @@ public class PCBook {
 		
 		return bookings;
 	}
+	
+	public PCBook getPcBookedById(Integer bookId) {
+		String query = "SELECT * FROM PCBook WHERE BookID = ?";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setInt(1, bookId);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer userId = rs.getInt("UserID");
+				String pcId = rs.getString("PcID");
+				Date bookDate = rs.getDate("BookDate");
+				return new PCBook(bookId, pcId, userId, bookDate);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch PC booked data");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
     
 }
