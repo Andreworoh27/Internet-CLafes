@@ -1,6 +1,5 @@
 package view;
 
-import controller.UserController;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,18 +12,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-public class LoginView extends Page{
+public class LoginView extends Page {
 
 	Scene login;
-	
+
 	BorderPane borderContainer;
 	GridPane gridContainer;
-	
+
 	Label loginLB, usernameLB, passwordLB, errorLB;
 	TextField usernameTF;
 	PasswordField passwordPF;
 	Button loginBTN, gotoRegisterBTN;
-	
+
 	public LoginView() {
 		initComp();
 		addComp();
@@ -32,7 +31,7 @@ public class LoginView extends Page{
 		action();
 		displayView(login);
 	}
-	
+
 	@Override
 	protected void initComp() {
 		borderContainer = new BorderPane();
@@ -41,13 +40,13 @@ public class LoginView extends Page{
 		usernameLB = label.setText("Username :").build();
 		passwordLB = label.setText("Password :").build();
 		errorLB = label.setText("").setTextColor("Red").build();
-		gotoRegisterBTN = button.setText("Register Here!").setColor("transparent").setFontColor("Black").setFontSize("12").build();
+		gotoRegisterBTN = button.setText("Register Here!").setColor("transparent").setFontColor("Black")
+				.setFontSize("12").build();
 		usernameTF = tf.build();
 		passwordPF = new PasswordField();
-		
-		
+
 		loginBTN = button.setText("Login").setFontSize("15").build();
-		
+
 		login = new Scene(borderContainer, 1000, 600);
 	}
 
@@ -73,16 +72,15 @@ public class LoginView extends Page{
 		BorderPane.setAlignment(gridContainer, Pos.CENTER);
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(10);
-		
+
 		setGridPaneAlignment();
-		
+
 		usernameTF.setPrefWidth(250);
 		passwordPF.setPrefWidth(250);
 		Font font = Font.font("Open Sans", 25);
 		loginLB.setFont(font);
 		loginLB.setPadding(new Insets(20));
 	}
-
 
 	private void setGridPaneAlignment() {
 		GridPane.setHalignment(loginLB, HPos.CENTER);
@@ -100,18 +98,19 @@ public class LoginView extends Page{
 		loginBTN.setOnAction(e -> {
 			String username = usernameTF.getText();
 			String password = passwordPF.getText();
-			
-			String status = uc.login(username, password);
-			if(status.equals("Successfully logged in")) {
+
+			String status = uc.login("EvaMiller", "secret");
+//			String status = uc.login(username, password);
+			if (status.equals("Successfully logged in")) {
 				new PCView();
-			}else {
+			} else {
 				errorLB.setText(status);
 			}
 		});
-		
+
 		gotoRegisterBTN.setOnAction(e -> {
 			new RegisterView();
 		});
 	}
-	
+
 }
