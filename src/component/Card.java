@@ -59,8 +59,9 @@ public class Card {
 
 		buttonPlaceholder.setSpacing(5);
         card.add(label.setText(pc.getPcId()).setFontSize("15").setTextColor("Black").build(), 0, 0);
-		card.add(imageView, 0, 1);
-		card.add(buttonPlaceholder, 0, 2);
+        card.add(label.setText(pc.getPcCondition()).setFontSize("12").setTextColor("Black").build(), 0, 1);
+		card.add(imageView, 0, 2);
+		card.add(buttonPlaceholder, 0, 3);
 		buttonPlaceholder.getChildren().removeAll();
 		return card;
 	}
