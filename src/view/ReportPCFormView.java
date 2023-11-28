@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
@@ -43,7 +44,7 @@ public class ReportPCFormView extends Page implements Content{
 	protected void initComp() {
 		formContainer = new GridPane();
 		rc = new ReportController();
-		pageTitleLB = label.setText("Report PC").setFontSize("16").setTextColor("Black").build();
+		pageTitleLB = label.setText("Report PC : "+computer.getPcId()).setFontSize("16").setTextColor("Black").build();
 		pcIdLB = label.setText("Insert PC Problem : ").setFontSize("12").setTextColor("Black").build();
 		reportTF = tf.setPromptText("ex : PC error").build();
 		errorMessageLB = label.setText("").setTextColor("Red").build();
@@ -81,7 +82,7 @@ public class ReportPCFormView extends Page implements Content{
 	@Override
 	protected void action() {
 		reportButton.setOnMouseClicked(e -> {
-			displayAlert(null,rc.addNewReport(user.getUserRole(), computer.getPcId(), reportTF.getText().toString()));
+			displayAlert(AlertType.INFORMATION,rc.addNewReport(user.getUserRole(), computer.getPcId(), reportTF.getText().toString()));
 		});
 		
 	}
