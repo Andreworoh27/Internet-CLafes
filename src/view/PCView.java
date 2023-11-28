@@ -50,8 +50,12 @@ public class PCView extends Page {
 	}
 
 	private void addGridContainer() {
-		gridContainer.add(addPcButton, 0, 0);
-		gridContainer.add(pcContainer, 0, 1);
+		if (user.getUserRole().equals("Admin")) {
+			gridContainer.add(addPcButton, 0, 0);
+			gridContainer.add(pcContainer, 0, 1);
+		} else {
+			gridContainer.add(pcContainer, 0, 0);
+		}
 		addAllPc();
 	}
 
