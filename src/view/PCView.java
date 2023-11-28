@@ -20,6 +20,8 @@ public class PCView extends Page {
 	PC pc;
 	FlowPane pcContainer;
 	Button addPcButton;
+	Button pcBookViewButton;
+	Button pcCancelViewButton;
 
 	public PCView() {
 		initComp();
@@ -47,6 +49,17 @@ public class PCView extends Page {
 	protected void addComp() {
 		layout.setCenter(gridContainer);
 		addGridContainer();
+
+		if (Page.user != null && Page.user.getUserRole().equals("Operator")) {
+			pcBookViewButton = new Button("View PC Book");
+			pcCancelViewButton = new Button("Cancel PC Book");
+			addContainerForOperator();
+		}
+	}
+
+	private void addContainerForOperator() {
+		gridContainer.add(pcBookViewButton, 0, 15);
+		gridContainer.add(pcCancelViewButton, 0, 16);
 	}
 
 	private void addGridContainer() {
@@ -106,6 +119,26 @@ public class PCView extends Page {
 			AddNewPcFormView newPcFormView = new AddNewPcFormView(this);
 			layout.setRight(newPcFormView.getContent());
 		});
+
+		if (pcBookViewButton != null) {
+			pcBookViewButton.setOnAction(e -> {
+				try {
+					System.out.println("Button masuk");
+					new PcBookView();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		}
+		if (pcCancelViewButton != null) {
+			pcCancelViewButton.setOnAction(e -> {
+				try {
+					new PcCancelView();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		}
 
 	}
 }
