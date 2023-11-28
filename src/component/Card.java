@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import models.PC;
 import view.PCView;
 import view.Page;
+import view.ReportPCFormView;
 import view.UpdatePcFormView;
 
 public class Card {
@@ -82,7 +83,8 @@ public class Card {
 		});
 
 		report.setOnAction(e -> {
-			
+			ReportPCFormView reportPCFormView = new ReportPCFormView(pc, pcView);
+			layout.setRight(reportPCFormView.getContent());
 		});
 
 		delete.setOnAction(e -> {
