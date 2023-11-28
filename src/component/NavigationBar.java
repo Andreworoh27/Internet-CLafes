@@ -4,20 +4,20 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.JobView;
 import view.PCView;
+import view.CustomerTransactionHistoryView;
 
-public class Navbar {
+public class NavigationBar {
 	VBox sideBar;
 	ButtonBuilder button;
 
-	public Navbar() {
+	public NavigationBar() {
 		this.sideBar = new VBox();
 		button = new ButtonBuilder();
 		sideBar.setMinWidth(200);
 		sideBar.setSpacing(10);
-		sideBar.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-style: solid;");
-
+		sideBar.setStyle("-fx-border-color: black; -fx-border-width: 0 1px 0 0; -fx-border-style: solid;");
 	}
-
+                                         
 	public VBox generateMenu(String[] menu) {
 		for (String string : menu) {
 			Button menuButton = button.setText(string).setImage(string).setPadding(10).setColor("transparent")
@@ -32,6 +32,9 @@ public class Navbar {
 					break;
 				case "job":
 					new JobView();
+					break;
+				case "transaction":
+					new CustomerTransactionHistoryView();
 					break;
 				default:
 					break;

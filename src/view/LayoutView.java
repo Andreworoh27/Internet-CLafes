@@ -11,7 +11,6 @@ public class LayoutView extends Page implements Layout {
 	HBox statusBar;
 
 	public LayoutView() {
-
 		initComp();
 		addComp();
 		arrangeComp();
@@ -21,7 +20,7 @@ public class LayoutView extends Page implements Layout {
 	@Override
 	protected void initComp() {
 		borderContainer = new BorderPane();
-		String[] menu = { "home", "monitor", "job" };
+		String[] menu = { "home", "monitor", "job", "transaction" };
 		navBar = nb.generateMenu(menu);
 		statusBar = new HBox();
 	}
@@ -30,11 +29,11 @@ public class LayoutView extends Page implements Layout {
 	protected void addComp() {
 		borderContainer.setTop(statusBar);
 		borderContainer.setLeft(navBar);
-
 	}
 
 	@Override
 	protected void arrangeComp() {
+		
 	}
 
 	@Override
@@ -44,7 +43,6 @@ public class LayoutView extends Page implements Layout {
 
 	@Override
 	public BorderPane getLayout() {
-		// TODO Auto-generated method stub
 		return borderContainer;
 	}
 
