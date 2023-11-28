@@ -3,7 +3,7 @@ package view;
 import component.ButtonBuilder;
 import component.Card;
 import component.LabelBuilder;
-import component.Navbar;
+import component.NavigationBar;
 import component.TextFieldBuilder;
 import controller.UserController;
 import controller.ViewController;
@@ -20,7 +20,7 @@ public abstract class Page{
 	public ButtonBuilder button = new ButtonBuilder();
 	public LabelBuilder label = new LabelBuilder();
 	public TextFieldBuilder tf = new TextFieldBuilder();
-	public Navbar nb = new Navbar();
+	public NavigationBar nb = new NavigationBar();
 	public Card card = new Card();
 	
 	
@@ -38,7 +38,5 @@ public abstract class Page{
 		error.setContentText(errorMessage);
 		error.show();
 	}
-	
-	
 	
 }
