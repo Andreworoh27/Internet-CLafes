@@ -34,7 +34,7 @@ public class PCBookController {
 	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
 		PC pc = new PC().getPcDetail(pcId);
 		if (pc == null) {
-			return "You must choose a PC to be booked";
+			return "PC must be chosen";
 		} else if (pc.getPcCondition().equals("Usable")) {
 			Date todayDate = new Date(System.currentTimeMillis());
 			if (!(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
@@ -49,30 +49,19 @@ public class PCBookController {
 		return "Successfully book PC";
 	}
 
-	// kalau cancel, source = "Cancel"
-	// kalau finish, source = "Finish"
-	public String deleteBookData(Integer bookId, String source) {
-		if (source.equals("Cancel")) {
-			PCBook booking = pcb.getPcBookedById(bookId);
-			System.out.println(booking.getBookDate());
-			if (booking == null) {
-				System.out.println("masuk ke if");
-				return "Booking doesn't exist";
-			} else {
-				if (booking.getBookDate().before(new Date(System.currentTimeMillis()))) {
-					System.out.println("masuk ke if dalem");
-					return "Chosen date must be before today";
-				} else {
-					System.out.println("masuk ke else dalem");
-					pcb.deleteBookData(bookId);
-				}
-			}
-		} else {
-			System.out.println("masuk ke else luar");
-			pcb.deleteBookData(bookId);
-		}
+	public String deleteBookData(Integer bookId) {
+		PCBook booking = pcb.getPcBookedById(bookId);
+		if (booking == null) 
+			return "Booking doesn't exist";
 		
-		return "";
+		pcb.deleteBookData(bookId);
+		return "Successfully deleted book data";
+	}
+	
+	public List<PCBook> cancelBook(Date date) {
+		if (date.before(new Date(System.currentTimeMillis())))
+			return null; // di depan cek kalau null, berarti date salah "Chosen date must be before today"
+		return getPcBookedByDate(date);
 	}
 
 	public String assignUsertoNewPc(Integer bookId, String newPcId) {
@@ -100,7 +89,7 @@ public class PCBookController {
 				return "Chosen date must be before today";
 			} else {
 				for (PCBook booking : bookings) {
-					deleteBookData(booking.getBookId(), "Finish");
+					deleteBookData(booking.getBookId());
 				}
 
 				TransactionController tc = new TransactionController();

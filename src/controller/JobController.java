@@ -50,7 +50,7 @@ public class JobController {
 		PC pc = new PC().getPcDetail(job.getPcId());
 		if (jobStatus.equals("Complete"))
 			pc.updatePCCondition(job.getPcId(), "Usable");
-		else if (jobStatus.equals("UnComplete"))
+		else
 			pc.updatePCCondition(job.getPcId(), "Maintenance");
 		
 		return "Successfully update job status";
