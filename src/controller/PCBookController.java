@@ -66,7 +66,7 @@ public class PCBookController {
 			pcb.deleteBookData(bookId);
 		}
 		
-		return "";
+		return "Successfully delete book data";
 	}
 	
 	public String assignUsertoNewPc(Integer bookId, String newPcId) {
