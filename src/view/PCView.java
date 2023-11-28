@@ -22,6 +22,7 @@ public class PCView extends Page {
 	Button addPcButton;
 	Button pcBookViewButton;
 	Button pcCancelViewButton;
+	Button pcFinishViewButton;
 
 	public PCView() {
 		initComp();
@@ -60,6 +61,7 @@ public class PCView extends Page {
 	private void addContainerForOperator() {
 		gridContainer.add(pcBookViewButton, 0, 15);
 		gridContainer.add(pcCancelViewButton, 0, 16);
+		gridContainer.add(pcFinishViewButton, 0, 17);
 	}
 
 	private void addGridContainer() {
@@ -135,6 +137,15 @@ public class PCView extends Page {
 				try {
 					new PcCancelView();
 				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		}
+		if(pcFinishViewButton != null) {
+			pcFinishViewButton.setOnAction(e -> {
+				try {
+					new PcFinishView();
+				}catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			});

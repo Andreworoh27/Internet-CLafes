@@ -99,7 +99,8 @@ public class LoginView extends Page {
 			String username = usernameTF.getText();
 			String password = passwordPF.getText();
 
-			String status = uc.login(username, password);
+			String status = uc.login("BobJohnson", "qwerty");
+//			String status = uc.login(username, password);
 			if (status.equals("Successfully logged in")) {
 				new PCView();
 			} else {

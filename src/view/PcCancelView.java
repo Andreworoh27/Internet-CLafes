@@ -36,7 +36,8 @@ public class PcCancelView extends Page {
 	Label dateLB;
 	DatePicker datePicker;
 	List<PCBook> pcBook;
-
+	PCBookController pcBookController;
+	
 	public PcCancelView() {
 		System.out.println("PCCancelView constructor called");
 		initComp();
@@ -57,7 +58,7 @@ public class PcCancelView extends Page {
 		viewCancelBook = new Scene(layout, 900, 600);
 		dateLB = new Label("Choose Date: ");
 		datePicker = new DatePicker();
-
+		pcBookController = new PCBookController();
 		// Kalo cancel itu dia bisa dipilih kalau dia belum lewat tanggal
 		// berati kalau dia pilih tanggal -> munculin semua tanggal yang belum lewat
 	}
@@ -69,34 +70,48 @@ public class PcCancelView extends Page {
 		manageGridContainer();
 
 		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
-			getPCBookBeforeDate(newDate);
+			getPCBookAfterDate(newDate);
 		});
 	}
 
-	private void getPCBookBeforeDate(LocalDate newDate) {
-		if (newDate != null) {
-			Date sqlDate = Date.valueOf(newDate);
-			PCBookController pcBookController = new PCBookController();
-			pcBook = pcBookController.getAllPCBookedData();
-			System.out.println("Jumlah elemen dalam pcBook " + pcBook.size());
-
+	private void getPCBookAfterDate(LocalDate newDate) {
+		
+		if(newDate!= null) {
+			pcBookTableView = new TableView<>();
 			ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
-			LocalDate selectedDate = datePicker.getValue();
-
-			if (selectedDate != null) {
-				for (PCBook book : pcBook) {
-					LocalDate bookDate = book.getBookDate().toLocalDate();
-					System.out.println("tanggal book: " + bookDate);
-					System.out.println("Selected tanggal book: " + selectedDate);
-					System.out.println("IsBefore: " + bookDate.isBefore(selectedDate));
-
-					if (bookDate.isBefore(selectedDate)) {
-						pcBookList.add(book);
+			if(newDate.isAfter(LocalDate.now())) {
+				pcBookList.clear();
+				Date sqlDate = Date.valueOf(newDate);
+				pcBook = pcBookController.getAllPCBookedData();
+				
+				List <PCBook> canceledBooks = pcBookController.cancelBook(sqlDate);
+				
+				if(canceledBooks == null) {
+					//Display message nanti
+					return;
+				}
+				else {
+					for(PCBook book : pcBook) {
+						LocalDate bookDate = book.getBookDate().toLocalDate();
+						//BookDate itu data dari semua book
+						//new date itu data dari date picker
+						if(bookDate.isAfter(newDate)) {
+							pcBookList.add(book);
+						}
 					}
 				}
-			}
+			pcBookTableView.getItems().clear();
 			pcBookTableView.setItems(pcBookList);
-			displayPCBook(pcBook);
+			displayPCBook(pcBookList);
+			}
+			else if(newDate.isBefore(LocalDate.now())){
+				pcBookTableView = new TableView<>();
+				pcBookList.clear();
+				pcBookTableView.setItems(pcBookList);
+				displayPCBook(pcBookList);
+
+				return;
+			}
 		}
 	}
 
@@ -122,10 +137,10 @@ public class PcCancelView extends Page {
 					private Button cancelButton = new Button("Cancel");
 					{
 						cancelButton.setOnAction(event -> {
-							PCBook pcBook = pcBookTableView.getSelectionModel().getSelectedItem();
-							if (pcBook != null) {
-								cancelPCBook(pcBook);
-								pcBookTableView.getItems().remove(pcBook);
+							PCBook pcBook = getTableRow().getItem();
+							if(pcBook != null) {
+								deleteBookData(pcBook);
+								getTableView().getItems().remove(pcBook);
 							}
 						});
 					}
@@ -142,8 +157,9 @@ public class PcCancelView extends Page {
 				};
 			}
 		});
-
+		
 		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn, cancelColumn);
+		gridContainer.add(pcBookTableView, 0, 1, 2, 1);
 	}
 
 	private void manageGridContainer() {
@@ -169,13 +185,13 @@ public class PcCancelView extends Page {
 	@Override
 	protected void action() {
 		if (datePicker.getValue() != null) {
-			getPCBookBeforeDate(datePicker.getValue());
+			getPCBookAfterDate(datePicker.getValue());
 		}
 	}
 
-	private void cancelPCBook(PCBook pcBookItem) {
+	private void deleteBookData(PCBook pcBookItem) {
 		PCBookController pcBookController = new PCBookController();
-		pcBookController.deleteBookData(pcBookItem.getBookId(), "Cancel");
+		pcBookController.deleteBookData(pcBookItem.getBookId());
 	}
 
 }
