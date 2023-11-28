@@ -59,6 +59,49 @@ public class PCBook {
 		this.bookDate = bookDate;
 	}
 	
+	public void addNewBook(String pcId, Integer userId, Date bookedDate) {
+		String query = "INSERT INTO PCBook VALUES (0, ?, ?, ?)";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setString(1, pcId);
+			ps.setInt(2, userId);
+			ps.setDate(3, bookedDate);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Failed to add new book data");
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteBookData(Integer bookId) {
+		String query = "DELETE FROM PCBook WHERE BookID = ?";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setInt(1, bookId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Failed to delete book data");
+			e.printStackTrace();
+		}
+	}
+	
+	public void assignUsertoNewPc(Integer bookId, String newPcId) {
+		String query = "UPDATE PCBook SET PcID = ? WHERE BookID = ?";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setString(1, newPcId);
+			ps.setInt(2, bookId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Failed to change booked pc data");
+			e.printStackTrace();
+		}
+	}
+	
+	public void finishBook(List<PCBook> pcsBooked) {
+		
+	}
+	
 	public List<PCBook> getPCBookedData(String pcId, Date date) {
 		String query = "SELECT * FROM PCBook WHERE PcID = ? AND BookDate = ?";
 		Vector<PCBook> bookings = new Vector<>();
@@ -166,49 +209,6 @@ public class PCBook {
 		}
 		
 		return bookings;
-	}
-	
-	public void addNewBook(String pcId, Integer userId, Date bookedDate) {
-		String query = "INSERT INTO PCBook VALUES (0, ?, ?, ?)";
-		try {
-			PreparedStatement ps = db.prepareStatement(query);
-			ps.setString(1, pcId);
-			ps.setInt(2, userId);
-			ps.setDate(3, bookedDate);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Failed to add new book data");
-			e.printStackTrace();
-		}
-	}
-	
-	public void deleteBookData(Integer bookId) {
-		String query = "DELETE FROM PCBook WHERE BookID = ?";
-		try {
-			PreparedStatement ps = db.prepareStatement(query);
-			ps.setInt(1, bookId);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Failed to delete book data");
-			e.printStackTrace();
-		}
-	}
-	
-	public void assignUsertoNewPc(Integer bookId, String newPcId) {
-		String query = "UPDATE PCBook SET PcID = ? WHERE BookID = ?";
-		try {
-			PreparedStatement ps = db.prepareStatement(query);
-			ps.setString(1, newPcId);
-			ps.setInt(2, bookId);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Failed to change booked pc data");
-			e.printStackTrace();
-		}
-	}
-	
-	public void finishBook(List<PCBook> pcsBooked) {
-		
 	}
     
 }
