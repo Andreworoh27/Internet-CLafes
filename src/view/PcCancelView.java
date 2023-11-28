@@ -175,7 +175,7 @@ public class PcCancelView extends Page {
 
 	private void cancelPCBook(PCBook pcBookItem) {
 		PCBookController pcBookController = new PCBookController();
-		pcBookController.deleteBookData(pcBookItem.getBookId(), "Cancel");
+		pcBookController.deleteBookData(pcBookItem.getBookId());
 	}
 
 }

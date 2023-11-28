@@ -9,28 +9,29 @@ import java.util.Vector;
 import connection.Connect;
 
 public class Job {
-	
+
 	private Connect db = Connect.getConnection();
-	
-	private Integer bookId, userId;
+
+	private Integer jobId, userId;
 	private String pcId, jobStatus;
-	
-	public Job() {}
-	
-	public Job(Integer bookId, String pcId, Integer userId, String jobStatus) {
+
+	public Job() {
+	}
+
+	public Job(Integer jobId, String pcId, Integer userId, String jobStatus) {
 		super();
-		this.bookId = bookId;
+		this.jobId = jobId;
 		this.pcId = pcId;
 		this.userId = userId;
 		this.jobStatus = jobStatus;
 	}
 
-	public Integer getBookId() {
-		return bookId;
+	public Integer getjobId() {
+		return jobId;
 	}
 
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setjobId(Integer jobId) {
+		this.jobId = jobId;
 	}
 
 	public String getPcId() {
@@ -56,7 +57,7 @@ public class Job {
 	public void setJobStatus(String jobStatus) {
 		this.jobStatus = jobStatus;
 	}
-	
+
 	public void addNewJob(Integer userId, String pcId) {
 		String query = "INSERT INTO Job VALUES (0, ?, ?, ?)";
 		PreparedStatement ps = db.prepareStatement(query);
@@ -70,7 +71,7 @@ public class Job {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void updateJobStatus(Integer jobId, String jobStatus) {
 		String query = "UPDATE Job SET JobStatus = ? WHERE JobID = ?";
 		PreparedStatement ps = db.prepareStatement(query);
@@ -83,7 +84,7 @@ public class Job {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void getPcOnWorkingList(Integer pcId) {
 		String query = "UPDATE Job j JOIN PC pc SET pc.PCCondition = ? WHERE j.PcID = ?";
 		PreparedStatement ps = db.prepareStatement(query);
@@ -96,14 +97,14 @@ public class Job {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<Job> getTechnicianJob(Integer userId) {
 		String query = "SELECT * FROM Job WHERE UserID = ?";
 		Vector<Job> jobs = new Vector<>();
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setInt(1, userId);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer jobId = rs.getInt("JobID");
@@ -117,7 +118,7 @@ public class Job {
 		}
 		return jobs;
 	}
-	
+
 	public List<Job> getAllJobData() {
 		String query = "SELECT * FROM Job";
 		Vector<Job> jobs = new Vector<>();
@@ -137,13 +138,13 @@ public class Job {
 		}
 		return jobs;
 	}
-	
+
 	public Job getJobById(Integer jobId) {
 		String query = "SELECT * FROM Job WHERE JobID = ?";
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setInt(1, jobId);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer userId = rs.getInt("UserID");
@@ -157,14 +158,14 @@ public class Job {
 		}
 		return null;
 	}
-	
+
 	public Job getJobByPcId(String pcId) {
 		String query = "SELECT * FROM Job WHERE PcID = ? AND JobStatus = ?";
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, pcId);
 			ps.setString(2, "UnComplete");
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer jobId = rs.getInt("JobID");
