@@ -157,5 +157,26 @@ public class Job {
 		}
 		return null;
 	}
+	
+	public Job getJobByPcId(String pcId) {
+		String query = "SELECT * FROM Job WHERE PcID = ? AND JobStatus = ?";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setString(1, pcId);
+			ps.setString(2, "UnComplete");
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer jobId = rs.getInt("JobID");
+				Integer userId = rs.getInt("UserID");
+				String jobStatus = rs.getString("JobStatus");
+				return new Job(jobId, pcId, userId, jobStatus);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to get job");
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

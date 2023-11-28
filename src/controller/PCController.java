@@ -22,6 +22,7 @@ public class PCController {
 			return "PC ID must not be empty";
 		else if (getPcDetail(pcId) != null)
 			return "PC ID must be unique";
+		
 		pc.addNewPC(pcId);
 		return "Successfully add a new PC";
 	}
