@@ -9,6 +9,18 @@ public class JobController {
 	
 	private Job j = new Job();
 	
+	public void getPcOnWorkingList(Integer pcId) {
+		j.getPcOnWorkingList(pcId);
+	}
+	
+	public List<Job> getTechnicianJob(Integer userId) {
+		return j.getTechnicianJob(userId);
+	}
+	
+	public List<Job> getAllJobData() {
+		return j.getAllJobData();
+	}
+	
 	public void addNewJob(Integer userId, Integer pcId) {
 		
 	}
@@ -27,18 +39,6 @@ public class JobController {
 			pc.updatePCCondition(job.getPcId(), "Maintenance");
 		
 		return "Successfully update job status";
-	}
-	
-	public void getPcOnWorkingList(Integer pcId) {
-		j.getPcOnWorkingList(pcId);
-	}
-	
-	public List<Job> getTechnicianJob(Integer userId) {
-		return j.getTechnicianJob(userId);
-	}
-	
-	public List<Job> getAllJobData() {
-		return j.getAllJobData();
 	}
 
 }
