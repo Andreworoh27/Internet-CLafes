@@ -82,7 +82,7 @@ public class Card {
 		});
 
 		report.setOnAction(e -> {
-			// munculin form buat report
+			
 		});
 
 		delete.setOnAction(e -> {
