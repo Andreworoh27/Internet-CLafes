@@ -1,6 +1,4 @@
-/view/
-/component/
 /controller/
-/connection/
-/main/
 /models/
+/component/
+/view/

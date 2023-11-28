@@ -26,7 +26,11 @@ public class PCBookController {
 	public PCBook getPCBookedById(Integer bookId) {
 		return pcb.getPcBookedById(bookId);
 	}
-
+	
+	public List<PCBook> getPCBookedDataByPcId(String pcId) {
+		return pcb.getPCBookedDataByPcId(pcId);
+	}
+	
 	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
 		PC pc = new PC().getPcDetail(pcId);
 		if (pc == null) {
@@ -67,7 +71,7 @@ public class PCBookController {
 			System.out.println("masuk ke else luar");
 			pcb.deleteBookData(bookId);
 		}
-
+		
 		return "";
 	}
 
