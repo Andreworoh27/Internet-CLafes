@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	public String changeUserRole(Integer userId, String newRole) {
-		if (userId == 0)
+		if (u.getUserDataById(userId) == null)
 			return "User must be chosen";
 		else if (!newRole.equals("Admin") && !newRole.equals("Customer") && !newRole.equals("Operator") && !newRole.equals("Computer Technician"))
 			return "New role must be be either Admin, Customer, Operator, or Computer Technician";

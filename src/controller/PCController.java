@@ -1,7 +1,9 @@
 package controller;
+import java.util.Date;
 import java.util.List;
 
 import models.PC;
+import models.PCBook;
 
 public class PCController {
 	
@@ -21,7 +23,7 @@ public class PCController {
 		else if (getPcDetail(pcId) != null)
 			return "PC ID must be unique";
 		
-		pc.addNewPC(null);
+		pc.addNewPC(pcId);
 		return "Successfully add a new PC";
 	}
 	
@@ -35,9 +37,23 @@ public class PCController {
 		return "Successfully update PC condition";
 	}
 	
+	public Boolean isBooked(List<PCBook> bookings) {
+		for (PCBook pcBook : bookings) {
+			if (pcBook.getBookDate().after(new Date(System.currentTimeMillis())))
+				return true;
+			
+			if (pcBook.getBookDate().equals(new Date(System.currentTimeMillis())))
+				return true;
+		}
+		return false;
+	}
+	
 	public String deletePC(String pcId) {
+		PCBookController pcb = new PCBookController();
 		if (getPcDetail(pcId) == null)
 			return "PC must be chosen";
+		else if (isBooked(pcb.getPCBookedDataByPcId(pcId)))
+			return "PC is booked in the future";
 		
 		pc.deletePC(pcId);
 		return "Successfully delete PC";

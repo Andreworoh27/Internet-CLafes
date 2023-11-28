@@ -16,7 +16,7 @@ public class ReportController {
 	public String addNewReport(String userRole, String pcId, String reportNote) {
 		PCController pcc = new PCController();
 		if (!userRole.equals("Customer") && !userRole.equals("Operator")) 
-			return "User role must be either customer or operator";
+			return "Only Customer or Operator that can make a report";
 		else if (pcc.getPcDetail(pcId) == null)
 			return "PC must be chosen and exist in database";
 		else if (reportNote.isEmpty())

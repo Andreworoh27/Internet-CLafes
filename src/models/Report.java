@@ -102,7 +102,6 @@ public class Report {
 			System.out.println("Failed to fetch all report data");
 			e.printStackTrace();
 		}
-		
 		return reports;
 	}
     
