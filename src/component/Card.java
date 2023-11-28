@@ -14,8 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import models.PC;
+import view.BookPCFormView;
 import view.PCView;
 import view.Page;
+import view.ReportPCFormView;
 import view.UpdatePcFormView;
 
 public class Card {
@@ -77,12 +79,13 @@ public class Card {
 
 	private void addAction(PC pc, Button book, Button report, Button update, Button delete) {
 		book.setOnAction(e -> {
-			pbc.getPCBookedData(pc.getPcId(), new Date(Calendar.getInstance().getTimeInMillis()));
-
+			BookPCFormView bookPCFormView = new BookPCFormView(pc, pcView);
+			layout.setRight(bookPCFormView.getContent());
 		});
 
 		report.setOnAction(e -> {
-			// munculin form buat report
+			ReportPCFormView reportPCFormView = new ReportPCFormView(pc, pcView);
+			layout.setRight(reportPCFormView.getContent());
 		});
 
 		delete.setOnAction(e -> {
