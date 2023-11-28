@@ -85,11 +85,20 @@ public class Job {
 	}
 	
 	public void getPcOnWorkingList(Integer pcId) {
-		
+		String query = "UPDATE Job j JOIN PC pc SET pc.PCCondition = ? WHERE j.PcID = ?";
+		PreparedStatement ps = db.prepareStatement(query);
+		try {
+			ps.setString(1, "Maintenance");
+			ps.setInt(2, pcId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Failed to get PC on working list");
+			e.printStackTrace();
+		}
 	}
 	
 	public List<Job> getTechnicianJob(Integer userId) {
-		String query = "SELECT * FROM Job WHERE UserID = userId";
+		String query = "SELECT * FROM Job WHERE UserID = ?";
 		Vector<Job> jobs = new Vector<>();
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
@@ -127,6 +136,26 @@ public class Job {
 			e.printStackTrace();
 		}
 		return jobs;
+	}
+	
+	public Job getJobById(Integer jobId) {
+		String query = "SELECT * FROM Job WHERE JobID = ?";
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setInt(1, jobId);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer userId = rs.getInt("UserID");
+				String pcId = rs.getString("PcID");
+				String jobStatus = rs.getString("JobStatus");
+				return new Job(jobId, pcId, userId, jobStatus);
+			}
+		} catch (SQLException e) {
+			System.out.println("Failed to get job");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

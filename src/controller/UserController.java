@@ -45,15 +45,13 @@ public class UserController {
 	}
 	
 	public String changeUserRole(Integer userId, String newRole) {
-		String errorMessage = "";
 		if (userId == 0)
-			errorMessage = "User must be chosen";
+			return "User must be chosen";
 		else if (!newRole.equals("Admin") && !newRole.equals("Customer") && !newRole.equals("Operator") && !newRole.equals("Computer Technician"))
-			errorMessage = "New role must be be either Admin, Customer, Operator, or Computer Technician";
+			return "New role must be be either Admin, Customer, Operator, or Computer Technician";
 		
-		if (errorMessage.isEmpty()) u.changeUserRole(userId, newRole);
-		
-		return errorMessage;
+		u.changeUserRole(userId, newRole);
+		return "Successfully changed user role";
 	}
 	
 	public String login(String username, String password) {
@@ -64,29 +62,27 @@ public class UserController {
 	}
 	
 	public String register(String username, String password, String confirmPassword, Integer age) {
-		String errorMessage = "";
 		if (username.isEmpty()) 
-			errorMessage = "Username can't be empty";
+			return "Username can't be empty";
 		else if (u.getUserDataByUsername(username) != null) 
-			errorMessage = "Username must be unique";
+			return "Username must be unique";
 		else if (username.length() < 7) 
-			errorMessage = "Username must contain at least 7 characters";
+			return "Username must contain at least 7 characters";
 		else if (password.isEmpty()) 
-			errorMessage = "Password can't be empty";
+			return "Password can't be empty";
 		else if (!checkAlphanumeric(password)) 
-			errorMessage = "Password must contain alpha numeric characters";
+			return "Password must contain alpha numeric characters";
 		else if (password.length() < 6) 
-			errorMessage = "Password must contain at least 6 characters";
+			return "Password must contain at least 6 characters";
 		else if (confirmPassword.isEmpty())
-			errorMessage = "Confirm password can't be empty";
+			return "Confirm password can't be empty";
 		else if (!password.equals(confirmPassword))
-			errorMessage = "Confirm password and password doesn't match";
+			return "Confirm password and password doesn't match";
 		else if (age < 13 || age > 65)
-			errorMessage = "Age must be between 13 and 65";
+			return "Age must be between 13 and 65";
 		
-		if (errorMessage.isEmpty()) addNewUser(username, password, age);
-	
-		return errorMessage;
+		addNewUser(username, password, age);
+		return "Successfully add a new user";
 	}
 
 }
