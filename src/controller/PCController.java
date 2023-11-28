@@ -21,28 +21,32 @@ public class PCController {
 			return "PC ID must not be empty";
 		else if (getPcDetail(pcId) != null)
 			return "PC ID must be unique";
-		
+
 		pc.addNewPC(pcId);
 		return "Successfully add a new PC";
 	}
 
 	public String updatePCCondition(String pcId, String condition) {
+		String errorMessage = "";
 		if (getPcDetail(pcId) == null)
 			return "PC must be chosen";
 		else if (!condition.equals("Usable") && !condition.equals("Maintenance") && !condition.equals("Broken"))
 			errorMessage = "PC condition must be either Usable, Maintenance, or Broken";
-		
-		if (errorMessage.isEmpty()) pc.updatePCCondition(pcId, condition);
-		
+
+		if (errorMessage.isEmpty())
+			pc.updatePCCondition(pcId, condition);
+
 		return errorMessage;
 	}
 
 	public String deletePC(String pcId) {
+		String errorMessage = "";
 		if (getPcDetail(pcId) == null)
 			errorMessage = "PC must be chosen";
-		
-		if (errorMessage.isEmpty()) pc.deletePC(pcId);
-		
+
+		if (errorMessage.isEmpty())
+			pc.deletePC(pcId);
+
 		return errorMessage;
 	}
 
