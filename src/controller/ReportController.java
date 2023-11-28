@@ -9,6 +9,10 @@ public class ReportController {
 	
 	private Report r = new Report();
 	
+	public List<Report> getAllReportData() {
+		return r.getAllReportData();
+	}
+	
 	public String addNewReport(String userRole, String pcId, String reportNote) {
 		PCController pcc = new PCController();
 		if (!userRole.equals("Customer") && !userRole.equals("Operator")) 
@@ -20,10 +24,6 @@ public class ReportController {
 		
 		r.addNewReport(userRole, pcId, reportNote, new Date(System.currentTimeMillis()));
 		return "Successfully added a new report";
-	}
-	
-	public List<Report> getAllReportData() {
-		return r.getAllReportData();
 	}
 
 }

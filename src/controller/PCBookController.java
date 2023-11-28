@@ -26,6 +26,24 @@ public class PCBookController {
 		return pcb.getPcBookedById(bookId);
 	}
 	
+	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
+		PC pc = new PC().getPcDetail(pcId);
+		if (pc == null) {
+			return "You must choose a PC to be booked";
+		} else if (pc.getPcCondition().equals("Usable")) {
+			Date todayDate = new Date(System.currentTimeMillis());
+			if (!(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
+				return "Date must be chosen between today or after";
+			else if (getPCBookedData(pcId, bookedDate).size() > 0)
+				return "PC is not available to be book on the chosen date";
+		} else {
+			return "PC is not available for use";
+		}
+		
+		pcb.addNewBook(pcId, userId, bookedDate);
+		return "Successfully book PC";
+	}
+	
 	// kalau cancel, source = "Cancel"
 	// kalau finish, source = "Finish"
 	public String deleteBookData(Integer bookId, String source) {
@@ -61,24 +79,6 @@ public class PCBookController {
 		
 		pcb.assignUsertoNewPc(bookId, newPcId);
 		return "Successfully assigned user to a new PC";
-	}
-	
-	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
-		PC pc = new PC().getPcDetail(pcId);
-		if (pc == null) {
-			return "You must choose a PC to be booked";
-		} else if (pc.getPcCondition().equals("Usable")) {
-			Date todayDate = new Date(System.currentTimeMillis());
-			if (!(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
-				return "Date must be chosen between today or after";
-			else if (getPCBookedData(pcId, bookedDate).size() > 0)
-				return "PC is not available to be book on the chosen date";
-		} else {
-			return "PC is not available for use";
-		}
-		
-		pcb.addNewBook(pcId, userId, bookedDate);
-		return "Successfully book PC";
 	}
 	
 	public String finishBook(Date date) {

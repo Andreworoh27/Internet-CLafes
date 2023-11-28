@@ -11,11 +11,6 @@ public class TransactionController {
 	private TransactionHeader th = new TransactionHeader();
 	private TransactionDetail td = new TransactionDetail();
 	
-	public void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId, Date transactionDate) {
-		Integer generatedTransactionId = th.addNewTransactionHeader(staffId, transactionDate);
-		td.addTransactionDetail(generatedTransactionId, pcBooked);
-	}
-	
 	public List<TransactionHeader> getAllTransactionHeaderData() {
 		return th.getAllTransactionHeaderData();
 	}
@@ -26,6 +21,11 @@ public class TransactionController {
 	
 	public List<TransactionDetail> getUserTransactionDetail(Integer userId) {
 		return td.getUserTransactionDetail(userId);
+	}
+	
+	public void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId, Date transactionDate) {
+		Integer generatedTransactionId = th.addNewTransactionHeader(staffId, transactionDate);
+		td.addTransactionDetail(generatedTransactionId, pcBooked);
 	}
 	
 }
