@@ -26,6 +26,7 @@ public class CustomerTransactionHistoryView extends Page {
 		displayView(transactionHistory);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void initComp() {
 		lv = new LayoutView();
@@ -71,5 +72,7 @@ public class CustomerTransactionHistoryView extends Page {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }

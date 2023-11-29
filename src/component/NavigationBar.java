@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.JobView;
 import view.PCView;
+import view.ReportView;
 import view.CustomerTransactionHistoryView;
 
 public class NavigationBar {
@@ -13,7 +14,7 @@ public class NavigationBar {
 	public NavigationBar() {
 		this.sideBar = new VBox();
 		button = new ButtonBuilder();
-		sideBar.setMinWidth(200);
+		sideBar.setPrefWidth(200);
 		sideBar.setSpacing(10);
 		sideBar.setStyle("-fx-border-color: black; -fx-border-width: 0 1px 0 0; -fx-border-style: solid;");
 	}
@@ -35,6 +36,9 @@ public class NavigationBar {
 					break;
 				case "transaction":
 					new CustomerTransactionHistoryView();
+					break;
+				case "report":
+					new ReportView();
 					break;
 				default:
 					break;

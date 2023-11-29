@@ -86,8 +86,6 @@ public class BookPCFormView extends Page implements Content{
 	@Override
 	protected void action() {
 		
-		
-		
 		bookButton.setOnMouseClicked(e -> {
 			datePicker.getValue();
 			

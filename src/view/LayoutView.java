@@ -20,7 +20,9 @@ public class LayoutView extends Page implements Layout {
 	@Override
 	protected void initComp() {
 		borderContainer = new BorderPane();
-		String[] menu = { "home", "monitor", "job", "transaction" };
+		
+		String[] menu = { "home", "monitor", "job", "transaction", "report" };
+			
 		navBar = nb.generateMenu(menu);
 		statusBar = new HBox();
 	}
