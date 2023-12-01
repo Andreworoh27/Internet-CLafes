@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import models.User;
 
 public class LoginView extends Page {
 
@@ -25,6 +26,7 @@ public class LoginView extends Page {
 	Button loginBTN, gotoRegisterBTN;
 
 	public LoginView() {
+		user = new User();
 		initComp();
 		addComp();
 		arrangeComp();

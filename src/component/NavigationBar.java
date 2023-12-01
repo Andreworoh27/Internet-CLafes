@@ -3,6 +3,7 @@ package component;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import view.JobView;
+import view.LoginView;
 import view.PCView;
 import view.ReportView;
 import view.CustomerTransactionHistoryView;
@@ -39,6 +40,9 @@ public class NavigationBar {
 					break;
 				case "report":
 					new ReportView();
+					break;
+				case "logout":
+					new LoginView();
 					break;
 				default:
 					break;

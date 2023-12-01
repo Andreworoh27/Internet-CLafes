@@ -20,10 +20,23 @@ public class LayoutView extends Page implements Layout {
 	@Override
 	protected void initComp() {
 		borderContainer = new BorderPane();
-		
-		String[] menu = { "home", "monitor", "job", "transaction", "report" };
+		String[] nav = null;
+		if(user.getUserRole().equalsIgnoreCase("Admin")) {
+			String[] menu = { "home", "job", "transaction", "report", "logout" };	
+			nav = menu.clone();
+		} else if(user.getUserRole().equalsIgnoreCase("Customer")) {
+			String[] menu = { "home", "transaction", "report", "logout"  };	
+			nav = menu.clone();
+		} else if(user.getUserRole().equalsIgnoreCase("Operator")) {
+			String[] menu = { "home", "job", "logout"  };	
+			nav = menu.clone();
+		} else if(user.getUserRole().equalsIgnoreCase("Computer Technician")) {
+			String[] menu = {"job", "logout"  };	
+			nav = menu.clone();
+		}
 			
-		navBar = nb.generateMenu(menu);
+
+		navBar = nb.generateMenu(nav);
 		statusBar = new HBox();
 	}
 
