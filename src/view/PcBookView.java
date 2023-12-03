@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
@@ -74,11 +75,39 @@ public class PcBookView extends Page {
 		TableColumn<PCBook, Date> pcBookDateColumn = new TableColumn<>("Book Date");
 		pcBookDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookDate()));
 
-		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn);
+		TableColumn<PCBook, Void> assignColumn = new TableColumn<>("Assign To Other Pc");
+		assignColumn.setCellFactory(param -> new TableCell<>() {
+			private final Button updateButton = new Button("Assign User");
+
+			{
+				updateButton.setOnAction(event -> {
+					PCBook pcBook = getTableView().getItems().get(getIndex());
+					AssignUserToOtherPCView updateStaffJobView = new AssignUserToOtherPCView(pcBook, PcBookView.this);
+					layout.setRight(updateStaffJobView.getContent());
+				});
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					setGraphic(updateButton);
+				}
+			}
+		});
+
+		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn, assignColumn);
 	}
 
 	private void manageGridContainer(VBox vBox) {
 		gridContainer.add(vBox, 0, 1, 2, 1);
+	}
+
+	public void refreshBookData() {
+		pcBookTableView.getItems().clear();
+		getAllPCBook();
 	}
 
 	@Override
