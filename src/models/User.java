@@ -9,13 +9,14 @@ import java.util.Vector;
 import connection.Connect;
 
 public class User {
-	
-	private Connect db = Connect.getConnection();
-	
-    private Integer userId, userAge;
-    private String username, userPassword, userRole;
 
-    public User() {}
+	private Connect db = Connect.getConnection();
+
+	private Integer userId, userAge;
+	private String username, userPassword, userRole;
+
+	public User() {
+	}
 
 	public User(Integer userId, Integer userAge, String username, String userPassword, String userRole) {
 		super();
@@ -65,7 +66,7 @@ public class User {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
-	
+
 	public List<User> getAllUserData() {
 		String query = "SELECT * FROM User";
 		Vector<User> users = new Vector<>();
@@ -86,14 +87,14 @@ public class User {
 		}
 		return users;
 	}
-	
+
 	public User getUserData(String username, String password) {
 		String query = "SELECT * FROM User WHERE UserName = ? AND UserPassword = ?";
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, username);
 			ps.setString(2, password);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer id = rs.getInt("UserID");
@@ -107,13 +108,13 @@ public class User {
 		}
 		return null;
 	}
-	
+
 	public User getUserDataByUsername(String username) {
 		String query = "SELECT * FROM User WHERE UserName = ?";
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, username);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer id = rs.getInt("UserID");
@@ -128,13 +129,13 @@ public class User {
 		}
 		return null;
 	}
-	
+
 	public User getUserDataById(Integer userId) {
 		String query = "SELECT * FROM User WHERE UserID = ?";
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setInt(1, userId);
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer age = rs.getInt("UserAge");
@@ -149,14 +150,14 @@ public class User {
 		}
 		return null;
 	}
-	
+
 	public List<User> getAllTechnician() {
 		String query = "SELECT * FROM User WHERE UserRole = ?";
 		Vector<User> technicians = new Vector<>();
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
 			ps.setString(1, "Computer Technician");
-			
+
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				Integer id = rs.getInt("UserID");
@@ -172,7 +173,34 @@ public class User {
 		}
 		return technicians;
 	}
-	
+
+	public List<User> getAllStaff() {
+		String query = "SELECT * FROM User WHERE UserRole IN (?, ?, ?)";
+		Vector<User> staffs = new Vector<>();
+		try {
+			PreparedStatement ps = db.prepareStatement(query);
+			ps.setString(1, "Admin");
+			ps.setString(2, "Operator");
+			ps.setString(3, "Computer Technician");
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Integer id = rs.getInt("UserID");
+				Integer age = rs.getInt("UserAge");
+				String name = rs.getString("UserName");
+				String password = rs.getString("UserPassword");
+				String role = rs.getString("UserRole");
+				staffs.add(new User(id, age, name, password, role));
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Failed to fetch all staffs data");
+			e.printStackTrace();
+		}
+		return staffs;
+	}
+
 	public void addNewUser(String username, String password, Integer age) {
 		String query = "INSERT INTO User VALUES (0, ?, ?, ?, ?)";
 		try {
@@ -187,7 +215,7 @@ public class User {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void changeUserRole(Integer userId, String newRole) {
 		String query = "UPDATE User SET UserRole = ? WHERE UserID = ?";
 		try {

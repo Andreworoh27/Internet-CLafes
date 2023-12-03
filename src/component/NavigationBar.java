@@ -2,11 +2,12 @@ package component;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import view.CustomerTransactionHistoryView;
 import view.JobView;
 import view.LoginView;
 import view.PCView;
 import view.ReportView;
-import view.CustomerTransactionHistoryView;
+import view.StaffView;
 
 public class NavigationBar {
 	VBox sideBar;
@@ -19,7 +20,7 @@ public class NavigationBar {
 		sideBar.setSpacing(10);
 		sideBar.setStyle("-fx-border-color: black; -fx-border-width: 0 1px 0 0; -fx-border-style: solid;");
 	}
-                                         
+
 	public VBox generateMenu(String[] menu) {
 		for (String string : menu) {
 			Button menuButton = button.setText(string).setImage(string).setPadding(10).setColor("transparent")
@@ -40,6 +41,9 @@ public class NavigationBar {
 					break;
 				case "report":
 					new ReportView();
+					break;
+				case "staff":
+					new StaffView();
 					break;
 				case "logout":
 					new LoginView();
