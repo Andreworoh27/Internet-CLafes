@@ -9,6 +9,7 @@ import view.PCView;
 import view.Page;
 import view.ReportView;
 import view.StaffTransactionHistoryView;
+import view.StaffView;
 import view.CustomerTransactionHistoryView;
 
 public class NavigationBar {

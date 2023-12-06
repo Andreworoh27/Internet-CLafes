@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import connection.Connect;
+import controller.UserController;
 
 public class TransactionHeader {
 	
