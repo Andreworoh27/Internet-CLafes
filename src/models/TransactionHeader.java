@@ -4,37 +4,35 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Vector;
 
 import connection.Connect;
-import controller.UserController;
 
 public class TransactionHeader {
 	
 	private Connect db = Connect.getConnection();
 	
-    private Integer transactionID, staffId;
+    private Integer transactionId, staffId;
     private String staffName;
     private Date transactionDate;
 
     public TransactionHeader() {}
 
-	public TransactionHeader(Integer transactionID, Integer staffId, String staffName, Date transactionDate) {
+	public TransactionHeader(Integer transactionId, Integer staffId, String staffName, Date transactionDate) {
 		super();
-		this.transactionID = transactionID;
+		this.transactionId = transactionId;
 		this.staffId = staffId;
 		this.staffName = staffName;
 		this.transactionDate = transactionDate;
 	}
 
-	public Integer getTransactionID() {
-		return transactionID;
+	public Integer getTransactionId() {
+		return transactionId;
 	}
 
-	public void setTransactionID(Integer transactionID) {
-		this.transactionID = transactionID;
+	public void setTransactionId(Integer transactionId) {
+		this.transactionId = transactionId;
 	}
 
 	public Integer getStaffId() {

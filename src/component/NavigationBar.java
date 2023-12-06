@@ -5,7 +5,9 @@ import javafx.scene.layout.VBox;
 import view.JobView;
 import view.LoginView;
 import view.PCView;
+import view.Page;
 import view.ReportView;
+import view.StaffTransactionHistoryView;
 import view.CustomerTransactionHistoryView;
 
 public class NavigationBar {
@@ -36,7 +38,10 @@ public class NavigationBar {
 					new JobView();
 					break;
 				case "transaction":
-					new CustomerTransactionHistoryView();
+					if (Page.user.getUserRole().equals("Customer"))
+						new CustomerTransactionHistoryView();
+					else if (Page.user.getUserRole().equals("Admin"))
+						new StaffTransactionHistoryView();
 					break;
 				case "report":
 					new ReportView();

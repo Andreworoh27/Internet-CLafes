@@ -31,6 +31,28 @@ public class CustomerTransactionHistoryView extends Page {
 	protected void initComp() {
 		lv = new LayoutView();
 		layout = lv.getLayout();
+		buildDetailTable();
+		transactionHistory = new Scene(layout, 1000, 600);
+	}
+
+	@Override
+	protected void addComp() {
+		layout.setCenter(transHistoryTable);
+	}
+
+	@Override
+	protected void arrangeComp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void action() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void buildDetailTable() {
 		transHistoryTable = new TableView<TransactionDetail>();
 		TableColumn<TransactionDetail, Integer> transactionIdCol = new TableColumn<>("Transaction ID");
 		transactionIdCol.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
@@ -53,26 +75,6 @@ public class CustomerTransactionHistoryView extends Page {
 		bookTimeCol.setPrefWidth(160);
 		
 		transHistoryTable.getColumns().addAll(transactionIdCol, pcIdCol, customerIdCol, customerNameCol, bookTimeCol);
-		transactionHistory = new Scene(layout, 1000, 600);
 	}
-
-	@Override
-	protected void addComp() {
-		layout.setCenter(transHistoryTable);
-	}
-
-	@Override
-	protected void arrangeComp() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void action() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 
 }

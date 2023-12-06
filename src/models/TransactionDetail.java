@@ -15,28 +15,28 @@ public class TransactionDetail {
 	
 	private Connect db = Connect.getConnection();
 	
-    private Integer transactionID, customerId;
+    private Integer transactionId, customerId;
     private String pcId, customerName;
     private Date bookedTime;
 
     public TransactionDetail() {}
 
-	public TransactionDetail(Integer transactionID, String pcId, Integer customerId, String customerName,
+	public TransactionDetail(Integer transactionId, String pcId, Integer customerId, String customerName,
 			Date bookedTime) {
 		super();
-		this.transactionID = transactionID;
+		this.transactionId = transactionId;
 		this.pcId = pcId;
 		this.customerId = customerId;
 		this.customerName = customerName;
 		this.bookedTime = bookedTime;
 	}
 
-	public Integer getTransactionID() {
-		return transactionID;
+	public Integer getTransactionId() {
+		return transactionId;
 	}
 
-	public void setTransactionID(Integer transactionID) {
-		this.transactionID = transactionID;
+	public void setTransactionId(Integer transactionID) {
+		this.transactionId = transactionID;
 	}
 
 	public String getPcId() {
@@ -102,6 +102,7 @@ public class TransactionDetail {
 		Vector<TransactionDetail> tds = new Vector<>();
 		try {
 			PreparedStatement ps = db.prepareStatement(query);
+			ps.setInt(1, transactionId);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String pcId = rs.getString("PcID");
