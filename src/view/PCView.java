@@ -44,6 +44,8 @@ public class PCView extends Page {
 		viewPC = new Scene(layout, 900, 600);
 		addPcButton = button.setText("Add New Pc").setColor("Green").setFontSize("14").setFontColor("White")
 				.setPadding(5).setPrefWidth(100).setPadding(10).build();
+		pcFinishViewButton = button.setText("Finish").setFontSize("14").setFontColor("White").setPadding(5)
+				.setPrefWidth(100).setPadding(10).build();
 	}
 
 	@Override
@@ -141,11 +143,11 @@ public class PCView extends Page {
 				}
 			});
 		}
-		if(pcFinishViewButton != null) {
+		if (pcFinishViewButton != null) {
 			pcFinishViewButton.setOnAction(e -> {
 				try {
 					new PcFinishView();
-				}catch (Exception ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			});

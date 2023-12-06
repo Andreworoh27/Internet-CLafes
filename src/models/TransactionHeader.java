@@ -82,28 +82,31 @@ public class TransactionHeader {
 	}
 
 	public Integer addNewTransactionHeader(Integer staffId, Date transactionDate) {
-		String query = "INSERT INTO TransactionHeader VALUES (?, ?)";
-		PreparedStatement ps = db.prepareStatement(query);
-		try {
-			ps.setInt(1, staffId);
-			ps.setDate(2, transactionDate);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("Failed to add new transaction header data");
-			e.printStackTrace();
-		}
-		
-		Integer transactionId = 0;
-		try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+	    String query = "INSERT INTO TransactionHeader (StaffID, StaffName, TransactionDate) VALUES (?, ?, ?)";
+	    PreparedStatement ps = db.prepareStatement(query);
+	    try {
+	        UserController uc = new UserController();
+	        ps.setInt(1, staffId);
+	        ps.setString(2, uc.getUserDataById(staffId).getUsername());
+	        ps.setDate(3, transactionDate);
+	        ps.executeUpdate();
+	        System.out.println("staff id: " +staffId);
+	        System.out.println("staff name: " +uc.getUserDataById(staffId).getUsername());
+	    } catch (SQLException e) {
+	        System.out.println("Failed to add new transaction header data" + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    Integer transactionId = 0;
+	    try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 	        if (generatedKeys.next()) {
 	            transactionId = generatedKeys.getInt(1);
 	        }
 	    } catch (SQLException e) {
-			System.out.println("Failed to fetch latest transaction id");
-			e.printStackTrace();
-		}
-		
-		return transactionId;
+	        System.out.println("Failed to fetch latest transaction id");
+	        e.printStackTrace();
+	    }
+	    return transactionId;
 	}
-	
+
 }

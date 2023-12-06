@@ -83,17 +83,24 @@ public class PCBookController {
 	public String finishBook(Date date) {
 		List<PCBook> bookings = getPcBookedByDate(date);
 		if (bookings.size() == 0) {
+			System.out.println("Masuk di if 1");
 			return "There is no booking on the chosen date";
 		} else {
-			if (date.before(new Date(System.currentTimeMillis()))) {
+			if (date.after(new Date(System.currentTimeMillis()))) {
+				System.out.println("tanggal date: " +date);
+				System.out.println("tanggal new date: " +new Date(System.currentTimeMillis()));
+				System.out.println("Masuk di if 2");
 				return "Chosen date must be before today";
 			} else {
 				for (PCBook booking : bookings) {
+					System.out.println("Masuk di if 3");
 					deleteBookData(booking.getBookId());
 				}
 
 				TransactionController tc = new TransactionController();
+				System.out.println("==== Kalau user.getUserId:" +Page.user.getUserId());
 				tc.addTransaction(0, bookings, Page.user.getUserId(), date);
+				System.out.println("Masuk disini ga");
 			}
 		}
 
