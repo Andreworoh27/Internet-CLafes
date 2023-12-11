@@ -30,7 +30,6 @@ public class PCView extends Page {
 		arrangeComp();
 		action();
 		displayView(viewPC);
-
 	}
 
 	@Override
@@ -46,6 +45,11 @@ public class PCView extends Page {
 				.setPadding(5).setPrefWidth(100).setPadding(10).build();
 		pcFinishViewButton = button.setText("Finish").setFontSize("14").setFontColor("White").setPadding(5)
 				.setPrefWidth(100).setPadding(10).build();
+		pcCancelViewButton = button.setText("Cancel").setFontSize("14").setFontColor("White").setPadding(5)
+				.setPrefWidth(100).setPadding(10).build();
+		pcBookViewButton = button.setText("View All Book").setFontSize("14").setFontColor("White").setPadding(5)
+				.setPrefWidth(100).setPadding(10).build();
+		
 	}
 
 	@Override
@@ -54,8 +58,6 @@ public class PCView extends Page {
 		addGridContainer();
 
 		if (Page.user != null && Page.user.getUserRole().equals("Operator")) {
-			pcBookViewButton = new Button("View PC Book");
-			pcCancelViewButton = new Button("Cancel PC Book");
 			addContainerForOperator();
 		}
 	}

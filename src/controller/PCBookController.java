@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import models.PC;
@@ -60,9 +61,16 @@ public class PCBookController {
 	
 	public List<PCBook> cancelBook(Date date) {
 		if (date.before(new Date(System.currentTimeMillis())))
-			return null; // di depan cek kalau null, berarti date salah "Chosen date must be before today"
+			return null;// di depan cek kalau null, berarti date salah "Chosen date must be before today"
 		return getPcBookedByDate(date);
 	}
+	
+	public List<PCBook> finishBookCheck(Date date){
+		if (date.after(new Date(System.currentTimeMillis())))
+			return null;
+		return getPcBookedByDate(date);
+	}
+	
 
 	public String assignUsertoNewPc(Integer bookId, String newPcId) {
 		PC pc = new PC().getPcDetail(newPcId);

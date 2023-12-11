@@ -3,6 +3,7 @@ package view;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Vector;
 
 import controller.PCBookController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -68,56 +70,32 @@ public class PcCancelView extends Page {
 		layout.setCenter(borderContainer);
 		borderContainer.setCenter(gridContainer);
 		manageGridContainer();
-
-		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
-			getPCBookAfterDate(newDate);
-		});
-	}
-
-	private void getPCBookAfterDate(LocalDate newDate) {
 		
-		if(newDate!= null) {
+		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
 			pcBookTableView = new TableView<>();
 			ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
-			if(newDate.isAfter(LocalDate.now())) {
+			pcBook = pcBookController.cancelBook(java.sql.Date.valueOf( newDate ));
+			if(pcBook == null){
 				pcBookList.clear();
-				Date sqlDate = Date.valueOf(newDate);
-				pcBook = pcBookController.getAllPCBookedData();
-				
-				List <PCBook> canceledBooks = pcBookController.cancelBook(sqlDate);
-				
-				if(canceledBooks == null) {
-					//Display message nanti
-					return;
-				}
-				else {
-					for(PCBook book : pcBook) {
-						LocalDate bookDate = book.getBookDate().toLocalDate();
-						//BookDate itu data dari semua book
-						//new date itu data dari date picker
-						if(bookDate.isAfter(newDate)) {
-							pcBookList.add(book);
-						}
-					}
-				}
+				pcBookList.addAll(new Vector<PCBook>());
+				pcBookTableView.getItems().clear();
+				pcBookTableView.setItems(pcBookList);
+				displayPCBook(pcBookList);
+				return;
+			}
+			pcBookList.addAll(pcBook);
 			pcBookTableView.getItems().clear();
 			pcBookTableView.setItems(pcBookList);
 			displayPCBook(pcBookList);
-			}
-			else if(newDate.isBefore(LocalDate.now())){
-				pcBookTableView = new TableView<>();
-				pcBookList.clear();
-				pcBookTableView.setItems(pcBookList);
-				displayPCBook(pcBookList);
-
-				return;
-			}
-		}
+			pcBook.clear();
+		});
 	}
 
 	@SuppressWarnings("unchecked")
 	private void displayPCBook(List<PCBook> pcBook) {
-
+		for (PCBook pcBook2 : pcBook) {
+			System.out.println(pcBook2.getPcId());
+		}
 		TableColumn<PCBook, Integer> bookIdColumn = new TableColumn<>("Book ID");
 		bookIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookId()));
 
@@ -144,6 +122,7 @@ public class PcCancelView extends Page {
 							}
 						});
 					}
+					
 
 					protected void updateItem(Void item, boolean empty) {
 						super.updateItem(item, empty);
@@ -184,14 +163,12 @@ public class PcCancelView extends Page {
 
 	@Override
 	protected void action() {
-		if (datePicker.getValue() != null) {
-			getPCBookAfterDate(datePicker.getValue());
-		}
+
 	}
 
 	private void deleteBookData(PCBook pcBookItem) {
 		PCBookController pcBookController = new PCBookController();
-		pcBookController.deleteBookData(pcBookItem.getBookId());
+		Page.displayAlert(AlertType.INFORMATION, pcBookController.deleteBookData(pcBookItem.getBookId()));
 	}
 
 }
