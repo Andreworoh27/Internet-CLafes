@@ -1,7 +1,11 @@
 package view;
 
 import java.sql.Date;
+import java.util.List;
 
+import controller.TransactionController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +22,8 @@ public class CustomerTransactionHistoryView extends Page {
 	
 	TableView<TransactionDetail> transHistoryTable;
 	
+	TransactionController tc = new TransactionController();
+	
 	public CustomerTransactionHistoryView() {
 		initComp();
 		addComp();
@@ -32,6 +38,7 @@ public class CustomerTransactionHistoryView extends Page {
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		buildDetailTable();
+		refreshTable();
 		transactionHistory = new Scene(layout, 1000, 600);
 	}
 
@@ -41,16 +48,10 @@ public class CustomerTransactionHistoryView extends Page {
 	}
 
 	@Override
-	protected void arrangeComp() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void arrangeComp() {}
 
 	@Override
-	protected void action() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void action() {}
 	
 	private void buildDetailTable() {
 		transHistoryTable = new TableView<TransactionDetail>();
@@ -75,6 +76,12 @@ public class CustomerTransactionHistoryView extends Page {
 		bookTimeCol.setPrefWidth(160);
 		
 		transHistoryTable.getColumns().addAll(transactionIdCol, pcIdCol, customerIdCol, customerNameCol, bookTimeCol);
+	}
+	
+	private void refreshTable() {
+		List<TransactionDetail> tds = tc.getUserTransactionDetail(Page.user.getUserId());
+		ObservableList<TransactionDetail> data = FXCollections.observableArrayList(tds);
+        transHistoryTable.setItems(data);
 	}
 
 }
