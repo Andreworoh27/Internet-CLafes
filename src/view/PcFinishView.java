@@ -3,6 +3,7 @@ package view;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Vector;
 
 import controller.PCBookController;
 import javafx.beans.property.SimpleObjectProperty;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -30,12 +32,13 @@ public class PcFinishView extends Page {
 	GridPane gridContainer;
 	LayoutView lv;
 	FlowPane pcContainer;
-	Button pcCancelViewButton;
+	Button pcFinishButton;
 	TableView<PCBook> pcBookTableView;
 	Label dateLB;
 	DatePicker datePicker;
 	List<PCBook> pcBook;
 	PCBookController pcBookController;
+	String finishBookDate;
 	
 	public PcFinishView() {
 		System.out.println("PcFinishView constructor called");
@@ -58,6 +61,7 @@ public class PcFinishView extends Page {
 		dateLB = new Label("Choose Date: ");
 		datePicker = new DatePicker();
 		pcBookController = new PCBookController();
+		pcFinishButton = button.setText("Finish Book").setFontSize("14").setFontColor("White").setPadding(5).setPrefWidth(100).setPadding(10).build();
 	}
 
 	@Override
@@ -67,40 +71,25 @@ public class PcFinishView extends Page {
 		manageGridContainer();
 
 		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
-			getPCBookBeforeDate(newDate);
-		});
-	}
-	
-	private void getPCBookBeforeDate(LocalDate newDate) {
-		if(newDate!= null) {
 			pcBookTableView = new TableView<>();
 			ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
-			if(newDate.isBefore(LocalDate.now())) {
-
-				Date sqlDate = Date.valueOf(newDate);
-				pcBook = pcBookController.getPcBookedByDate(sqlDate);	
-				
-//				else {
-					for(PCBook book: pcBook) {
-						pcBookList.add(book);
-					}
-//				}
-				
+			pcBook = pcBookController.finishBookCheck(java.sql.Date.valueOf(newDate));
+			if(pcBook == null) {
+				pcBookList.clear();
+				pcBookList.addAll(new Vector<PCBook>());
 				pcBookTableView.getItems().clear();
 				pcBookTableView.setItems(pcBookList);
 				displayPCBook(pcBookList);
-			}
-			else if(newDate.isAfter(LocalDate.now())){
-				pcBookTableView = new TableView<>();
-				pcBookList.clear();
-				pcBookTableView.setItems(pcBookList);
-				displayPCBook(pcBookList);
-
 				return;
 			}
-		}
+			pcBookList.addAll(pcBook);
+			pcBookTableView.getItems().clear();
+			pcBookTableView.setItems(pcBookList);
+			displayPCBook(pcBookList);
+			pcBook.clear();
+		});
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void displayPCBook(List<PCBook> pcBook) {
 
@@ -115,36 +104,8 @@ public class PcFinishView extends Page {
 
 		TableColumn<PCBook, Date> pcBookDateColumn = new TableColumn<>("Book Date");
 		pcBookDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookDate()));
-
-		TableColumn<PCBook, Void> finishColumn = new TableColumn<>("Finish Book");
-		finishColumn.setCellFactory(new Callback<>() {
-			public TableCell<PCBook, Void> call(TableColumn<PCBook, Void> param) {
-				return new TableCell<>() {
-					private Button finishButton = new Button("Finish");
-					{
-						finishButton.setOnAction(event -> {
-							PCBook pcBook = getTableRow().getItem();
-							if(pcBook != null) {
-								finishBookDate(pcBook);
-								getTableView().getItems().remove(pcBook);
-							}
-						});
-					}
-
-					protected void updateItem(Void item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty) {
-							setGraphic(null);
-						} else {
-							setGraphic(finishButton);
-						}
-					}
-
-				};
-			}
-		});
 		
-		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn, finishColumn);
+		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn);
 		gridContainer.add(pcBookTableView, 0, 1, 2, 1);
 	}
 	
@@ -152,6 +113,7 @@ public class PcFinishView extends Page {
 		gridContainer.add(dateLB, 0, 0);
 		gridContainer.add(datePicker, 1, 0);
 		gridContainer.add(pcBookTableView, 0, 1, 2, 1);
+		gridContainer.add(pcFinishButton, 0, 2);
 	}
 	
 	@Override
@@ -169,18 +131,32 @@ public class PcFinishView extends Page {
 
 	@Override
 	protected void action() {
-		if(datePicker.getValue() != null) {
-			getPCBookBeforeDate(datePicker.getValue());
-		}
+		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+			pcFinishButton.setOnAction(e -> {
+				try {
+					Page.displayAlert(AlertType.INFORMATION, pcBookController.finishBook(java.sql.Date.valueOf(newDate)));
+					pcBookTableView = new TableView<>();
+					ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
+					pcBook = pcBookController.finishBookCheck(java.sql.Date.valueOf(newDate));
+					if(pcBook == null) {
+						pcBookList.clear();
+						pcBookList.addAll(new Vector<PCBook>());
+						pcBookTableView.getItems().clear();
+						pcBookTableView.setItems(pcBookList);
+						displayPCBook(pcBookList);
+						return;
+					}
+					pcBookList.addAll(pcBook);
+					pcBookTableView.getItems().clear();
+					pcBookTableView.setItems(pcBookList);
+					displayPCBook(pcBookList);
+					pcBook.clear();
+				}
+				catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		});
 		
 	}
-	
-	private void finishBookDate(PCBook pcBookItem) {
-//		Date bookDate = pcBookItem.getBookDate();
-		pcBookController.finishBook(pcBookItem.getBookDate());
-		System.out.println("Tanggal: " +pcBookItem.getBookDate());
-		System.out.println("id nya: " +pcBookItem.getBookId());
-	}
-
-	
 }

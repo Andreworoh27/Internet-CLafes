@@ -146,6 +146,7 @@ public class PCBook {
 		return bookings;
 	}
 	
+	
 	public List<PCBook> getPcBookedByDate(Date date) {
 		String query = "SELECT * FROM PCBook WHERE BookDate = ?";
 		Vector<PCBook> bookings = new Vector<>();
