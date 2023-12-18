@@ -6,12 +6,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 
 public class AddNewPcFormView extends Page implements Content {
+	
 	BorderPane layout;
 	GridPane formContainer;
 	Label pcIdLB, pageTitleLB, errorMessageLB;
@@ -30,7 +32,6 @@ public class AddNewPcFormView extends Page implements Content {
 
 	@Override
 	protected void initComp() {
-		// TODO Auto-generated method stub
 		formContainer = new GridPane();
 		pcController = new PCController();
 		pcIdLB = label.setText("Input Pc ID : ").setFontSize("12").setTextColor("Black").build();
@@ -43,7 +44,6 @@ public class AddNewPcFormView extends Page implements Content {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
 		layout.setCenter(formContainer);
 		formContainer.add(pageTitleLB, 0, 0);
 		formContainer.add(pcIdLB, 0, 1);
@@ -73,15 +73,12 @@ public class AddNewPcFormView extends Page implements Content {
 
 	@Override
 	protected void action() {
-		// TODO Auto-generated method stub
 		insertBTN.setOnMouseClicked(e -> {
 			String pcId = pcIdTF.getText().toString();
 			String errMsg = pcController.addNewPC(pcId);
-			if (!errMsg.isEmpty()) {
-				errorMessageLB.setText(errMsg);
+			if (!errMsg.equals("Successfully add a new PC")) {
+				displayAlert(AlertType.ERROR, errMsg);
 			} else {
-				errorMessageLB.setText("");
-				// Get the parent PCView and refresh the PCContainer
 				pcView.refreshPCContainer();
 			}
 		});
@@ -89,7 +86,6 @@ public class AddNewPcFormView extends Page implements Content {
 
 	@Override
 	public BorderPane getContent() {
-		// TODO Auto-generated method stub
 		return layout;
 	}
 
