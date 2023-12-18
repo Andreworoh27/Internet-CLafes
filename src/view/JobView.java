@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -79,37 +80,82 @@ public class JobView extends Page {
 		jobStatusColumn.setCellValueFactory(new PropertyValueFactory<>("jobStatus"));
 	    jobStatusColumn.setPrefWidth(width);
 
-		TableColumn<Job, Void> updateColumn = new TableColumn<>("Update");
-		updateColumn.setCellFactory(param -> new TableCell<>() {
-			private final Button updateButton = new Button("Update");
+	    if(user.getUserRole().equals("Computer Technician")) {
+	    	TableColumn<Job, Void> updateColumn = new TableColumn<>("Complete");
+			updateColumn.setCellFactory(param -> new TableCell<>() {
+				private final Button updateButton = new Button("Complete");
 
-			{
-				updateButton.setOnAction(event -> {
-					Job job = getTableView().getItems().get(getIndex());
-					UpdateStaffJobFormView updateStaffJobView = new UpdateStaffJobFormView(job, JobView.this);
-					layout.setRight(updateStaffJobView.getContent());
-				});
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(updateButton);
+				{
+					updateButton.setOnAction(event -> {
+						Job job = getTableView().getItems().get(getIndex());
+						JobController jobContoller = new JobController();
+						String errMsg = jobContoller.updateJobStatus(job.getjobId(), "Complete");
+						if (errMsg.equals("Successfully update job status")) {
+							refreshJobData();
+						} else {
+							displayAlert(AlertType.ERROR, errMsg);
+						}
+					});
 				}
-			}
-		});
-		updateColumn.setPrefWidth(width);
 
-		jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
+				@Override
+			    protected void updateItem(Void item, boolean empty) {
+			        super.updateItem(item, empty);
+			        if (empty) {
+			            setGraphic(null);
+			        } else {
+			            Job job = getTableView().getItems().get(getIndex());
+			            if (job.getJobStatus().equals("Complete")) {
+			                setGraphic(null); // Hide the button if the status is "Complete"
+			            } else {
+			                setGraphic(updateButton);
+			            }
+			        }
+			    }
+			});
+			updateColumn.setPrefWidth(width);
+			jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
+
+	    } else {
+	    	TableColumn<Job, Void> updateColumn = new TableColumn<>("Update");
+			updateColumn.setCellFactory(param -> new TableCell<>() {
+				private final Button updateButton = new Button("Update");
+
+				{
+					updateButton.setOnAction(event -> {
+						Job job = getTableView().getItems().get(getIndex());
+						UpdateStaffJobFormView updateStaffJobView = new UpdateStaffJobFormView(job, JobView.this);
+						layout.setRight(updateStaffJobView.getContent());
+					});
+				}
+
+				@Override
+				protected void updateItem(Void item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setGraphic(null);
+					} else {
+						setGraphic(updateButton);
+					}
+				}
+			});
+			updateColumn.setPrefWidth(width);
+			jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
+
+	    }
+	    
 	}
 
 	private void getAllJobs() {
-		List<Job> jobs = jobController.getAllJobData();
+		List<Job> jobs;
+		if(user.getUserRole().equals("Computer Technician")) {
+			jobs = jobController.getTechnicianJob(user.getUserId());
+		}else {
+			jobs = jobController.getAllJobData();
+		}
 		ObservableList<Job> jobsData = FXCollections.observableArrayList(jobs);
 		jobsTB.setItems(jobsData);
+			
 	}
 
 	public void refreshJobData() {
@@ -119,7 +165,12 @@ public class JobView extends Page {
 
 	@Override
 	protected void addComp() {
-		content.getChildren().addAll(title, addJobButton, jobsTB);
+		if(user.getUserRole().equals("Computer Technician")) {
+			content.getChildren().addAll(title, jobsTB);			
+		}else {
+			content.getChildren().addAll(title, addJobButton, jobsTB);			
+		}
+		
 		layout.setCenter(content);
 	}
 
