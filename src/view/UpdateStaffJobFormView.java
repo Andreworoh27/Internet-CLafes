@@ -54,7 +54,7 @@ public class UpdateStaffJobFormView extends Page implements Content {
 		jobStatusCB.setPromptText(currentJob.getJobStatus());
 		jobStatusCB.getItems().addAll("Complete", "Uncomplete");
 		errorMessageLB = label.setText("").setTextColor("Red").build();
-		updateBTN = button.setText("Update Pc Condition").setColor("Green").setFontSize("12").setFontColor("Black")
+		updateBTN = button.setText("Update Pc Condition").setColor("Green").setFontSize("12").setFontColor("White")
 				.build();
 	}
 
@@ -93,7 +93,6 @@ public class UpdateStaffJobFormView extends Page implements Content {
 
 	@Override
 	protected void action() {
-		// TODO Auto-generated method stub
 		updateBTN.setOnMouseClicked(e -> {
 			String errMsg = jobContoller.updateJobStatus(currentJob.getjobId(), jobStatusCB.getValue().toString());
 			if (errMsg.equals("Successfully update job status")) {
