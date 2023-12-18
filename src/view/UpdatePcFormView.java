@@ -43,7 +43,7 @@ public class UpdatePcFormView extends Page implements Content {
 		pcConditionCB.getItems().addAll("Usable", "Maintenance", "Broken");
 		pcIdLB = label.setText("Pc ID : " + computer.getPcId()).build();
 		errorMessageLB = label.setText("").setTextColor("Red").build();
-		updateBTN = button.setText("Update Pc Condition").setColor("Green").setFontSize("12").setFontColor("White")
+		updateBTN = button.setText("Update PC Condition").setColor("Green").setFontSize("12").setFontColor("White")
 				.build();
 		layout = new BorderPane();
 	}

@@ -53,8 +53,8 @@ public class AssignUserToOtherPCView extends Page implements Content {
 				.setPadding(new Insets(5, 0, 5, 0)).build();
 		userIdLB = label.setText("User ID : " + currentPcBook.getUserId()).setFontSize("12").setTextColor("Black")
 				.setPadding(new Insets(5, 0, 5, 0)).build();
-		pageTitleLB = label.setText("Assing User to Other Pc : ").setFontSize("16").setTextColor("Black").build();
-		pcIdLB = label.setText("Assing to PC :").setFontSize("12").setTextColor("Black").build();
+		pageTitleLB = label.setText("Assign User to Other PC : ").setFontSize("16").setTextColor("Black").build();
+		pcIdLB = label.setText("Assign to PC :").setFontSize("12").setTextColor("Black").build();
 		pcBookController = new PCBookController();
 		PcsCB = new ComboBox<>();
 		PcsCB.setPromptText(currentPcBook.getPcId());
