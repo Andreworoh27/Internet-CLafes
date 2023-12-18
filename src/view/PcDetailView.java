@@ -17,7 +17,6 @@ public class PcDetailView extends Page implements Content {
 	GridPane banner;
 
 	public PcDetailView(PC computer) {
-		// TODO Auto-generated constructor stub
 		this.computer = computer;
 		initComp();
 		addComp();
@@ -26,7 +25,6 @@ public class PcDetailView extends Page implements Content {
 
 	@Override
 	protected void initComp() {
-		// TODO Auto-generated method stub
 		layout = new BorderPane();
 		pcId = new Label();
 		pcStatus = new Label();
@@ -39,7 +37,6 @@ public class PcDetailView extends Page implements Content {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
 		Image icon = new Image(
 				getClass().getResource("/resource/" + computer.getPcCondition() + ".png").toExternalForm());
 		ImageView imageView = new ImageView(icon);
@@ -56,27 +53,17 @@ public class PcDetailView extends Page implements Content {
 
 	@Override
 	protected void arrangeComp() {
-		// TODO Auto-generated method stub
-		// Add padding to the right side of the BorderPane
 		layout.setPadding(new Insets(0, 20, 0, 0));
-
-		// Set margin for the title label
 		GridPane.setMargin(title, new Insets(180, 0, 20, 0));
-
-		// Set alignment for the center of the BorderPane
 		BorderPane.setAlignment(banner, Pos.CENTER);
 
 	}
 
 	@Override
-	protected void action() {
-		// TODO Auto-generated method stub
-
-	}
+	protected void action() {}
 
 	@Override
 	public BorderPane getContent() {
-		// TODO Auto-generated method stub
 		return layout;
 	}
 

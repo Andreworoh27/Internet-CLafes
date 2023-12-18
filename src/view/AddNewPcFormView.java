@@ -37,7 +37,7 @@ public class AddNewPcFormView extends Page implements Content {
 		pcIdLB = label.setText("Input Pc ID : ").setFontSize("12").setTextColor("Black").build();
 		pageTitleLB = label.setText("Insert New PC : ").setFontSize("16").setTextColor("Black").build();
 		pcIdTF = tf.setPromptText("ex : PC001").build();
-		insertBTN = button.setText("Add New Pc").setColor("Green").setFontSize("12").setFontColor("Black").build();
+		insertBTN = button.setText("Add New Pc").setColor("Green").setFontSize("12").setFontColor("White").build();
 		layout = new BorderPane();
 	}
 

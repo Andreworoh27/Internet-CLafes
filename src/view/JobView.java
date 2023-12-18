@@ -8,9 +8,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,8 +23,10 @@ import models.User;
 public class JobView extends Page {
 
 	Scene viewAllJob;
-	BorderPane layout, tableContainer;
+	BorderPane layout;
 	LayoutView lv;
+	VBox content;
+	Label title;
 	TableView<Job> jobsTB;
 	JobController jobController;
 	Button addJobButton;
@@ -40,24 +42,25 @@ public class JobView extends Page {
 	@Override
 	protected void initComp() {
 		addJobButton = button.setText("Add New Job").setColor("Green").setFontSize("14").setFontColor("White")
-				.setPrefWidth(100).setPadding(10).build();
+				.setPrefWidth(150).setPadding(10).build();
 		jobController = new JobController();
-		tableContainer = new BorderPane();
+		content = new VBox();
 		layout = new BorderPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		viewAllJob = new Scene(layout, 1000, 600);
+		title = label.setText("Manage Job").setFontSize("20").build();
 		jobsTB = new TableView<>();
 		getAllJobs();
 		addJobDataToTable();
-
 	}
 
 	@SuppressWarnings("unchecked")
 	private void addJobDataToTable() {
+		int width = 760 / 5;
 		TableColumn<Job, Integer> jobIdColumn = new TableColumn<>("Job ID");
 		jobIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getjobId()));
-		jobIdColumn.setStyle( "-fx-alignment: CENTER;  -fx-font-size:15px;  ");
+		jobIdColumn.setPrefWidth(width);
 
 		TableColumn<Job, String> userNameColumn = new TableColumn<>("User Name");
 		userNameColumn.setCellValueFactory(cellData -> {
@@ -66,18 +69,15 @@ public class JobView extends Page {
 			User user = userController.getUserDataById(userId);
 			return new SimpleObjectProperty<>(user.getUsername());
 		});
-		userNameColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
-		userNameColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
+		userNameColumn.setPrefWidth(width);
 
 		TableColumn<Job, String> pcIdColumn = new TableColumn<>("PC ID");
 		pcIdColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
-	    pcIdColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
-	    pcIdColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
+	    pcIdColumn.setPrefWidth(width);
 
 		TableColumn<Job, String> jobStatusColumn = new TableColumn<>("Job Status");
 		jobStatusColumn.setCellValueFactory(new PropertyValueFactory<>("jobStatus"));
-	    jobStatusColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
-	    jobStatusColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
+	    jobStatusColumn.setPrefWidth(width);
 
 		TableColumn<Job, Void> updateColumn = new TableColumn<>("Update");
 		updateColumn.setCellFactory(param -> new TableCell<>() {
@@ -101,8 +101,7 @@ public class JobView extends Page {
 				}
 			}
 		});
-		updateColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
-		updateColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
+		updateColumn.setPrefWidth(width);
 
 		jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
 	}
@@ -120,21 +119,15 @@ public class JobView extends Page {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
-		tableContainer.setTop(label.setText("Manage Job").setFontSize("20").build());
-		tableContainer.setCenter(addJobButton);
-		tableContainer.setBottom(jobsTB);
-		layout.setCenter(tableContainer);
+		content.getChildren().addAll(title, addJobButton, jobsTB);
+		layout.setCenter(content);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	protected void arrangeComp() {
-		tableContainer.setPadding(new Insets(10));
-		tableContainer.setAlignment(addJobButton, Pos.CENTER_LEFT);
-//		tableContainer.setMaxHeight(600);
+		content.setPadding(new Insets(20));
+		content.setSpacing(10);
 		jobsTB.setMinHeight(500);
-		// TODO Auto-generated method stub
 	}
 
 	@Override

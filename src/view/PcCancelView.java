@@ -41,7 +41,6 @@ public class PcCancelView extends Page {
 	PCBookController pcBookController;
 	
 	public PcCancelView() {
-		System.out.println("PCCancelView constructor called");
 		initComp();
 		addComp();
 		arrangeComp();
@@ -61,8 +60,6 @@ public class PcCancelView extends Page {
 		dateLB = new Label("Choose Date: ");
 		datePicker = new DatePicker();
 		pcBookController = new PCBookController();
-		// Kalo cancel itu dia bisa dipilih kalau dia belum lewat tanggal
-		// berati kalau dia pilih tanggal -> munculin semua tanggal yang belum lewat
 	}
 
 	@Override
@@ -93,9 +90,6 @@ public class PcCancelView extends Page {
 
 	@SuppressWarnings("unchecked")
 	private void displayPCBook(List<PCBook> pcBook) {
-		for (PCBook pcBook2 : pcBook) {
-			System.out.println(pcBook2.getPcId());
-		}
 		TableColumn<PCBook, Integer> bookIdColumn = new TableColumn<>("Book ID");
 		bookIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookId()));
 
@@ -151,10 +145,8 @@ public class PcCancelView extends Page {
 	protected void arrangeComp() {
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(10);
-
 		setGridPaneAlignment();
 		datePicker.setPrefWidth(250);
-
 	}
 
 	private void setGridPaneAlignment() {
@@ -162,13 +154,15 @@ public class PcCancelView extends Page {
 	}
 
 	@Override
-	protected void action() {
-
-	}
+	protected void action() {}
 
 	private void deleteBookData(PCBook pcBookItem) {
 		PCBookController pcBookController = new PCBookController();
-		Page.displayAlert(AlertType.INFORMATION, pcBookController.deleteBookData(pcBookItem.getBookId()));
+		String msg = pcBookController.deleteBookData(pcBookItem.getBookId());
+		if (msg.equals("Successfully deleted book data"))
+			displayAlert(AlertType.INFORMATION, msg);
+		else 
+			displayAlert(AlertType.ERROR, msg);
 	}
 
 }

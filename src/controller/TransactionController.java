@@ -24,7 +24,6 @@ public class TransactionController {
 	}
 	
 	public void addTransaction(Integer transactionId, List<PCBook> pcBooked, Integer staffId, Date transactionDate) {
-		System.out.println("Staff id Controller" +staffId);
 		Integer generatedTransactionId = th.addNewTransactionHeader(staffId, transactionDate);
 		td.addTransactionDetail(generatedTransactionId, pcBooked);
 	}

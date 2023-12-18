@@ -38,7 +38,7 @@ public class PCBookController {
 			return "PC must be chosen";
 		} else if (pc.getPcCondition().equals("Usable")) {
 			Date todayDate = new Date(System.currentTimeMillis());
-			if (!(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
+			if (bookedDate == null || !(bookedDate.equals(todayDate) || bookedDate.after(todayDate)))
 				return "Date must be chosen between today or after";
 			else if (getPCBookedData(pcId, bookedDate).size() > 0)
 				return "PC is not available to be book on the chosen date";
@@ -61,7 +61,7 @@ public class PCBookController {
 	
 	public List<PCBook> cancelBook(Date date) {
 		if (date.before(new Date(System.currentTimeMillis())))
-			return null;// di depan cek kalau null, berarti date salah "Chosen date must be before today"
+			return null;
 		return getPcBookedByDate(date);
 	}
 	
@@ -91,24 +91,17 @@ public class PCBookController {
 	public String finishBook(Date date) {
 		List<PCBook> bookings = getPcBookedByDate(date);
 		if (bookings.size() == 0) {
-			System.out.println("Masuk di if 1");
 			return "There is no booking on the chosen date";
 		} else {
 			if (date.after(new Date(System.currentTimeMillis()))) {
-				System.out.println("tanggal date: " +date);
-				System.out.println("tanggal new date: " +new Date(System.currentTimeMillis()));
-				System.out.println("Masuk di if 2");
 				return "Chosen date must be before today";
 			} else {
 				for (PCBook booking : bookings) {
-					System.out.println("Masuk di if 3");
 					deleteBookData(booking.getBookId());
 				}
 
 				TransactionController tc = new TransactionController();
-				System.out.println("==== Kalau user.getUserId:" +Page.user.getUserId());
 				tc.addTransaction(0, bookings, Page.user.getUserId(), date);
-				System.out.println("Masuk disini ga");
 			}
 		}
 

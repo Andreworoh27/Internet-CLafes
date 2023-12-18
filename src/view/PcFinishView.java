@@ -41,7 +41,6 @@ public class PcFinishView extends Page {
 	String finishBookDate;
 	
 	public PcFinishView() {
-		System.out.println("PcFinishView constructor called");
 		initComp();
 		addComp();
 		arrangeComp();
@@ -134,7 +133,12 @@ public class PcFinishView extends Page {
 		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
 			pcFinishButton.setOnAction(e -> {
 				try {
-					Page.displayAlert(AlertType.INFORMATION, pcBookController.finishBook(java.sql.Date.valueOf(newDate)));
+					String msg = pcBookController.finishBook(java.sql.Date.valueOf(newDate));
+					if (msg.equals("Successfully finish booking")) {
+						displayAlert(AlertType.INFORMATION, msg);
+					} else {
+						displayAlert(AlertType.ERROR, msg);
+					}
 					pcBookTableView = new TableView<>();
 					ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
 					pcBook = pcBookController.finishBookCheck(java.sql.Date.valueOf(newDate));

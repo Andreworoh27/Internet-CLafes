@@ -22,6 +22,7 @@ import models.PC;
 import models.PCBook;
 
 public class PcBookView extends Page {
+	
 	Scene viewPCBook;
 	BorderPane layout;
 	GridPane gridContainer;

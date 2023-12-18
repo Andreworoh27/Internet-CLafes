@@ -7,6 +7,7 @@ import controller.PCBookController;
 import controller.PCController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import models.PC;
 import models.PCBook;
 
 public class AssignUserToOtherPCView extends Page implements Content {
+	
 	BorderPane layout;
 	GridPane formContainer;
 	Label userIdLB, pageTitleLB, errorMessageLB, pcIdLB, bookIdLB;
@@ -29,7 +31,6 @@ public class AssignUserToOtherPCView extends Page implements Content {
 	PCController pcController;
 
 	public AssignUserToOtherPCView(PCBook currentPcBook, PcBookView pcBookView) {
-		// TODO Auto-generated constructor stub
 		this.pcBookView = pcBookView;
 		this.currentPcBook = currentPcBook;
 		initComp();
@@ -40,13 +41,11 @@ public class AssignUserToOtherPCView extends Page implements Content {
 
 	@Override
 	public BorderPane getContent() {
-		// TODO Auto-generated method stub
 		return layout;
 	}
 
 	@Override
 	protected void initComp() {
-		// TODO Auto-generated method stub
 		layout = new BorderPane();
 		formContainer = new GridPane();
 		pcController = new PCController();
@@ -70,7 +69,6 @@ public class AssignUserToOtherPCView extends Page implements Content {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
 		layout.setCenter(formContainer);
 		formContainer.add(pageTitleLB, 0, 1);
 		formContainer.add(bookIdLB, 0, 2);
@@ -83,19 +81,9 @@ public class AssignUserToOtherPCView extends Page implements Content {
 
 	@Override
 	protected void arrangeComp() {
-		// TODO Auto-generated method stub
 		layout.setPadding(new Insets(10, 20, 10, 10));
-
-		// Center the formContainer in the middle of the screen
 		BorderPane.setAlignment(formContainer, Pos.CENTER);
-
-		// Set top margin for pcConditionCB
-//		GridPane.setMargin(pcConditionCB, new Insets(10, 0, 20, 0));
-
-		// Set padding for the formContainer
 		formContainer.setPadding(new Insets(10));
-
-		// Add right border
 		layout.setBorder(new Border(new javafx.scene.layout.BorderStroke(javafx.scene.paint.Color.BLACK,
 				javafx.scene.layout.BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 				new javafx.scene.layout.BorderWidths(1, 1, 0, 1))));
@@ -103,14 +91,13 @@ public class AssignUserToOtherPCView extends Page implements Content {
 
 	@Override
 	protected void action() {
-		// TODO Auto-generated method stub
 		assignBTN.setOnMouseClicked(e -> {
 			String errMsg = pcBookController.assignUsertoNewPc(currentPcBook.getBookId(), PcsCB.getValue().toString());
 			if (errMsg.equals("Successfully assigned user to a new PC")) {
-				errorMessageLB = label.setText(errMsg).setTextColor("Green").setFontSize("12").build();
+				displayAlert(AlertType.INFORMATION, errMsg);
 				pcBookView.refreshBookData();
 			} else {
-				errorMessageLB = label.setText(errMsg).setTextColor("Red").build();
+				displayAlert(AlertType.ERROR, errMsg);
 			}
 		});
 	}

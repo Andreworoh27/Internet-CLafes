@@ -82,7 +82,11 @@ public class ReportPCFormView extends Page implements Content{
 	@Override
 	protected void action() {
 		reportButton.setOnMouseClicked(e -> {
-			displayAlert(AlertType.INFORMATION,rc.addNewReport(user.getUserRole(), computer.getPcId(), reportTF.getText().toString()));
+			String msg = rc.addNewReport(user.getUserRole(), computer.getPcId(), reportTF.getText().toString());
+			if (msg.equals("Successfully added a new report"))
+				displayAlert(AlertType.INFORMATION, msg);
+			else
+				displayAlert(AlertType.ERROR, msg);
 		});
 		
 	}
