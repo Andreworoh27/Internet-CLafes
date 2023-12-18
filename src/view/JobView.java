@@ -7,6 +7,8 @@ import controller.UserController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -14,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import models.Job;
 import models.User;
 
@@ -45,6 +48,7 @@ public class JobView extends Page {
 		layout = new BorderPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
+		viewAllJob = new Scene(layout, 1000, 600);
 		jobsTB = new TableView<>();
 		getAllJobs();
 		addJobDataToTable();
@@ -119,13 +123,19 @@ public class JobView extends Page {
 	@Override
 	protected void addComp() {
 		// TODO Auto-generated method stub
-		tableContainer.setCenter(jobsTB);
-		tableContainer.setTop(addJobButton);
+		tableContainer.setTop(label.setText("Manage Job").setFontSize("20").build());
+		tableContainer.setCenter(addJobButton);
+		tableContainer.setBottom(jobsTB);
 		layout.setCenter(tableContainer);
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	protected void arrangeComp() {
+		tableContainer.setPadding(new Insets(10));
+		tableContainer.setAlignment(addJobButton, Pos.CENTER_LEFT);
+//		tableContainer.setMaxHeight(600);
+		jobsTB.setMinHeight(500);
 		// TODO Auto-generated method stub
 	}
 
