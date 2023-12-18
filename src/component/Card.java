@@ -4,6 +4,7 @@ import controller.PCBookController;
 import controller.PCController;
 import controller.ReportController;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -88,7 +89,11 @@ public class Card {
 		});
 
 		delete.setOnAction(e -> {
-			pcc.deletePC(pc.getPcId());
+			String msg = pcc.deletePC(pc.getPcId());
+			if (msg.equals("Successfully delete PC"))
+				Page.displayAlert(AlertType.INFORMATION, msg);
+			else
+				Page.displayAlert(AlertType.ERROR, msg);
 			new PCView();
 		});
 

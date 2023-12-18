@@ -125,6 +125,7 @@ public class PCView extends Page {
 		pcContainer.setHgap(10);
 		pcContainer.setPrefWrapLength(viewPC.getWidth() - 240);
 		bookContainer.setHgap(10);
+		bookContainer.setVgap(10);
 		scrollContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 	}

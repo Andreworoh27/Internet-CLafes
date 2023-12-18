@@ -7,6 +7,7 @@ import controller.PCBookController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +19,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import models.PC;
 import models.PCBook;
 
 public class PcBookView extends Page {
@@ -28,11 +28,10 @@ public class PcBookView extends Page {
 	GridPane gridContainer;
 	Label testLB, titleLabel;
 	LayoutView lv;
-	PC pc;
+	VBox content;
 	FlowPane pcContainer;
 	Button PcBookViewButton;
 	TableView<PCBook> pcBookTableView;
-	VBox vBox;
 
 	public PcBookView() {
 		initComp();
@@ -49,33 +48,37 @@ public class PcBookView extends Page {
 		layout = lv.getLayout();
 		gridContainer = new GridPane();
 		pcBookTableView = new TableView<>();
-		viewPCBook = new Scene(layout, 900, 600);
-		titleLabel = new Label("VIEW PC BOOK");
-		vBox = new VBox();
+		viewPCBook = new Scene(layout, 1000, 600);
+		titleLabel = label.setText("PC Book Data").setFontSize("20").build();
+		content = new VBox();
 	}
 
 	@Override
 	protected void addComp() {
-		layout.setCenter(gridContainer);
-		vBox.getChildren().addAll(titleLabel, pcBookTableView);
-		manageGridContainer(vBox);
+		layout.setCenter(content);
+		content.getChildren().addAll(titleLabel, pcBookTableView);
 		displayPCBook();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void displayPCBook() {
+		int width = 760 / 5;
+		
 		TableColumn<PCBook, Integer> bookIdColumn = new TableColumn<>("Book ID");
 		bookIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookId()));
-
+		bookIdColumn.setPrefWidth(width);
+		
 		TableColumn<PCBook, String> pcIdColumn = new TableColumn<>("PC ID");
 		pcIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPcId()));
-
+		pcIdColumn.setPrefWidth(width);
+		
 		TableColumn<PCBook, Integer> userIdColumn = new TableColumn<>("User ID");
 		userIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUserId()));
-
+		userIdColumn.setPrefWidth(width);
+		
 		TableColumn<PCBook, Date> pcBookDateColumn = new TableColumn<>("Book Date");
 		pcBookDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookDate()));
-
+		pcBookDateColumn.setPrefWidth(width);
+		
 		TableColumn<PCBook, Void> assignColumn = new TableColumn<>("Assign To Other Pc");
 		assignColumn.setCellFactory(param -> new TableCell<>() {
 			private final Button updateButton = new Button("Assign User");
@@ -98,12 +101,9 @@ public class PcBookView extends Page {
 				}
 			}
 		});
+		assignColumn.setPrefWidth(width);
 
 		pcBookTableView.getColumns().addAll(bookIdColumn, pcIdColumn, userIdColumn, pcBookDateColumn, assignColumn);
-	}
-
-	private void manageGridContainer(VBox vBox) {
-		gridContainer.add(vBox, 0, 1, 2, 1);
 	}
 
 	public void refreshBookData() {
@@ -113,8 +113,8 @@ public class PcBookView extends Page {
 
 	@Override
 	protected void arrangeComp() {
-		gridContainer.setAlignment(Pos.CENTER);
-		titleLabel.setStyle("-fx-font-size: 50px; -fx-font-weight: bold;-fx-alignment: center;");
+		content.setSpacing(10);
+		content.setPadding(new Insets(20));
 	}
 
 	@Override
@@ -128,4 +128,5 @@ public class PcBookView extends Page {
 		ObservableList<PCBook> data = FXCollections.observableArrayList(pcBook);
 		pcBookTableView.setItems(data);
 	}
+	
 }
