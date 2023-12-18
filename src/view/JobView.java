@@ -45,7 +45,6 @@ public class JobView extends Page {
 		layout = new BorderPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
-		viewAllJob = new Scene(layout, 900, 600);
 		jobsTB = new TableView<>();
 		getAllJobs();
 		addJobDataToTable();
@@ -56,6 +55,7 @@ public class JobView extends Page {
 	private void addJobDataToTable() {
 		TableColumn<Job, Integer> jobIdColumn = new TableColumn<>("Job ID");
 		jobIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getjobId()));
+		jobIdColumn.setStyle( "-fx-alignment: CENTER;  -fx-font-size:15px;  ");
 
 		TableColumn<Job, String> userNameColumn = new TableColumn<>("User Name");
 		userNameColumn.setCellValueFactory(cellData -> {
@@ -64,12 +64,18 @@ public class JobView extends Page {
 			User user = userController.getUserDataById(userId);
 			return new SimpleObjectProperty<>(user.getUsername());
 		});
+		userNameColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
+		userNameColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
 
 		TableColumn<Job, String> pcIdColumn = new TableColumn<>("PC ID");
 		pcIdColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
+	    pcIdColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
+	    pcIdColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
 
 		TableColumn<Job, String> jobStatusColumn = new TableColumn<>("Job Status");
 		jobStatusColumn.setCellValueFactory(new PropertyValueFactory<>("jobStatus"));
+	    jobStatusColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
+	    jobStatusColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
 
 		TableColumn<Job, Void> updateColumn = new TableColumn<>("Update");
 		updateColumn.setCellFactory(param -> new TableCell<>() {
@@ -93,6 +99,8 @@ public class JobView extends Page {
 				}
 			}
 		});
+		updateColumn.prefWidthProperty().bind(jobsTB.widthProperty().multiply(0.24));
+		updateColumn.setStyle( "-fx-alignment: CENTER; -fx-font-size:15px;  ");
 
 		jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
 	}
