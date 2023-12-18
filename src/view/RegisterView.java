@@ -1,14 +1,14 @@
 package view;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -38,19 +38,24 @@ public class RegisterView extends Page{
 		borderContainer = new BorderPane();
 		gridContainer = new GridPane();
 		
-		registerLB = new Label("Register");
-		usernameLB = new Label("Username :");
-		passwordLB = new Label("Password :");
+		registerLB = label.setText("Register").setFontSize("20").build();
+		usernameLB = label.setText("Username:").build();
+		passwordLB = label.setText("Password:").build();
+		confirmLB = label.setText("Confirm Password:").build();
+		ageLB = label.setText("Age:").build();
 		errorLB = label.setText("").setTextColor("Red").build();
-		confirmLB = new Label("Confirm Password :");
-		ageLB = new Label("Age :");
+		
 		usernameTF = new TextField();
 		passwordPF = new PasswordField();
 		confirmPF = new PasswordField();
 		ageTF = new TextField();
 		
-		registerBTN = new Button("Register");
-		gotoLoginBTN = new Button("Already have an account ?\n               Login here !");
+		registerBTN = button.setText("Register").setFontSize("15").build();
+		gotoLoginBTN = button.setText("Login Here!")
+							.setColor("transparent")
+							.setFontColor("Black")
+							.setFontSize("12")
+							.build();
 		
 		register = new Scene(borderContainer, 1000, 600);
 	}
@@ -80,7 +85,7 @@ public class RegisterView extends Page{
 	protected void arrangeComp() {
 		BorderPane.setAlignment(gridContainer, Pos.CENTER);
 		gridContainer.setAlignment(Pos.CENTER);
-		gridContainer.setVgap(5);
+		gridContainer.setVgap(10);
 		
 		setGridPaneAlignment();
 		
@@ -88,8 +93,7 @@ public class RegisterView extends Page{
 		passwordPF.setPrefWidth(250);
 		Font font = Font.font("Open Sans", 25);
 		registerLB.setFont(font);
-		
-		gotoLoginBTN.setStyle("-fx-background-color: transparent;");
+		registerLB.setPadding(new Insets(20));
 	}
 
 	private void setGridPaneAlignment() {
@@ -116,19 +120,20 @@ public class RegisterView extends Page{
 			try {
 			    Integer age = Integer.parseInt(ageText);
 			    String status = uc.register(username, password, confirmPassword, age);
-			    if(status.equals("")) {
+			    if(status.equals("Successfully add a new user")) {
+			    	displayAlert(AlertType.INFORMATION, status);
 			    	new LoginView();
-			    }else {
-			    	errorLB.setText(status);
+			    } else {
+			    	displayAlert(AlertType.ERROR, status);
 			    }
 			} catch (NumberFormatException e1) {
-				errorLB.setText("Age must be between 13 and 65");
+				displayAlert(AlertType.ERROR, "Age must be numeric");
 			}
-			
 		});
 		
 		gotoLoginBTN.setOnAction(e -> {
 			new LoginView();
 		});
 	}
+	
 }
