@@ -44,7 +44,7 @@ public class StaffTransactionHistoryView extends Page {
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		content = new BorderPane();
-		title = new Label("Transaction Header Data");
+		title = label.setText("Transaction Header Data").setFontSize("20").build();
 		detailTitle = new Label();
 		headerBox = new VBox();
 		detailBox = new VBox();
@@ -67,6 +67,7 @@ public class StaffTransactionHistoryView extends Page {
 		headerBox.setSpacing(10);
 		detailBox.setSpacing(10);
 		BorderPane.setMargin(detailBox, new Insets(20, 0, 0, 0));
+		content.setPadding(new Insets(20));
 	}
 
 	@Override
@@ -82,22 +83,23 @@ public class StaffTransactionHistoryView extends Page {
 	}
 	
 	private void buildHeaderTable() {
+		int width = 760 / 4;
 		transHeaderTable = new TableView<TransactionHeader>();
 		TableColumn<TransactionHeader, Integer> transactionIdCol = new TableColumn<>("Transaction ID");
 		transactionIdCol.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
-		transactionIdCol.setPrefWidth(200);
+		transactionIdCol.setPrefWidth(width);
 		
 		TableColumn<TransactionHeader, Integer> staffIdCol = new TableColumn<>("Staff ID");
 		staffIdCol.setCellValueFactory(new PropertyValueFactory<>("staffId"));
-		staffIdCol.setPrefWidth(200);
+		staffIdCol.setPrefWidth(width);
 
 		TableColumn<TransactionHeader, String> staffNameCol = new TableColumn<>("Staff Name");
 		staffNameCol.setCellValueFactory(new PropertyValueFactory<>("staffName"));
-		staffNameCol.setPrefWidth(200);
+		staffNameCol.setPrefWidth(width);
 		
 		TableColumn<TransactionHeader, Date> transactionDateCol = new TableColumn<>("Transaction Date");
 		transactionDateCol.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
-		transactionDateCol.setPrefWidth(200);
+		transactionDateCol.setPrefWidth(width);
 		
 		transHeaderTable.getColumns().addAll(transactionIdCol, staffIdCol, staffNameCol, transactionDateCol);
 	}
@@ -109,26 +111,28 @@ public class StaffTransactionHistoryView extends Page {
 	}
 	
 	private void buildDetailTable() {
+		int width = 760 / 5;
+		
 		transDetailTable = new TableView<TransactionDetail>();
 		TableColumn<TransactionDetail, Integer> transactionIdCol = new TableColumn<>("Transaction ID");
 		transactionIdCol.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
-		transactionIdCol.setPrefWidth(160);
+		transactionIdCol.setPrefWidth(width);
 
 		TableColumn<TransactionDetail, String> pcIdCol = new TableColumn<>("PC ID");
 		pcIdCol.setCellValueFactory(new PropertyValueFactory<>("pcId"));
-		pcIdCol.setPrefWidth(160);
+		pcIdCol.setPrefWidth(width);
 		
 		TableColumn<TransactionDetail, Integer> customerIdCol = new TableColumn<>("Customer ID");
 		customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-		customerIdCol.setPrefWidth(160);
+		customerIdCol.setPrefWidth(width);
 
 		TableColumn<TransactionDetail, String> customerNameCol = new TableColumn<>("Customer Name");
 		customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-		customerNameCol.setPrefWidth(160);
+		customerNameCol.setPrefWidth(width);
 		
 		TableColumn<TransactionDetail, Date> bookTimeCol = new TableColumn<>("Booked Time");
 		bookTimeCol.setCellValueFactory(new PropertyValueFactory<>("bookedTime"));
-		bookTimeCol.setPrefWidth(160);
+		bookTimeCol.setPrefWidth(width);
 		
 		transDetailTable.getColumns().addAll(transactionIdCol, pcIdCol, customerIdCol, customerNameCol, bookTimeCol);
 	}

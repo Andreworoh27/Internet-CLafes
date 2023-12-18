@@ -6,24 +6,32 @@ import controller.UserController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import models.User;
 
 public class StaffView extends Page {
+	
 	Scene viewAllStaff;
-	BorderPane layout, tableContainer;
+	
+	BorderPane layout;
 	LayoutView lv;
+	VBox content;
+	
+	Label title;
 	TableView<User> staffsTB;
+	
 	UserController userController;
 
 	public StaffView() {
-		// TODO Auto-generated constructor stub
 		initComp();
 		addComp();
 		arrangeComp();
@@ -33,32 +41,38 @@ public class StaffView extends Page {
 
 	@Override
 	protected void initComp() {
-		// TODO Auto-generated method stub
-		tableContainer = new BorderPane();
 		layout = new BorderPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
-		viewAllStaff = new Scene(layout, 900, 600);
+		content = new VBox();
+		
+		viewAllStaff = new Scene(layout, 1000, 600);
+		
+		title = label.setText("Staff Data").setFontSize("20").build();
 		staffsTB = new TableView<>();
 		userController = new UserController();
 		getAllStaff();
 		addJobDataToTable();
-
 	}
 
 	@SuppressWarnings("unchecked")
 	private void addJobDataToTable() {
+		int width = 760 / 5;
 		TableColumn<User, Integer> jobIdColumn = new TableColumn<>("Staff ID");
 		jobIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUserId()));
-
+		jobIdColumn.setPrefWidth(width);
+		
 		TableColumn<User, String> userNameColumn = new TableColumn<>("User Name");
 		userNameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+		userNameColumn.setPrefWidth(width);
 
 		TableColumn<User, String> pcIdColumn = new TableColumn<>("Staff Age");
 		pcIdColumn.setCellValueFactory(new PropertyValueFactory<>("userAge"));
-
+		pcIdColumn.setPrefWidth(width);
+		
 		TableColumn<User, String> jobStatusColumn = new TableColumn<>("Staff Role");
 		jobStatusColumn.setCellValueFactory(new PropertyValueFactory<>("userRole"));
+		jobStatusColumn.setPrefWidth(width);
 
 		TableColumn<User, Void> updateColumn = new TableColumn<>("Update");
 		updateColumn.setCellFactory(param -> new TableCell<>() {
@@ -82,6 +96,7 @@ public class StaffView extends Page {
 				}
 			}
 		});
+		updateColumn.setPrefWidth(width);
 
 		staffsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
 	}
@@ -99,18 +114,17 @@ public class StaffView extends Page {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
-		tableContainer.setCenter(staffsTB);
-		layout.setCenter(tableContainer);
+		content.getChildren().addAll(title, staffsTB);
+		layout.setCenter(content);
 	}
 
 	@Override
 	protected void arrangeComp() {
-		// TODO Auto-generated method stub
+		content.setSpacing(10);
+		content.setPadding(new Insets(20));
 	}
 
 	@Override
-	protected void action() {
-		// TODO Auto-generated method stub
-	}
+	protected void action() {}
+	
 }
