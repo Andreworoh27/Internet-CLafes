@@ -117,12 +117,13 @@ public class PCView extends Page {
 	@Override
 	protected void arrangeComp() {
 		BorderPane.setAlignment(scrollContainer, Pos.CENTER);
+		scrollContainer.setFitToWidth(true);
 		gridContainer.setPadding(new Insets(20));
 		gridContainer.setAlignment(Pos.CENTER);
 		gridContainer.setVgap(10);
 		pcContainer.setVgap(10);
 		pcContainer.setHgap(10);
-		pcContainer.setPrefWidth(viewPC.getWidth() - 240);
+		pcContainer.setPrefWrapLength(viewPC.getWidth() - 240);
 		bookContainer.setHgap(10);
 		scrollContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);

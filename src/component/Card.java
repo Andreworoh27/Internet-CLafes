@@ -62,6 +62,8 @@ public class Card {
 
 		if (Page.user.getUserRole().equals("Customer"))
 			buttonPlaceholder.getChildren().addAll(book, report);
+		if (Page.user.getUserRole().equals("Operator"))
+			buttonPlaceholder.getChildren().addAll(report);
 		if (Page.user.getUserRole().equals("Admin"))
 			buttonPlaceholder.getChildren().addAll(update, delete);
 
