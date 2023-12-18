@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import models.PC;
 
 public class PCView extends Page {
+	
 	Scene viewPC;
 	BorderPane layout;
 	GridPane gridContainer;
@@ -49,7 +50,6 @@ public class PCView extends Page {
 				.setPrefWidth(100).setPadding(10).build();
 		pcBookViewButton = button.setText("View All Book").setFontSize("14").setFontColor("White").setPadding(5)
 				.setPrefWidth(100).setPadding(10).build();
-		
 	}
 
 	@Override
@@ -79,9 +79,7 @@ public class PCView extends Page {
 	}
 
 	public void refreshPCContainer() {
-		pcContainer.getChildren().clear(); // Clear existing children
-
-		// Add new PCs to pcContainer
+		pcContainer.getChildren().clear();
 		addAllPc();
 	}
 
@@ -101,8 +99,7 @@ public class PCView extends Page {
 		pcContainer.setVgap(10);
 		pcContainer.setHgap(10);
 		pcContainer.setPrefWidth(viewPC.getWidth());
-		pcContainer.setPadding(new Insets(10));// Set margin to the right of the "Add New PC" button
-
+		pcContainer.setPadding(new Insets(10));
 	}
 
 	private void setGridPaneAlignment() {
@@ -120,7 +117,6 @@ public class PCView extends Page {
 
 	@Override
 	protected void action() {
-		// TODO Auto-generated method stub
 		addPcButton.setOnMouseClicked(e -> {
 			AddNewPcFormView newPcFormView = new AddNewPcFormView(this);
 			layout.setRight(newPcFormView.getContent());
@@ -136,6 +132,7 @@ public class PCView extends Page {
 				}
 			});
 		}
+		
 		if (pcCancelViewButton != null) {
 			pcCancelViewButton.setOnAction(e -> {
 				try {
@@ -145,6 +142,7 @@ public class PCView extends Page {
 				}
 			});
 		}
+		
 		if (pcFinishViewButton != null) {
 			pcFinishViewButton.setOnAction(e -> {
 				try {
@@ -154,6 +152,6 @@ public class PCView extends Page {
 				}
 			});
 		}
-
 	}
+	
 }

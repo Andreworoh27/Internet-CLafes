@@ -12,6 +12,7 @@ import view.StaffTransactionHistoryView;
 import view.StaffView;
 
 public class NavigationBar {
+	
 	VBox sideBar;
 	ButtonBuilder button;
 
@@ -61,4 +62,5 @@ public class NavigationBar {
 		}
 		return sideBar;
 	}
+	
 }

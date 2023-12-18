@@ -25,13 +25,13 @@ public class LayoutView extends Page implements Layout {
 			String[] menu = { "home", "job", "transaction", "report", "staff", "logout" };
 			nav = menu.clone();
 		} else if (user.getUserRole().equalsIgnoreCase("Customer")) {
-			String[] menu = { "home", "transaction", "report", "logout" };
+			String[] menu = { "home", "transaction", "logout" };
 			nav = menu.clone();
 		} else if (user.getUserRole().equalsIgnoreCase("Operator")) {
 			String[] menu = { "home", "job", "logout" };
 			nav = menu.clone();
 		} else if (user.getUserRole().equalsIgnoreCase("Computer Technician")) {
-			String[] menu = { "job", "logout" };
+			String[] menu = { "home", "job", "logout" };
 			nav = menu.clone();
 		}
 

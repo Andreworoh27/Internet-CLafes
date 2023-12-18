@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 
 public class LabelBuilder {
+	
     private Label label;
     private String text = "Label";
     private String textColor = "black";
