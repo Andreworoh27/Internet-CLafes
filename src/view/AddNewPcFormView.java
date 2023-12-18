@@ -16,7 +16,7 @@ public class AddNewPcFormView extends Page implements Content {
 	
 	BorderPane layout;
 	GridPane formContainer;
-	Label pcIdLB, pageTitleLB, errorMessageLB;
+	Label pcIdLB, pageTitleLB;
 	TextField pcIdTF;
 	Button insertBTN;
 	PCController pcController;
@@ -37,7 +37,6 @@ public class AddNewPcFormView extends Page implements Content {
 		pcIdLB = label.setText("Input Pc ID : ").setFontSize("12").setTextColor("Black").build();
 		pageTitleLB = label.setText("Insert New PC : ").setFontSize("16").setTextColor("Black").build();
 		pcIdTF = tf.setPromptText("ex : PC001").build();
-		errorMessageLB = label.setText("").setTextColor("Red").build();
 		insertBTN = button.setText("Add New Pc").setColor("Green").setFontSize("12").setFontColor("Black").build();
 		layout = new BorderPane();
 	}
@@ -49,23 +48,14 @@ public class AddNewPcFormView extends Page implements Content {
 		formContainer.add(pcIdLB, 0, 1);
 		formContainer.add(pcIdTF, 0, 2);
 		formContainer.add(insertBTN, 0, 4);
-		formContainer.add(errorMessageLB, 0, 3);
 	}
 
 	@Override
 	protected void arrangeComp() {
 		layout.setPadding(new Insets(10, 20, 10, 10));
-
-		// Center the formContainer in the middle of the screen
 		BorderPane.setAlignment(formContainer, Pos.CENTER);
-
-		// Set top margin for pcIdTF
 		GridPane.setMargin(pcIdTF, new Insets(10, 0, 20, 0));
-
-		// Set padding for the formContainer
 		formContainer.setPadding(new Insets(10));
-
-		// Add right border
 		layout.setBorder(new Border(new javafx.scene.layout.BorderStroke(javafx.scene.paint.Color.BLACK,
 				javafx.scene.layout.BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 				new javafx.scene.layout.BorderWidths(1, 1, 0, 1))));
