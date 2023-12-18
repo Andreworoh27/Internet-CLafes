@@ -1,11 +1,11 @@
 package view;
 
-import javafx.geometry.HPos;
+import controller.PCController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -14,16 +14,19 @@ import models.PC;
 public class PCView extends Page {
 	
 	Scene viewPC;
+	
+	LayoutView lv;
 	BorderPane layout;
 	GridPane gridContainer;
-	Label testLB;
-	LayoutView lv;
-	PC pc;
-	FlowPane pcContainer;
+	ScrollPane scrollContainer;
+	FlowPane pcContainer, bookContainer;
+	
 	Button addPcButton;
 	Button pcBookViewButton;
 	Button pcCancelViewButton;
 	Button pcFinishViewButton;
+	
+	PCController pcc;
 
 	public PCView() {
 		initComp();
@@ -35,42 +38,62 @@ public class PCView extends Page {
 
 	@Override
 	protected void initComp() {
-		testLB = new Label("Masuk");
+		pcc = new PCController();
 		gridContainer = new GridPane();
+		scrollContainer = new ScrollPane();
 		pcContainer = new FlowPane();
-		pc = new PC();
+		bookContainer = new FlowPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		viewPC = new Scene(layout, 900, 600);
-		addPcButton = button.setText("Add New Pc").setColor("Green").setFontSize("14").setFontColor("White")
-				.setPadding(5).setPrefWidth(100).setPadding(10).build();
-		pcFinishViewButton = button.setText("Finish").setFontSize("14").setFontColor("White").setPadding(5)
-				.setPrefWidth(100).setPadding(10).build();
-		pcCancelViewButton = button.setText("Cancel").setFontSize("14").setFontColor("White").setPadding(5)
-				.setPrefWidth(100).setPadding(10).build();
-		pcBookViewButton = button.setText("View All Book").setFontSize("14").setFontColor("White").setPadding(5)
-				.setPrefWidth(100).setPadding(10).build();
+		
+		addPcButton = button.setText("Add New Pc")
+							.setColor("Green")
+							.setFontSize("14")
+							.setFontColor("White")
+							.setPrefWidth(100)
+							.setPadding(10)
+							.build();
+		
+		pcFinishViewButton = button.setText("Finish Book")
+								   .setColor("Green")
+								   .setFontSize("14")
+								   .setFontColor("White")
+								   .setPrefWidth(150)
+								   .setPadding(10)
+								   .build();
+		
+		pcCancelViewButton = button.setText("Cancel Book")
+								   .setColor("Green")
+								   .setFontSize("14")
+								   .setFontColor("White")
+								   .setPrefWidth(150)
+								   .setPadding(10)
+								   .build();
+		
+		pcBookViewButton = button.setText("View All Book")
+								 .setColor("Green")
+							     .setFontSize("14")
+							     .setFontColor("White")
+							     .setPrefWidth(150)
+							     .setPadding(10)
+							     .build();
 	}
 
 	@Override
 	protected void addComp() {
-		layout.setCenter(gridContainer);
+		layout.setCenter(scrollContainer);
+		scrollContainer.setContent(gridContainer);
 		addGridContainer();
-
-		if (Page.user != null && Page.user.getUserRole().equals("Operator")) {
-			addContainerForOperator();
-		}
-	}
-
-	private void addContainerForOperator() {
-		gridContainer.add(pcBookViewButton, 0, 15);
-		gridContainer.add(pcCancelViewButton, 0, 16);
-		gridContainer.add(pcFinishViewButton, 0, 17);
+		bookContainer.getChildren().addAll(pcBookViewButton, pcCancelViewButton, pcFinishViewButton);
 	}
 
 	private void addGridContainer() {
 		if (user.getUserRole().equals("Admin")) {
 			gridContainer.add(addPcButton, 0, 0);
+			gridContainer.add(pcContainer, 0, 1);
+		} else if (user.getUserRole().equals("Operator")) {
+			gridContainer.add(bookContainer, 0, 0);
 			gridContainer.add(pcContainer, 0, 1);
 		} else {
 			gridContainer.add(pcContainer, 0, 0);
@@ -84,7 +107,7 @@ public class PCView extends Page {
 	}
 
 	private void addAllPc() {
-		for (PC computer : pc.getAllPCData()) {
+		for (PC computer : pcc.getAllPCData()) {
 			GridPane newComputer = card.generateCard(computer, layout, this);
 			newComputer.setOnMouseClicked(event -> handleCardOnClickEvent(computer));
 			pcContainer.getChildren().add(newComputer);
@@ -93,17 +116,16 @@ public class PCView extends Page {
 
 	@Override
 	protected void arrangeComp() {
-		BorderPane.setAlignment(gridContainer, Pos.CENTER);
+		BorderPane.setAlignment(scrollContainer, Pos.CENTER);
+		gridContainer.setPadding(new Insets(20));
 		gridContainer.setAlignment(Pos.CENTER);
-		gridContainer.setVgap(5);
+		gridContainer.setVgap(10);
 		pcContainer.setVgap(10);
 		pcContainer.setHgap(10);
-		pcContainer.setPrefWidth(viewPC.getWidth());
-		pcContainer.setPadding(new Insets(10));
-	}
-
-	private void setGridPaneAlignment() {
-		GridPane.setHalignment(testLB, HPos.CENTER);
+		pcContainer.setPrefWidth(viewPC.getWidth() - 240);
+		bookContainer.setHgap(10);
+		scrollContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 	}
 
 	private void handleCardOnClickEvent(PC computer) {
@@ -125,7 +147,6 @@ public class PCView extends Page {
 		if (pcBookViewButton != null) {
 			pcBookViewButton.setOnAction(e -> {
 				try {
-					System.out.println("Button masuk");
 					new PcBookView();
 				} catch (Exception ex) {
 					ex.printStackTrace();
