@@ -29,7 +29,6 @@ public class ReportView extends Page {
 	TableView<Report> reportTable;
 	
 	ReportController rc;
-	LabelBuilder lb;
 	
 	public ReportView() {
 		initComp();
@@ -45,8 +44,7 @@ public class ReportView extends Page {
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		content = new VBox();
-		lb = new LabelBuilder();
-		title = lb.setText("PC Report").setFontSize("20").build();
+		title = label.setText("PC Report").setFontSize("20").build();
 		reportTable = new TableView<Report>();
 		buildReportTable();
 		reportScene = new Scene(layout, 1000, 600);

@@ -27,7 +27,6 @@ public class JobView extends Page {
 	Button addJobButton;
 
 	public JobView() {
-		// TODO Auto-generated constructor stub
 		initComp();
 		addComp();
 		arrangeComp();
@@ -37,7 +36,6 @@ public class JobView extends Page {
 
 	@Override
 	protected void initComp() {
-		// TODO Auto-generated method stub
 		addJobButton = button.setText("Add New Job").setColor("Green").setFontSize("14").setFontColor("White")
 				.setPrefWidth(100).setPadding(10).build();
 		jobController = new JobController();
@@ -118,7 +116,6 @@ public class JobView extends Page {
 
 	@Override
 	protected void addComp() {
-		// TODO Auto-generated method stub
 		tableContainer.setCenter(jobsTB);
 		tableContainer.setTop(addJobButton);
 		layout.setCenter(tableContainer);
@@ -131,7 +128,6 @@ public class JobView extends Page {
 
 	@Override
 	protected void action() {
-		// TODO Auto-generated method stub
 		addJobButton.setOnMouseClicked(e -> {
 			AddNewJobFormView newJobFormView = new AddNewJobFormView(this);
 			layout.setRight(newJobFormView.getContent());
