@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -38,27 +39,32 @@ public class LoginView extends Page {
 	protected void initComp() {
 		borderContainer = new BorderPane();
 		gridContainer = new GridPane();
+		
 		loginLB = label.setText("Login").setFontSize("20").build();
 		usernameLB = label.setText("Username :").build();
 		passwordLB = label.setText("Password :").build();
 		errorLB = label.setText("").setTextColor("Red").build();
-		gotoRegisterBTN = button.setText("Register Here!").setColor("transparent").setFontColor("Black")
-				.setFontSize("12").build();
+		
 		usernameTF = tf.build();
 		passwordPF = new PasswordField();
-
+		
 		loginBTN = button.setText("Login").setFontSize("15").build();
-
+		gotoRegisterBTN = button.setText("Register Here!")
+								.setColor("transparent")
+								.setFontColor("Black")
+								.setFontSize("12")
+								.build();
+		
 		login = new Scene(borderContainer, 1000, 600);
 	}
 
 	@Override
 	protected void addComp() {
 		borderContainer.setCenter(gridContainer);
-		manageGridContainer();
+		addGridContainer();
 	}
 
-	private void manageGridContainer() {
+	private void addGridContainer() {
 		gridContainer.add(loginLB, 0, 0);
 		gridContainer.add(usernameLB, 0, 1);
 		gridContainer.add(usernameTF, 0, 2);
@@ -100,12 +106,11 @@ public class LoginView extends Page {
 		loginBTN.setOnAction(e -> {
 			String username = usernameTF.getText();
 			String password = passwordPF.getText();
-
 			String status = uc.login(username, password);
 			if (status.equals("Successfully logged in")) {
 				new PCView();
 			} else {
-				errorLB.setText(status);
+				displayAlert(AlertType.ERROR, status);
 			}
 		});
 

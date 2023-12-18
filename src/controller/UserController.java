@@ -48,7 +48,7 @@ public class UserController {
 	public String changeUserRole(Integer userId, String newRole) {
 		if (u.getUserDataById(userId) == null)
 			return "User must be chosen";
-		else if (!newRole.equals("Admin") && !newRole.equals("Customer") && !newRole.equals("Operator")
+		if (!newRole.equals("Admin") && !newRole.equals("Customer") && !newRole.equals("Operator")
 				&& !newRole.equals("Computer Technician"))
 			return "New role must be be either Admin, Customer, Operator, or Computer Technician";
 
@@ -57,31 +57,35 @@ public class UserController {
 	}
 
 	public String login(String username, String password) {
+		if (u.getUserDataByUsername(username) == null)
+			return "Username doesn't exist in database";
+		
 		User user = getUserData(username, password);
-		Page.user = user;
 		if (user == null)
 			return "Invalid credentials";
+		
+		Page.user = user;
 		return "Successfully logged in";
 	}
 
 	public String register(String username, String password, String confirmPassword, Integer age) {
 		if (username.isEmpty())
 			return "Username can't be empty";
-		else if (u.getUserDataByUsername(username) != null)
+		if (u.getUserDataByUsername(username) != null)
 			return "Username must be unique";
-		else if (username.length() < 7)
+		if (username.length() < 7)
 			return "Username must contain at least 7 characters";
-		else if (password.isEmpty())
+		if (password.isEmpty())
 			return "Password can't be empty";
-		else if (!checkAlphanumeric(password))
+		if (!checkAlphanumeric(password))
 			return "Password must contain alpha numeric characters";
-		else if (password.length() < 6)
+		if (password.length() < 6)
 			return "Password must contain at least 6 characters";
-		else if (confirmPassword.isEmpty())
+		if (confirmPassword.isEmpty())
 			return "Confirm password can't be empty";
-		else if (!password.equals(confirmPassword))
+		if (!password.equals(confirmPassword))
 			return "Confirm password and password doesn't match";
-		else if (age < 13 || age > 65)
+		if (age < 13 || age > 65)
 			return "Age must be between 13 and 65";
 
 		addNewUser(username, password, age);

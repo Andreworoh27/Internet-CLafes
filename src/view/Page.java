@@ -34,9 +34,9 @@ public abstract class Page{
 	}
 	
 	public static void displayAlert(AlertType alertType, String errorMessage) {
-		Alert error = new Alert(alertType);
-		error.setContentText(errorMessage);
-		error.show();
+		Alert alert = new Alert(alertType);
+		alert.setContentText(errorMessage);
+		alert.showAndWait();
 	}
 	
 }
