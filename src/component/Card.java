@@ -87,6 +87,7 @@ public class Card {
 
 		delete.setOnAction(e -> {
 			pcc.deletePC(pc.getPcId());
+			new PCView();
 		});
 
 		update.setOnAction(e -> {
