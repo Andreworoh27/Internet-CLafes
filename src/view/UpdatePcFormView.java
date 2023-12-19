@@ -3,6 +3,7 @@ package view;
 import controller.PCController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -75,10 +76,10 @@ public class UpdatePcFormView extends Page implements Content {
 	protected void action() {
 		updateBTN.setOnMouseClicked(e -> {
 			String errMsg = pcController.updatePCCondition(computer.getPcId(), pcConditionCB.getValue());
-			if (!errMsg.isEmpty()) {
-				errorMessageLB.setText(errMsg);
+			if (!errMsg.equals("Successfully update PC condition")) {
+				displayAlert(AlertType.ERROR, errMsg);
 			} else {
-				errorMessageLB.setText("");
+				displayAlert(AlertType.INFORMATION, errMsg);
 				pcView.refreshPCContainer();
 			}
 		});
