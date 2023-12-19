@@ -7,6 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/*
+ * This component is used to create button.
+ * */
+
 public class ButtonBuilder {
 	
     private Button button;

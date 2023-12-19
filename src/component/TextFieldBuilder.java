@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 
 /*
- * Builder to built text field
+ * Builder to built text field.
  * */
 
 public class TextFieldBuilder {

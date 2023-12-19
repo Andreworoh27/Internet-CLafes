@@ -11,6 +11,10 @@ import view.ReportView;
 import view.StaffTransactionHistoryView;
 import view.StaffView;
 
+/*
+ * Builder to build navigation bar.
+ * */
+
 public class NavigationBar {
 	
 	VBox sideBar;

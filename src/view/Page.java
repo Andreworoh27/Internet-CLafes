@@ -12,6 +12,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import models.User;
 
+/*
+ * Abstract Class as the parent of each page which contain component, user state, and method for other page to use.
+ * */
 public abstract class Page{
 
 	public static User user;

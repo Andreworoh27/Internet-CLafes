@@ -14,6 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import models.User;
 
+/*
+ * Display login page.
+ * Every user can access this page.
+ * User can do login or access register page.
+ * */
+
 public class LoginView extends Page {
 
 	Scene login;

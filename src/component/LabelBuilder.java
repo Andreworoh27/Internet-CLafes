@@ -3,6 +3,10 @@ package component;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 
+/*
+ * Builder to build label.
+ * */
+
 public class LabelBuilder {
 	
     private Label label;

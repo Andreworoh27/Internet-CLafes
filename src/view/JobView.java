@@ -21,6 +21,13 @@ import javafx.scene.layout.VBox;
 import models.Job;
 import models.User;
 
+/*
+ * Display all job data
+ * Only admin and computer technician can access this page.
+ * Admin can view, update, and add new job to computer technician.
+ * Computer Technician can view and complete his job.
+ * */
+
 public class JobView extends Page {
 
 	Scene viewAllJob;

@@ -4,6 +4,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/*
+ * Display and control navbar from the compoenent so that it can be template for other pages.
+ * */
+
 public class LayoutView extends Page implements Layout {
 
 	BorderPane borderContainer;

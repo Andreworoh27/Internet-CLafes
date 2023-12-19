@@ -18,6 +18,11 @@ import view.Page;
 import view.ReportPCFormView;
 import view.UpdatePcFormView;
 
+/*
+ * This component is used to create card.
+ * Where each role has different card method.
+ * */
+
 public class Card {
 
 	GridPane card;

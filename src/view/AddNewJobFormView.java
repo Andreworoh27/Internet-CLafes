@@ -17,7 +17,9 @@ import models.PC;
 import models.User;
 
 /*
- * 
+ * Form for updating staff role.
+ * Only Admin can access this form.
+ * Admin can Update Technician Job Status.
  * */
 
 

@@ -17,6 +17,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import models.TransactionDetail;
 
+/*
+ * Display all customer transaction history.
+ * Only customer and admin can access this page.
+ * User can view transaction history.
+ * */
+
 public class CustomerTransactionHistoryView extends Page {
 	
 	Scene transactionHistory;

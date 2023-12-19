@@ -25,6 +25,12 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import models.PCBook;
 
+/*
+ * Display all booking data that can be cancel.
+ * Only Operator can access this page.
+ * Operator can cancel book that is book for the day after.
+ * */
+
 public class PcCancelView extends Page {
 
 	Scene viewCancelBook;

@@ -21,6 +21,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import models.PCBook;
 
+/*
+ * Display all pc.
+ * Every user can access this page.
+ * Customer can view, book, and make report.
+ * Admin can add new book, update, and delete.
+ * Operator can view, and report.
+ * Computer Technician can view.
+ * */
+
 public class PcBookView extends Page {
 	
 	Scene viewPCBook;
