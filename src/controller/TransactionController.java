@@ -6,6 +6,11 @@ import models.PCBook;
 import models.TransactionDetail;
 import models.TransactionHeader;
 
+/*
+ * Manage transaction-related operations.
+ * Interact with TransactionHeader and TransactionDetail class.
+ * */
+
 public class TransactionController {
 	
 	private TransactionHeader th = new TransactionHeader();

@@ -18,6 +18,12 @@ import javafx.scene.layout.GridPane;
 import models.PC;
 import models.PCBook;
 
+/*
+ * Form for assigning user to other PC.
+ * Only operator can access this form.
+ * User's PC can be assign to other PC.
+ * */
+
 public class AssignUserToOtherPCView extends Page implements Content {
 	
 	BorderPane layout;

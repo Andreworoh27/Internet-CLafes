@@ -5,6 +5,11 @@ import java.util.List;
 import models.User;
 import view.Page;
 
+/*
+ * Manage user-related operations.
+ * Interact with the User class.
+ * */
+
 public class UserController {
 
 	private User u = new User();

@@ -12,6 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 
+/*
+ * Form for adding new PC.
+ * Only Admin can access this form.
+ * Admin can add new PC.
+ * */
+
 public class AddNewPcFormView extends Page implements Content {
 	
 	BorderPane layout;

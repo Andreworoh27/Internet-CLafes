@@ -17,6 +17,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import models.PC;
 
+/*
+ * Form for booking PC.
+ * Only customer can access this form.
+ * Customer can book PC.
+ * */
+
 public class BookPCFormView extends Page implements Content {
 	
 	BorderPane layout;

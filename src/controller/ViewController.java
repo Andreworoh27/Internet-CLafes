@@ -3,6 +3,11 @@ package controller;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ * Manage routing for pages.
+ * Displaying pages for each changes. 
+ * */
+
 public class ViewController {
 	
 	public static Stage stage;
