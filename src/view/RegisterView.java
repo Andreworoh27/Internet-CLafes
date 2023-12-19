@@ -45,7 +45,7 @@ public class RegisterView extends Page{
 		ageLB = label.setText("Age:").build();
 		errorLB = label.setText("").setTextColor("Red").build();
 		
-		usernameTF = new TextField();
+		usernameTF = tf.setPromptText("").build();
 		passwordPF = new PasswordField();
 		confirmPF = new PasswordField();
 		ageTF = new TextField();

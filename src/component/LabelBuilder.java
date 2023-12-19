@@ -51,4 +51,5 @@ public class LabelBuilder {
         label = new Label(text);
         label.setStyle("-fx-text-fill: " + textColor + "; -fx-font-size: " + fontSize + "px;");
     }
+    
 }

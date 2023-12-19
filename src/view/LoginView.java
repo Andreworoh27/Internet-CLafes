@@ -45,7 +45,7 @@ public class LoginView extends Page {
 		passwordLB = label.setText("Password :").build();
 		errorLB = label.setText("").setTextColor("Red").build();
 		
-		usernameTF = tf.build();
+		usernameTF = tf.setPromptText("").build();
 		passwordPF = new PasswordField();
 		
 		loginBTN = button.setText("Login").setFontSize("15").build();

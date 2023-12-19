@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class ButtonBuilder {
+	
     private Button button;
     private String label = "Button";
     private String bgColor = "grey";
@@ -77,4 +78,5 @@ public class ButtonBuilder {
         button = new Button(label);
         button.setStyle("-fx-background-color: "+bgColor+"; -fx-text-fill: "+fontColor+"; -fx-font: "+fontSize+" arial;");
     }
+    
 }

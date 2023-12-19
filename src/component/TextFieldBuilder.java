@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 
 public class TextFieldBuilder {
+	
     private TextField textField;
     private String promptText = "Enter text";
     private int prefWidth = 200;
