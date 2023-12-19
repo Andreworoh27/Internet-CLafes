@@ -9,6 +9,12 @@ import java.util.Vector;
 
 import connection.Connect;
 
+/*
+ * Represent report entity in the system.
+ * Encapsulate information related to a report. 
+ * Interact with database to perform CRUD operations on report data.
+ */
+
 public class Report {
 	
 	private Connect db = Connect.getConnection();

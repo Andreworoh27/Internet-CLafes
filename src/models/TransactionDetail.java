@@ -11,6 +11,12 @@ import java.util.Vector;
 import connection.Connect;
 import controller.UserController;
 
+/*
+ * Represent transaction detail entity in the system.
+ * Encapsulate information related to a transaction detail. 
+ * Interact with database to perform CRUD operations on transaction detail data.
+ */
+
 public class TransactionDetail {
 	
 	private Connect db = Connect.getConnection();

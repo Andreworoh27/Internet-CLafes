@@ -8,6 +8,12 @@ import java.util.Vector;
 
 import connection.Connect;
 
+/*
+ * Represent job entity in the system.
+ * Encapsulate information related to a job. 
+ * Interact with database to perform CRUD operations on job data.
+ */
+
 public class Job {
 
 	private Connect db = Connect.getConnection();

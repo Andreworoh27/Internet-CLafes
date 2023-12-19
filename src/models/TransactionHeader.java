@@ -10,6 +10,12 @@ import java.util.Vector;
 import connection.Connect;
 import controller.UserController;
 
+/*
+ * Represent transaction header entity in the system.
+ * Encapsulate information related to a transaction header. 
+ * Interact with database to perform CRUD operations on transaction header data.
+ */
+
 public class TransactionHeader {
 	
 	private Connect db = Connect.getConnection();
