@@ -17,6 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import models.Report;
 
+/*
+ * Display all report made by Customer or Operator.
+ * Only Admin can access this page.
+ */
+
 public class ReportView extends Page {
 	
 	Scene reportScene;

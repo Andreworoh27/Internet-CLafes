@@ -13,6 +13,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import models.Job;
 
+/*
+ * Form for updating technician job status.
+ * Job status can be changed to Complete or UnComplete.
+ * Only Admin can access this form.
+ */
+
 public class UpdateStaffJobFormView extends Page implements Content {
 
 	BorderPane layout;

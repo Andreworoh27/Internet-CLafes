@@ -11,6 +11,15 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import models.PC;
 
+/*
+ * Display all PCs and their details (ID and condition).
+ * Can be accessed by all user.
+ * Each user role has different additional feature.
+ * Operator can access PC book view, cancel book view, finish book view, and make report from this page.
+ * Customer can book and report PC from this page.
+ * Admin can add PC, delete PC, or update PC condition from this page.
+ */
+
 public class PCView extends Page {
 	
 	Scene viewPC;

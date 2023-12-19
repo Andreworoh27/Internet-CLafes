@@ -13,6 +13,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+/*
+ * Display registration form for new user.
+ * New user will be registered as a Customer.
+ */
+
 public class RegisterView extends Page{
 
 	Scene register;
