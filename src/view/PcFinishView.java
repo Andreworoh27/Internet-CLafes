@@ -36,7 +36,6 @@ public class PcFinishView extends Page {
 	TableView<PCBook> pcBookTableView;
 	Label dateLB;
 	DatePicker datePicker;
-	List<PCBook> pcBook;
 	PCBookController pcBookController;
 	String finishBookDate;
 	
@@ -68,25 +67,6 @@ public class PcFinishView extends Page {
 		layout.setCenter(borderContainer);
 		borderContainer.setCenter(gridContainer);
 		manageGridContainer();
-
-		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
-			pcBookTableView = new TableView<>();
-			ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
-			pcBook = pcBookController.finishBookCheck(java.sql.Date.valueOf(newDate));
-			if(pcBook == null) {
-				pcBookList.clear();
-				pcBookList.addAll(new Vector<PCBook>());
-				pcBookTableView.getItems().clear();
-				pcBookTableView.setItems(pcBookList);
-				displayPCBook(pcBookList);
-				return;
-			}
-			pcBookList.addAll(pcBook);
-			pcBookTableView.getItems().clear();
-			pcBookTableView.setItems(pcBookList);
-			displayPCBook(pcBookList);
-			pcBook.clear();
-		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -131,6 +111,12 @@ public class PcFinishView extends Page {
 	@Override
 	protected void action() {
 		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+			pcBookTableView = new TableView<>();
+			ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
+			pcBookList.addAll(pcBookController.getPcBookedByDate(java.sql.Date.valueOf(newDate)));
+			pcBookTableView.getItems().clear();
+			pcBookTableView.setItems(pcBookList);
+			displayPCBook(pcBookList);
 			pcFinishButton.setOnAction(e -> {
 				try {
 					String msg = pcBookController.finishBook(java.sql.Date.valueOf(newDate));
@@ -140,21 +126,11 @@ public class PcFinishView extends Page {
 						displayAlert(AlertType.ERROR, msg);
 					}
 					pcBookTableView = new TableView<>();
-					ObservableList<PCBook> pcBookList = FXCollections.observableArrayList();
-					pcBook = pcBookController.finishBookCheck(java.sql.Date.valueOf(newDate));
-					if(pcBook == null) {
-						pcBookList.clear();
-						pcBookList.addAll(new Vector<PCBook>());
-						pcBookTableView.getItems().clear();
-						pcBookTableView.setItems(pcBookList);
-						displayPCBook(pcBookList);
-						return;
-					}
-					pcBookList.addAll(pcBook);
+					pcBookList.clear();
+					pcBookList.addAll(pcBookController.getPcBookedByDate(java.sql.Date.valueOf(newDate)));
 					pcBookTableView.getItems().clear();
 					pcBookTableView.setItems(pcBookList);
 					displayPCBook(pcBookList);
-					pcBook.clear();
 				}
 				catch(Exception ex) {
 					ex.printStackTrace();

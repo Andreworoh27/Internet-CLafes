@@ -64,13 +64,6 @@ public class PCBookController {
 			return null;
 		return getPcBookedByDate(date);
 	}
-	
-	public List<PCBook> finishBookCheck(Date date){
-		if (date.after(new Date(System.currentTimeMillis())))
-			return null;
-		return getPcBookedByDate(date);
-	}
-	
 
 	public String assignUsertoNewPc(Integer bookId, String newPcId) {
 		PC pc = new PC().getPcDetail(newPcId);
