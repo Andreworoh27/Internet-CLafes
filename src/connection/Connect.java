@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/*
+ * Make connection to the database.
+ */
+
 public final class Connect {
 
 	private final String USERNAME = "root";
@@ -20,9 +24,8 @@ public final class Connect {
 
 	private Connect() {
 		try {
-			con = DriverManager.getConnection(CONNECTION, USERNAME, PASSWORD); // mencoba membuat hubungan ke url
-																				// CONNECTION
-			st = con.createStatement(); // menjalankan query
+			con = DriverManager.getConnection(CONNECTION, USERNAME, PASSWORD);		
+			st = con.createStatement();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

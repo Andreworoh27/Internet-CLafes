@@ -8,6 +8,12 @@ import java.util.Vector;
 
 import connection.Connect;
 
+/*
+ * Represent user entity in the system.
+ * Encapsulate information related to a user. 
+ * Interact with database to perform CRUD operations on user data.
+ */
+
 public class User {
 
 	private Connect db = Connect.getConnection();

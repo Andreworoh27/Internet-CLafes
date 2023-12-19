@@ -25,7 +25,14 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import models.PCBook;
 
+/*
+ * Display finish book form.
+ * Only Operator can access this page.
+ * Operator can finish book on the chosen date.
+ */
+
 public class PcFinishView extends Page {
+	
 	Scene viewFinishBook;
 	BorderPane borderContainer;
 	BorderPane layout;

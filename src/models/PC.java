@@ -8,6 +8,12 @@ import java.util.Vector;
 
 import connection.Connect;
 
+/*
+ * Represent PC entity in the system.
+ * Encapsulate information related to a PC. 
+ * Interact with database to perform CRUD operations on PC data.
+ */
+
 public class PC {
 	
 	private Connect db = Connect.getConnection();

@@ -18,6 +18,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import models.User;
 
+/*
+ * Display all staff data.
+ * Only Admin can access this page.
+ * Admin can update staff role by clicking the update button. It will show the update staff role form.
+ */
+
 public class StaffView extends Page {
 	
 	Scene viewAllStaff;
@@ -58,9 +64,9 @@ public class StaffView extends Page {
 	@SuppressWarnings("unchecked")
 	private void addJobDataToTable() {
 		int width = 760 / 5;
-		TableColumn<User, Integer> jobIdColumn = new TableColumn<>("Staff ID");
-		jobIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUserId()));
-		jobIdColumn.setPrefWidth(width);
+		TableColumn<User, Integer> staffIdColumn = new TableColumn<>("Staff ID");
+		staffIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getUserId()));
+		staffIdColumn.setPrefWidth(width);
 		
 		TableColumn<User, String> userNameColumn = new TableColumn<>("User Name");
 		userNameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -98,7 +104,7 @@ public class StaffView extends Page {
 		});
 		updateColumn.setPrefWidth(width);
 
-		staffsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
+		staffsTB.getColumns().addAll(staffIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
 	}
 
 	private void getAllStaff() {

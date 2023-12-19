@@ -13,6 +13,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import models.PC;
 
+/*
+ * Form for reporting PC problem.
+ * Only Customer or Operator can access this form.
+ */
+
 public class ReportPCFormView extends Page implements Content{
 	
 	BorderPane layout;

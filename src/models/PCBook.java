@@ -9,6 +9,12 @@ import java.util.Vector;
 
 import connection.Connect;
 
+/*
+ * Represent PC book entity in the system.
+ * Encapsulate information related to PC book. 
+ * Interact with database to perform CRUD operations on PC booking data.
+ */
+
 public class PCBook {
 	
 	private Connect db = Connect.getConnection();

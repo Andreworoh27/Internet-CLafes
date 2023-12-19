@@ -13,6 +13,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import models.PC;
 
+/*
+ * Form for updating PC condition.
+ * PC condition can be changed into Usable, Maintenance, or Broken.
+ * Only Admin can access this form.
+ */
+
 public class UpdatePcFormView extends Page implements Content {
 
 	BorderPane layout;

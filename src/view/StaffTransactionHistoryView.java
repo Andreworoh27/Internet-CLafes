@@ -17,6 +17,12 @@ import javafx.scene.layout.VBox;
 import models.TransactionDetail;
 import models.TransactionHeader;
 
+/*
+ * Display all transaction history customers have made.
+ * Clicking one transaction header will show all transaction detail data for the chosen header.
+ * Only Admin can access this page.
+ */
+
 public class StaffTransactionHistoryView extends Page {
 	
 	Scene transactionHistory;

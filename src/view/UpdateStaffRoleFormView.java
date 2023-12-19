@@ -13,7 +13,14 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import models.User;
 
+/*
+ * Form for updating staff role.
+ * Role can be changed into Admin, Customer, Operator, or Computer Technician.
+ * Only Admin can access this form.
+ */
+
 public class UpdateStaffRoleFormView extends Page implements Content {
+	
 	BorderPane layout;
 	GridPane formContainer;
 	Label staffIdLB, pageTitleLB, errorMessageLB, staffRoleLB;
