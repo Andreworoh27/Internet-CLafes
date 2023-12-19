@@ -28,7 +28,7 @@ public class LayoutView extends Page implements Layout {
 			String[] menu = { "home", "transaction", "logout" };
 			nav = menu.clone();
 		} else if (user.getUserRole().equalsIgnoreCase("Operator")) {
-			String[] menu = { "home", "job", "logout" };
+			String[] menu = { "home", "logout" };
 			nav = menu.clone();
 		} else if (user.getUserRole().equalsIgnoreCase("Computer Technician")) {
 			String[] menu = { "home", "job", "logout" };
