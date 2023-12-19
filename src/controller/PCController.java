@@ -5,6 +5,11 @@ import java.util.List;
 import models.PC;
 import models.PCBook;
 
+/*
+ * Manage PC-related operations. 
+ * Interact with the PC class, as well as PCBookController.
+ */
+
 public class PCController {
 
 	private PC pc = new PC();

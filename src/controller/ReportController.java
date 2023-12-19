@@ -5,6 +5,11 @@ import java.util.List;
 
 import models.Report;
 
+/*
+ * Manage report-related operations. 
+ * Interact with the Report class, as well as PCController.
+ */
+
 public class ReportController {
 	
 	private Report r = new Report();
