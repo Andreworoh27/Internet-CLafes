@@ -72,6 +72,8 @@ public class ReportPCFormView extends Page implements Content{
 
 		formContainer.setPadding(new Insets(10));
 
+		layout.setPrefWidth(200);
+		
 		layout.setBorder(new Border(new javafx.scene.layout.BorderStroke(javafx.scene.paint.Color.BLACK,
 				javafx.scene.layout.BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 				new javafx.scene.layout.BorderWidths(1, 1, 0, 1))));

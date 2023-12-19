@@ -94,7 +94,7 @@ public class Card {
 				Page.displayAlert(AlertType.INFORMATION, msg);
 			else
 				Page.displayAlert(AlertType.ERROR, msg);
-			new PCView();
+			pcView.refreshPCContainer();
 		});
 
 		update.setOnAction(e -> {
