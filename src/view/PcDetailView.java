@@ -9,6 +9,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import models.PC;
 
+/*
+ * Display pc detail
+ * Every user can access this page
+ * It shows the detail of each pc choosen
+ * */
+
 public class PcDetailView extends Page implements Content {
 	
 	private PC computer;
