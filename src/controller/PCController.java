@@ -28,16 +28,13 @@ public class PCController {
 	}
 
 	public String updatePCCondition(String pcId, String condition) {
-		String errorMessage = "";
 		if (getPcDetail(pcId) == null)
 			return "PC must be chosen";
-		else if (!condition.equals("Usable") && !condition.equals("Maintenance") && !condition.equals("Broken"))
-			errorMessage = "PC condition must be either Usable, Maintenance, or Broken";
+		if (!condition.equals("Usable") && !condition.equals("Maintenance") && !condition.equals("Broken"))
+			return "PC condition must be either Usable, Maintenance, or Broken";
 
-		if (errorMessage.isEmpty())
-			pc.updatePCCondition(pcId, condition);
-
-		return errorMessage;
+		pc.updatePCCondition(pcId, condition);
+		return "Successfully update PC condition";
 	}
 	
 	public Boolean isBooked(List<PCBook> bookings) {
