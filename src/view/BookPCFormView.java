@@ -26,7 +26,7 @@ public class BookPCFormView extends Page implements Content {
 	PCBookController pbc;
 	DatePicker datePicker;
 	PCView pcView;
-	PC computer;
+	private PC computer;
 	
 	public BookPCFormView(PC computer, PCView pcView) {
 		this.computer = computer;

@@ -21,7 +21,7 @@ public class UpdateStaffJobFormView extends Page implements Content {
 	ComboBox<String> jobStatusCB;
 	Button updateBTN;
 	JobController jobContoller;
-	Job currentJob;
+	private Job currentJob;
 	JobView jobView;
 
 	public UpdateStaffJobFormView(Job currentJob, JobView jobView) {

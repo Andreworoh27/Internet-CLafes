@@ -22,8 +22,7 @@ public class ReportPCFormView extends Page implements Content{
 	Button reportButton;
 	ReportController rc;
 	PCView pcView;
-	PC computer;
-	
+	private PC computer;
 	
 	public ReportPCFormView(PC computer, PCView pcView) {
 		this.computer = computer;

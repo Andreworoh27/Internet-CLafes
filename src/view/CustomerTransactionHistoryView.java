@@ -29,7 +29,6 @@ public class CustomerTransactionHistoryView extends Page {
 	TableView<TransactionDetail> transHistoryTable;
 	
 	TransactionController tc = new TransactionController();
-	LabelBuilder lb = new LabelBuilder();
 	
 	public CustomerTransactionHistoryView() {
 		initComp();
@@ -39,13 +38,12 @@ public class CustomerTransactionHistoryView extends Page {
 		displayView(transactionHistory);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void initComp() {
 		lv = new LayoutView();
 		layout = lv.getLayout();
 		content = new VBox();
-		title = lb.setText("Your Transaction History").setFontSize("20").build();
+		title = label.setText("Your Transaction History").setFontSize("20").build();
 		buildDetailTable();
 		refreshTable();
 		transactionHistory = new Scene(layout, 1000, 600);

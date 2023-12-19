@@ -20,7 +20,7 @@ public class UpdateStaffRoleFormView extends Page implements Content {
 	ComboBox<String> staffRoleCB;
 	Button updateBTN;
 	UserController userController;
-	User currentStaff;
+	private User currentStaff;
 	StaffView staffView;
 
 	public UpdateStaffRoleFormView(User currentStaff, StaffView staffView) {

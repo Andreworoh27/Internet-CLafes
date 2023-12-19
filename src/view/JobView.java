@@ -56,7 +56,6 @@ public class JobView extends Page {
 		addJobDataToTable();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void addJobDataToTable() {
 		int width = 760 / 5;
 		TableColumn<Job, Integer> jobIdColumn = new TableColumn<>("Job ID");
@@ -141,7 +140,6 @@ public class JobView extends Page {
 			});
 			updateColumn.setPrefWidth(width);
 			jobsTB.getColumns().addAll(jobIdColumn, userNameColumn, pcIdColumn, jobStatusColumn, updateColumn);
-
 	    }
 	    
 	}

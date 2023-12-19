@@ -46,14 +46,10 @@ public class LayoutView extends Page implements Layout {
 	}
 
 	@Override
-	protected void arrangeComp() {
-
-	}
+	protected void arrangeComp() {}
 
 	@Override
-	protected void action() {
-		// TODO Auto-generated method stub
-	}
+	protected void action() {}
 
 	@Override
 	public BorderPane getLayout() {

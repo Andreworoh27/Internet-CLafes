@@ -21,7 +21,7 @@ public class UpdatePcFormView extends Page implements Content {
 	ComboBox<String> pcConditionCB;
 	Button updateBTN;
 	PCController pcController;
-	PC computer;
+	private PC computer;
 	PCView pcView;
 
 	public UpdatePcFormView(PC computer, PCView pcView) {

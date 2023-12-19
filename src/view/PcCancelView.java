@@ -88,7 +88,6 @@ public class PcCancelView extends Page {
 		});
 	}
 
-	@SuppressWarnings("unchecked")
 	private void displayPCBook(List<PCBook> pcBook) {
 		TableColumn<PCBook, Integer> bookIdColumn = new TableColumn<>("Book ID");
 		bookIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBookId()));

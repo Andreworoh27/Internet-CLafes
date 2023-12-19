@@ -26,7 +26,7 @@ public class AssignUserToOtherPCView extends Page implements Content {
 	ComboBox<String> PcsCB;
 	Button assignBTN;
 	PCBookController pcBookController;
-	PCBook currentPcBook;
+	private PCBook currentPcBook;
 	PcBookView pcBookView;
 	PCController pcController;
 

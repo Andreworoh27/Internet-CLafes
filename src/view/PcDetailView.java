@@ -10,7 +10,8 @@ import javafx.scene.layout.GridPane;
 import models.PC;
 
 public class PcDetailView extends Page implements Content {
-	PC computer;
+	
+	private PC computer;
 	BorderPane layout;
 	Label pcId, pcStatus, title;
 
