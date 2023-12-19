@@ -56,6 +56,8 @@ public class AddNewPcFormView extends Page implements Content {
 		BorderPane.setAlignment(formContainer, Pos.CENTER);
 		GridPane.setMargin(pcIdTF, new Insets(10, 0, 20, 0));
 		formContainer.setPadding(new Insets(10));
+		layout.setPrefWidth(200);
+
 		layout.setBorder(new Border(new javafx.scene.layout.BorderStroke(javafx.scene.paint.Color.BLACK,
 				javafx.scene.layout.BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 				new javafx.scene.layout.BorderWidths(1, 1, 0, 1))));

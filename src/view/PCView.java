@@ -45,12 +45,12 @@ public class PCView extends Page {
 		bookContainer = new FlowPane();
 		lv = new LayoutView();
 		layout = lv.getLayout();
-		viewPC = new Scene(layout, 900, 600);
+		viewPC = new Scene(layout, 1000, 600);
 		
 		addPcButton = button.setText("Add New Pc")
 							.setColor("Green")
 							.setFontSize("14")
-							.setFontColor("White")
+							.setFontColor("WhitFe")
 							.setPrefWidth(100)
 							.setPadding(10)
 							.build();

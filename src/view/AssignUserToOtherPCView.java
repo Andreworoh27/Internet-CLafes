@@ -64,7 +64,7 @@ public class AssignUserToOtherPCView extends Page implements Content {
 		}
 		PcsCB.getItems().addAll(pcIds);
 		errorMessageLB = label.setText("").setTextColor("Red").build();
-		assignBTN = button.setText("Assign User").setColor("Green").setFontSize("12").setFontColor("Black").build();
+		assignBTN = button.setText("Assign User").setColor("Green").setFontSize("12").setFontColor("White").build();
 	}
 
 	@Override
@@ -84,6 +84,7 @@ public class AssignUserToOtherPCView extends Page implements Content {
 		layout.setPadding(new Insets(10, 20, 10, 10));
 		BorderPane.setAlignment(formContainer, Pos.CENTER);
 		formContainer.setPadding(new Insets(10));
+		layout.setPrefWidth(200);
 		layout.setBorder(new Border(new javafx.scene.layout.BorderStroke(javafx.scene.paint.Color.BLACK,
 				javafx.scene.layout.BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
 				new javafx.scene.layout.BorderWidths(1, 1, 0, 1))));
