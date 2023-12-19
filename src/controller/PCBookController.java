@@ -1,12 +1,16 @@
 package controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import models.PC;
 import models.PCBook;
 import view.Page;
+
+/*
+ * Manage PC book-related operations. 
+ * Interact with the PCBook class, as well as TransactionController and PCController.
+ */
 
 public class PCBookController {
 
@@ -33,7 +37,7 @@ public class PCBookController {
 	}
 	
 	public String addNewBook(String pcId, Integer userId, Date bookedDate) {
-		PC pc = new PC().getPcDetail(pcId);
+		PC pc = new PCController().getPcDetail(pcId);
 		if (pc == null) {
 			return "PC must be chosen";
 		} else if (pc.getPcCondition().equals("Usable")) {
@@ -66,7 +70,7 @@ public class PCBookController {
 	}
 
 	public String assignUsertoNewPc(Integer bookId, String newPcId) {
-		PC pc = new PC().getPcDetail(newPcId);
+		PC pc = new PCController().getPcDetail(newPcId);
 		PCBook booking = pcb.getPcBookedById(bookId);
 		if (pc == null) {
 			return "New PC must be chosen";

@@ -6,6 +6,11 @@ import models.Job;
 import models.PC;
 import models.User;
 
+/*
+ * Manage job-related operations. 
+ * Interact with the Job class, as well as UserController and PCController.
+ */
+
 public class JobController {
 	
 	private Job j = new Job();
